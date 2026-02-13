@@ -2,18 +2,6 @@ export default function ProtoType() {
   return (
     <div>
       <div className="text-slate-900 min-h-screen">
-        <div className="h-10 w-full flex items-center justify-between px-8 pt-2">
-          <span className="text-sm font-semibold">9:41</span>
-          <div className="flex items-center gap-1.5">
-            <span className="material-symbols-outlined text-[16px]">
-              signal_cellular_alt
-            </span>
-            <span className="material-symbols-outlined text-[16px]">wifi</span>
-            <span className="material-symbols-outlined text-[16px]">
-              battery_full
-            </span>
-          </div>
-        </div>
         <div className="mx-4 my-2 bg-white rounded-[2rem] shadow-sm overflow-hidden min-h-[calc(100vh-4rem)] relative">
           <nav className="flex items-center justify-between px-6 py-5"></nav>
           {/* <nav className="flex items-center justify-between px-6 py-5">
