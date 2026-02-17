@@ -18,11 +18,11 @@ const STACKS: string[] = [
   "Python",
   "TypeScript",
   "Docker",
-  "Node.js",
-  "Rust",
-  "CUDA",
-  "K8s",
-  "PyTorch",
+  "Next Js",
+  "Fadtapi",
+  "AI & Automation",
+  "LLMs",
+  "API & Testing",
   "GraphQL",
 ];
 
