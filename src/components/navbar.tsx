@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const styles = `
   @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&display=swap');
 
@@ -96,7 +98,7 @@ const styles = `
   }
 `;
 
-function NavBar() {
+export default function NavBar() {
   const [active, setActive] = useState("Home");
   const links = ["Home", "About", "Pricing"];
 
