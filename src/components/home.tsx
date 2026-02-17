@@ -46,7 +46,7 @@ export default function ProtoType(): React.ReactElement {
               <button className="bg-black text-white px-6 py-3 rounded-xl text-sm font-semibold">
                 See Resume
               </button>
-              <button className="bg-white border border-slate-200 text-slate-900 px-6 py-3 rounded-xl text-sm font-semibold">
+              <button className="bg-white border border-slate-200 text-slate-900 px-5 py-3 rounded-xl text-sm font-semibold">
                 View my Projects
               </button>
             </div>
