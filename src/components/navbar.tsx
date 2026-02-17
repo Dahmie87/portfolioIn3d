@@ -52,7 +52,6 @@ const styles = `
     background: rgba(0,0,0,0.03) !important;
     box-shadow: 0 1px 4px rgba(0,0,0,0.05);
   }
-  .nav-link:hover::after { transform: translateX(-50%) scaleX(1); }
 
   /* CTA button */
   .nav-cta {
@@ -100,7 +99,7 @@ const styles = `
 
 export default function NavBar() {
   const [active, setActive] = useState("Home");
-  const links = ["Home", "About", "Pricing"];
+  const links = ["Home", "About", "Projects"];
 
   return (
     <div className="navbar-root w-full flex justify-center pt-6">
@@ -171,7 +170,7 @@ export default function NavBar() {
           }}
         >
           <span className="cta-dot" />
-          Join waitlist
+          Blog
         </button>
       </nav>
     </div>
