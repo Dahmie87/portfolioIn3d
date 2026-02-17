@@ -192,7 +192,7 @@ export default function AbstractShape(): React.ReactElement {
               border: `1px solid ${b.color}28`,
               borderRadius: 6,
               padding: "3px 9px",
-              fontSize: 8,
+              fontSize: 12,
               fontFamily: "monospace",
               color: b.color,
               letterSpacing: "0.06em",
