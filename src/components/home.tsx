@@ -1,8 +1,9 @@
 import type React from "react";
 import AbstractShape from "./abstract";
 import heroProfile from "../assets/profile-1.jfif";
-import { Github, Linkedin } from "lucide-react";
+import { FileText, Github, Linkedin, Mail } from "lucide-react";
 import NavBar from "./navbar";
+import About from "./about";
 
 export default function ProtoType(): React.ReactElement {
   return (
@@ -11,7 +12,7 @@ export default function ProtoType(): React.ReactElement {
         {/* nav */}
         <NavBar />
         {/* hero */}
-        <div className="flex flex-col md:flex-row md:items-center px-6 pt-8 pb-16 gap-6">
+        <div className="flex flex-col md:flex-row md:items-center px-6 md:pt-38 pt-28 pb-16 gap-6">
           {/* LEFT — text */}
           <div className="flex-1">
             <div className="flex items-center gap-4 mb-10">
@@ -48,9 +49,11 @@ export default function ProtoType(): React.ReactElement {
                 View my Projects
               </button>
             </div>
-            <div className="p-7 flex gap-3">
-              <Github />
+            <div className="p-7 flex gap-9">
+              <Github className="" />
               <Linkedin />
+              <Mail />
+              <FileText />
             </div>
           </div>
 
@@ -62,6 +65,8 @@ export default function ProtoType(): React.ReactElement {
             <AbstractShape />
           </div>
         </div>
+
+        <About />
       </div>
     </div>
   );
