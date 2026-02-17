@@ -1,5 +1,6 @@
 import type React from "react";
 import AbstractShape from "./abstract";
+import heroProfile from "../assets/profile-1.jfif";
 
 function NavBar() {
   return (
@@ -23,7 +24,7 @@ export default function ProtoType(): React.ReactElement {
               <img
                 alt="Designer Profile"
                 className="w-14 h-14 rounded-full object-cover"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxe0Gwslm_w0XRk8uua1Wi1FRg9WhXU6LKwb0YoJ5EgkEbytu0Ft5ARnpw1WPr9VIDqLjZGHyjqlW85FLbVul9Mu3nKrwGbMn4etUzfL-Plt6GNiduOLjtD2oM87J6FvQ-W3szxPrfHHppEQ5yLdZmYB9SoYiAZphwphW6Q7_Gar9mK-PQbRHR75ErrB7H4eKhBNHRSDLr9z9oKdhWFr_lRn3n0oUmERyAml2_IVyCpJPmzb7HjoKFveh3Qc6CYLciRPJxkxi5mOyx"
+                src={heroProfile}
               />
               <div>
                 <h2 className="text-sm font-semibold text-slate-900 tracking-[1px]">
