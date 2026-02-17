@@ -3,11 +3,7 @@ import AbstractShape from "./abstract";
 import heroProfile from "../assets/profile-1.jfif";
 
 function NavBar() {
-  return (
-    <>
-      <nav className="mx-auto w-xl rounded-2xl py-8 bg-gray-100/40 border border-gray-400"></nav>
-    </>
-  );
+  return <></>;
 }
 
 export default function ProtoType(): React.ReactElement {
