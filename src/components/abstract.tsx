@@ -84,7 +84,7 @@ function useLoopingBadges(): Badge[] {
 }
 
 // ─── Abstract Shape ──────────────────────────────────
-function AbstractShape(): React.ReactElement {
+export default function AbstractShape(): React.ReactElement {
   const badges = useLoopingBadges();
 
   return (
