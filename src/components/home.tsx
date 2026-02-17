@@ -1,5 +1,5 @@
 import type React from "react";
-
+import AbstractShape from "./abstract";
 // ─── Main Component ───────────────────────────────────
 export default function ProtoType(): React.ReactElement {
   return (
