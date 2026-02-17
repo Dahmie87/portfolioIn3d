@@ -99,7 +99,7 @@ const styles = `
 
 export default function NavBar() {
   const [active, setActive] = useState("Home");
-  const links = ["Home", "About", "Projects"];
+  const links = ["Home", "Projects", "Blog"];
 
   return (
     <div className="navbar-root w-full flex justify-center pt-6">
@@ -170,7 +170,7 @@ export default function NavBar() {
           }}
         >
           <span className="cta-dot" />
-          Blog
+          Contact Me
         </button>
       </nav>
     </div>

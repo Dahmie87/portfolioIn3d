@@ -45,9 +45,9 @@ export default function ProtoType(): React.ReactElement {
               <button className="bg-black text-white px-6 py-3 rounded-xl text-sm font-semibold">
                 See Resume
               </button>
-              <button className="bg-white border border-slate-200 text-slate-900 px- py-3 rounded-xl text-sm font-semibold">
-                View my Projects
-              </button>
+              <span className="bg-green-300/30  text-green-500 px-4 py-3 rounded-xl text-sm font-semibold">
+                Available for work
+              </span>
             </div>
             <div className="p-7 flex gap-9">
               <Github className="" />
