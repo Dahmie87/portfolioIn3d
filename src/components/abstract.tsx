@@ -1,3 +1,5 @@
+import { useRef, useState, useEffect } from "react";
+
 // ─── Types ───────────────────────────────────────────
 type Badge = {
   id: number;
