@@ -3,7 +3,7 @@ export default function About() {
     <>
       {" "}
       <div className="px-6">
-        <h1 className="text-xl md:text-4xl py-10  text-left">About Me</h1>
+        <h1 className="text-4xl py-10  text-left">About Me</h1>
         <p className="pb-4">
           I’m a full-stack developer with a strong focus on backend engineering.
           I’m currently an undergraduate student at Lagos State University
