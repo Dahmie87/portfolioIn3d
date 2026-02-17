@@ -1,46 +1,265 @@
-export default function ProtoType() {
+import { useRef, useState, useEffect } from "react";
+import type React from "react";
+
+// ─── Types ───────────────────────────────────────────
+type Badge = {
+  id: number;
+  label: string;
+  color: string;
+  top: string;
+  left: string;
+  state: "in" | "out";
+};
+
+type Position = { top: string; left: string };
+
+// ─── Constants ───────────────────────────────────────
+const STACKS: string[] = [
+  "React",
+  "Python",
+  "TypeScript",
+  "Docker",
+  "Node.js",
+  "Rust",
+  "CUDA",
+  "K8s",
+  "PyTorch",
+  "GraphQL",
+];
+
+const COLORS: string[] = [
+  "#61DAFB",
+  "#3776AB",
+  "#3178C6",
+  "#2496ED",
+  "#339933",
+  "#CE412B",
+  "#76B900",
+  "#326CE5",
+  "#EE4C2C",
+  "#E535AB",
+];
+
+const POSITIONS: Position[] = [
+  { top: "4%", left: "52%" },
+  { top: "62%", left: "55%" },
+  { top: "22%", left: "-14%" },
+  { top: "70%", left: "8%" },
+];
+
+// ─── Hook ────────────────────────────────────────────
+function useLoopingBadges(): Badge[] {
+  const [badges, setBadges] = useState<Badge[]>([]);
+  const counter = useRef<number>(0);
+  const posIdx = useRef<number>(0);
+
+  useEffect(() => {
+    const spawn = (): void => {
+      const id = counter.current++;
+      const pos = POSITIONS[posIdx.current % POSITIONS.length];
+      posIdx.current++;
+      const si = Math.floor(Math.random() * STACKS.length);
+
+      setBadges((prev) => [
+        ...prev,
+        { id, label: STACKS[si], color: COLORS[si], ...pos, state: "in" },
+      ]);
+
+      setTimeout(() => {
+        setBadges((prev) =>
+          prev.map((x) => (x.id === id ? { ...x, state: "out" as const } : x)),
+        );
+      }, 2600);
+
+      setTimeout(() => {
+        setBadges((prev) => prev.filter((x) => x.id !== id));
+      }, 3200);
+    };
+
+    spawn();
+    const t = setInterval(spawn, 950);
+    return () => clearInterval(t);
+  }, []);
+
+  return badges;
+}
+
+// ─── Abstract Shape ──────────────────────────────────
+function AbstractShape(): React.ReactElement {
+  const badges = useLoopingBadges();
+
   return (
-    <div>
-      <div className="text-slate-900 min-h-screen">
-        <div className="mx-4 my-2 bg-white rounded-[2rem] shadow-sm overflow-hidden min-h-[calc(100vh-4rem)] relative">
-          <nav className="flex items-center justify-between px-6 py-5"></nav>
-          {/* <nav className="flex items-center justify-between px-6 py-5">
-            <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded-full bg-black flex items-center justify-center text-white text-[13px] font-bold">
-                D
-              </div>
-              <span className="font-bold text-[18px] -tracking-normal">
-                Dahmie
+    <div style={{ position: "relative", width: "100%", height: "100%" }}>
+      <style>{`
+        @keyframes spin-cw   { from { transform: rotate(0deg) } to { transform: rotate(360deg) } }
+        @keyframes morph-out {
+          0%,100% { border-radius: 54% 46% 50% 50% / 50% 50% 46% 54% }
+          25%     { border-radius: 46% 54% 54% 46% / 54% 46% 50% 50% }
+          50%     { border-radius: 50% 50% 46% 54% / 46% 54% 54% 46% }
+          75%     { border-radius: 54% 46% 50% 50% / 54% 46% 46% 54% }
+        }
+        @keyframes float-sh { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-8px) } }
+        @keyframes scroll-b {
+          0%,100% { transform: translateX(-50%) translateY(0px) }
+          50%     { transform: translateX(-50%) translateY(4px) }
+        }
+        @keyframes badge-in  { from { opacity:0; transform: translateY(5px) scale(.88) } to { opacity:1; transform: translateY(0) scale(1) } }
+        @keyframes badge-out { from { opacity:1; transform: translateY(0) scale(1) } to { opacity:0; transform: translateY(-5px) scale(.88) } }
+        .sc-wrap { position:absolute; bottom:12px; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:3px; animation:scroll-b 1.8s ease-in-out infinite; }
+        .sc-lbl  { font-family:monospace; font-size:6px; letter-spacing:.2em; text-transform:uppercase; color:rgba(30,30,30,.35); white-space:nowrap; }
+      `}</style>
+
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          animation: "float-sh 7s ease-in-out infinite",
+        }}
+      >
+        {/* 3 layered radial grays */}
+        {([280, 200, 130] as number[]).map((s, i) => (
+          <div
+            key={i}
+            style={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              width: s,
+              height: s,
+              marginTop: -s / 2,
+              marginLeft: -s / 2,
+              borderRadius: "50%",
+              background: `radial-gradient(circle, rgba(0,0,0,${(0.06 + i * 0.032).toFixed(3)}) 0%, transparent 65%)`,
+              pointerEvents: "none",
+            }}
+          />
+        ))}
+
+        {/* outer morphing shape */}
+        <div
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            width: 148,
+            height: 148,
+            marginTop: -74,
+            marginLeft: -74,
+            border: "1.6px solid rgba(30,30,30,0.15)",
+            background: "transparent",
+            animation: "morph-out 7s ease-in-out infinite",
+          }}
+        />
+
+        {/* inner rotating rounded square */}
+        <div
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            width: 96,
+            height: 96,
+            marginTop: -48,
+            marginLeft: -48,
+            border: "1.3px solid rgba(30,30,30,0.45)",
+            borderRadius: "20px",
+            background: "transparent",
+            animation: "spin-cw 14s linear infinite",
+          }}
+        >
+          <div className="sc-wrap">
+            <span className="sc-lbl">scroll</span>
+            <svg width="9" height="6" viewBox="0 0 9 6" fill="none">
+              <path
+                d="M1 1L4.5 5L8 1"
+                stroke="rgba(30,30,30,.35)"
+                strokeWidth="1.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>
+        </div>
+
+        {/* looping tech badges */}
+        {badges.map((b) => (
+          <div
+            key={b.id}
+            style={{
+              position: "absolute",
+              top: b.top,
+              left: b.left,
+              background: "white",
+              border: `1px solid ${b.color}28`,
+              borderRadius: 6,
+              padding: "3px 9px",
+              fontSize: 8,
+              fontFamily: "monospace",
+              color: b.color,
+              letterSpacing: "0.06em",
+              boxShadow: `0 2px 8px ${b.color}12`,
+              whiteSpace: "nowrap",
+              pointerEvents: "none",
+              animation:
+                b.state === "out"
+                  ? "badge-out .5s ease forwards"
+                  : "badge-in .4s ease forwards",
+            }}
+          >
+            {b.label}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ─── Main Component ───────────────────────────────────
+export default function ProtoType(): React.ReactElement {
+  return (
+    <div className="text-slate-900 min-h-screen">
+      <div className="mx-4 my-2 bg-white rounded-[2rem] shadow-sm overflow-hidden min-h-[calc(100vh-1rem)] relative">
+        {/* nav */}
+        <nav className="flex items-center justify-between px-6 py-5">
+          <div className="flex items-center gap-2">
+            <div className="w-7 h-7 rounded-full bg-black flex items-center justify-center text-white text-[13px] font-bold">
+              D
+            </div>
+            <span className="font-bold text-[18px]">Dahmie</span>
+          </div>
+          <div className="flex items-center gap-6">
+            <div className="flex items-center gap-1.5">
+              <div className="w-2 h-2 rounded-full bg-green-500" />
+              <span className="text-[11px] font-medium text-green-600">
+                Available
               </span>
             </div>
-            <div className="flex items-center gap-6">
-              <div className="flex items-center gap-1.5">
-                <div className="w-2 h-2 rounded-full bg-green-500"></div>
-                <span className="text-[11px] font-medium text-green-600">
-                  Available
-                </span>
-              </div>
-              <button className="text-sm font-semibold text-slate-800">
-                Menu
-              </button>
-            </div>
-          </nav> */}
-          <div className="px-6 pt-20 flex items-center gap-4">
-            <img
-              alt="Designer Profile"
-              className="w-14 h-14 rounded-full object-cover"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxe0Gwslm_w0XRk8uua1Wi1FRg9WhXU6LKwb0YoJ5EgkEbytu0Ft5ARnpw1WPr9VIDqLjZGHyjqlW85FLbVul9Mu3nKrwGbMn4etUzfL-Plt6GNiduOLjtD2oM87J6FvQ-W3szxPrfHHppEQ5yLdZmYB9SoYiAZphwphW6Q7_Gar9mK-PQbRHR75ErrB7H4eKhBNHRSDLr9z9oKdhWFr_lRn3n0oUmERyAml2_IVyCpJPmzb7HjoKFveh3Qc6CYLciRPJxkxi5mOyx"
-            />
-            <div>
-              <h2 className="text-sm font-semibold text-slate-900  tracking-[1px]">
-                Omotayo Damilare
-              </h2>
-              <p className="text-xs text-slate-400 font-medium tracking-[3px]">
-                AI Engineer
-              </p>
-            </div>
+            <button className="text-sm font-semibold text-slate-800">
+              Menu
+            </button>
           </div>
-          <main className="px-6 pt-10 pb-12 relative">
+        </nav>
+
+        {/* hero */}
+        <div className="flex flex-col md:flex-row md:items-center px-6 pt-8 pb-16 gap-6">
+          {/* LEFT — text */}
+          <div className="flex-1">
+            <div className="flex items-center gap-4 mb-10">
+              <img
+                alt="Designer Profile"
+                className="w-14 h-14 rounded-full object-cover"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxe0Gwslm_w0XRk8uua1Wi1FRg9WhXU6LKwb0YoJ5EgkEbytu0Ft5ARnpw1WPr9VIDqLjZGHyjqlW85FLbVul9Mu3nKrwGbMn4etUzfL-Plt6GNiduOLjtD2oM87J6FvQ-W3szxPrfHHppEQ5yLdZmYB9SoYiAZphwphW6Q7_Gar9mK-PQbRHR75ErrB7H4eKhBNHRSDLr9z9oKdhWFr_lRn3n0oUmERyAml2_IVyCpJPmzb7HjoKFveh3Qc6CYLciRPJxkxi5mOyx"
+              />
+              <div>
+                <h2 className="text-sm font-semibold text-slate-900 tracking-[1px]">
+                  Omotayo Damilare
+                </h2>
+                <p className="text-xs text-slate-400 font-medium tracking-[3px]">
+                  AI Engineer
+                </p>
+              </div>
+            </div>
+
             <h1 className="text-[38px] font-normal leading-[1.1] tracking-tight mb-4 text-slate-900">
               Your Digital Vision,
               <br />
@@ -51,16 +270,23 @@ export default function ProtoType() {
               seamless user experiences, and expert development in Webflow and
               Framer.
             </p>
-            <div className="flex items-center gap-3">
-              <button className="bg-black text-white px-6 py-3 rounded-xl text-sm font-semibold flex items-center gap-2">
+            <div className="flex items-center gap-3 flex-wrap">
+              <button className="bg-black text-white px-6 py-3 rounded-xl text-sm font-semibold">
                 See Resume
-                {/* <File className="w-6" /> */}
               </button>
               <button className="bg-white border border-slate-200 text-slate-900 px-6 py-3 rounded-xl text-sm font-semibold">
                 View my Projects
               </button>
             </div>
-          </main>
+          </div>
+
+          {/* RIGHT — abstract shape */}
+          <div
+            className="flex-shrink-0 relative mx-auto md:mx-0"
+            style={{ width: 280, height: 280 }}
+          >
+            <AbstractShape />
+          </div>
         </div>
       </div>
     </div>
