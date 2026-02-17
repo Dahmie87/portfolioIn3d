@@ -42,7 +42,7 @@ const COLORS: string[] = [
 const POSITIONS: Position[] = [
   { top: "4%", left: "52%" }, //top right?
   { top: "62%", left: "55%" }, //dowm rite!!
-  { top: "22%", left: "14%" }, // top left
+  { top: "22%", left: "3%" }, // top left
   { top: "70%", left: "8%" }, // down lefty
 ];
 

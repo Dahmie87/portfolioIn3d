@@ -1,31 +1,20 @@
 import type React from "react";
 import AbstractShape from "./abstract";
-// ─── Main Component ───────────────────────────────────
+
+function NavBar() {
+  return (
+    <>
+      <nav className="mx-auto w-xl rounded-2xl py-8 bg-gray-100/40 border border-gray-400"></nav>
+    </>
+  );
+}
+
 export default function ProtoType(): React.ReactElement {
   return (
     <div className="text-slate-900 min-h-screen">
       <div className="mx-4 my-2 bg-white rounded-4xl shadow-sm overflow-hidden min-h-[calc(100vh-1rem)] relative">
         {/* nav */}
-        <nav className="flex items-center justify-between px-6 py-5">
-          <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-full bg-black flex items-center justify-center text-white text-[13px] font-bold">
-              D
-            </div>
-            <span className="font-bold text-[18px]">Dahmie</span>
-          </div>
-          <div className="flex items-center gap-6">
-            <div className="flex items-center gap-1.5">
-              <div className="w-2 h-2 rounded-full bg-green-500" />
-              <span className="text-[11px] font-medium text-green-600">
-                Available
-              </span>
-            </div>
-            <button className="text-sm font-semibold text-slate-800">
-              Menu
-            </button>
-          </div>
-        </nav>
-
+        <NavBar />
         {/* hero */}
         <div className="flex flex-col md:flex-row md:items-center px-6 pt-8 pb-16 gap-6">
           {/* LEFT — text */}
