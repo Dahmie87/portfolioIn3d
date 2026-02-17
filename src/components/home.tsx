@@ -4,7 +4,7 @@ import AbstractShape from "./abstract";
 export default function ProtoType(): React.ReactElement {
   return (
     <div className="text-slate-900 min-h-screen">
-      <div className="mx-4 my-2 bg-white rounded-[2rem] shadow-sm overflow-hidden min-h-[calc(100vh-1rem)] relative">
+      <div className="mx-4 my-2 bg-white rounded-4xl shadow-sm overflow-hidden min-h-[calc(100vh-1rem)] relative">
         {/* nav */}
         <nav className="flex items-center justify-between px-6 py-5">
           <div className="flex items-center gap-2">
@@ -68,7 +68,7 @@ export default function ProtoType(): React.ReactElement {
 
           {/* RIGHT — abstract shape */}
           <div
-            className="flex-shrink-0 relative mx-auto md:mx-0"
+            className="shrink-0 relative mx-auto md:mx-0"
             style={{ width: 280, height: 280 }}
           >
             <AbstractShape />
