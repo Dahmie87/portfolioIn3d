@@ -43,7 +43,7 @@ export default function ProtoType(): React.ReactElement {
             </p>
             <div className="flex items-center gap-3 flex-wrap">
               <button className="bg-gray-900 text-white px-6 py-3 rounded-xl text-sm font-semibold ">
-                See Resume
+                View Projects
               </button>
               <div className="flex items-center gap-3 bg-green-300/30  text-green-500 px-4 py-3 rounded-xl text-sm font-semibold">
                 <div className="bg-green-400 rounded-full w-2 h-2"></div>
