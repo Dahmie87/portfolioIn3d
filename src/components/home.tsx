@@ -8,7 +8,7 @@ import About from "./about";
 export default function ProtoType(): React.ReactElement {
   return (
     <div className="text-slate-900 min-h-screen">
-      <div className="mx-4 my-2 bg-white rounded-4xl shadow-sm overflow-hidden min-h-[calc(100vh-1rem)] relative">
+      <div className="md:mx-10 my-2 bg-white rounded-4xl shadow-sm overflow-hidden min-h-[calc(100vh-1rem)] relative">
         {/* nav */}
         <NavBar />
         {/* hero */}
@@ -42,12 +42,13 @@ export default function ProtoType(): React.ReactElement {
               Framer.
             </p>
             <div className="flex items-center gap-3 flex-wrap">
-              <button className="bg-black text-white px-6 py-3 rounded-xl text-sm font-semibold">
+              <button className="bg-gray-900 text-white px-6 py-3 rounded-xl text-sm font-semibold ">
                 See Resume
               </button>
-              <span className="bg-green-300/30  text-green-500 px-4 py-3 rounded-xl text-sm font-semibold">
+              <div className="flex items-center gap-3 bg-green-300/30  text-green-500 px-4 py-3 rounded-xl text-sm font-semibold">
+                <div className="bg-green-400 rounded-full w-2 h-2"></div>
                 Available for work
-              </span>
+              </div>
             </div>
             <div className="p-7 flex gap-9">
               <Github className="" />
