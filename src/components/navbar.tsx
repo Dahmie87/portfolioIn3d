@@ -99,7 +99,7 @@ const styles = `
 
 export default function NavBar() {
   const [active, setActive] = useState("Home");
-  const links = ["Home", "Projects", "Blog"];
+  const links = ["Home", "About", "Blog"];
 
   return (
     <div className="navbar-root w-full flex justify-center pt-6">
