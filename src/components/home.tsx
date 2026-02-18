@@ -60,7 +60,7 @@ export default function ProtoType(): React.ReactElement {
 
           {/* RIGHT — abstract shape */}
           <div
-            className="shrink-0 relative mx-auto md:mx-0 md:mt-25"
+            className="shrink-0 relative mx-auto md:mx-0 md:mt-10"
             style={{ width: 280, height: 280 }}
           >
             <AbstractShape />
