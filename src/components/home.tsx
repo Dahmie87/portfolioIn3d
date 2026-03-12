@@ -25,7 +25,7 @@ export default function ProtoType(): React.ReactElement {
                 <h2 className="text-sm font-semibold text-slate-900 tracking-[1px]">
                   Omotayo Damilare
                 </h2>
-                <p className="text-xs text-slate-800 font-medium tracking-[3px]">
+                <p className="text-xs text-slate-400 font-medium tracking-[3px]">
                   AI Engineer
                 </p>
               </div>
