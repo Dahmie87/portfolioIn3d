@@ -25,7 +25,7 @@ export default function ProtoType(): React.ReactElement {
                 <h2 className="text-sm font-semibold text-slate-900 tracking-[1px]">
                   Omotayo Damilare
                 </h2>
-                <p className="text-xs text-slate-400 font-medium tracking-[3px]">
+                <p className="text-xs text-slate-800 font-medium tracking-[3px]">
                   AI Engineer
                 </p>
               </div>
@@ -45,6 +45,7 @@ export default function ProtoType(): React.ReactElement {
               <button className="bg-gray-900 text-white px-6 py-3 rounded-xl text-sm font-semibold ">
                 View Projects
               </button>
+              i{" "}
               <div className="flex items-center gap-3 bg-green-300/30  text-green-500 px-4 py-3 rounded-xl text-sm font-semibold">
                 <div className="bg-green-400 rounded-full w-2 h-2"></div>
                 Available for work
