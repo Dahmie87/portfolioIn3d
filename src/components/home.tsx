@@ -1,8 +1,6 @@
 import type React from "react";
 import AbstractShape from "./abstract";
 import heroProfile from "../assets/profile-1.jfif";
-import { FileText, Github, Linkedin, Mail } from "lucide-react";
-import BlurryText from "./projects";
 import NavBar from "./navbar";
 import About from "./about";
 import SocialIcons from "./social";
