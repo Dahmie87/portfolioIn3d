@@ -4,6 +4,7 @@ import heroProfile from "../assets/profile-1.jfif";
 import NavBar from "./navbar";
 import About from "./about";
 import SocialIcons from "./social";
+import Projects from "./projects";
 
 export default function ProtoType(): React.ReactElement {
   return (
@@ -70,6 +71,7 @@ export default function ProtoType(): React.ReactElement {
         </div>
 
         <About  />   
+        <Projects/>
       </div>
     </div>
   );

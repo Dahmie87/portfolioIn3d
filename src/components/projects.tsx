@@ -1,12 +1,9 @@
-export default function Project() {
+export default function Projects() {
   return (
     <section className="max-w-6xl mx-auto p-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Left Column */}
-        <div className="font-normal text-4xl md:text-[42px]">
-          Projects
-        </div>
-
+        
         {/* Right Column */}
         <div className="space-y-4 text-slate-500">
           <p>
@@ -19,6 +16,10 @@ export default function Project() {
             My primary backend tools are Python, Django, and FastAPI, while my frontend experience revolves around React, TypeScript, and Tailwind CSS.
           </p>
         </div>
+      <div className="font-normal text-4xl md:text-[42px]">
+          About Me
+        </div>
+
       </div>
     </section>
   );
