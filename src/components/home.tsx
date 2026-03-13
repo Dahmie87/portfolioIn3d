@@ -45,7 +45,7 @@ export default function ProtoType(): React.ReactElement {
               <button className="bg-gray-900 text-white px-6 py-3 rounded-xl text-sm font-semibold ">
                 View Projects
               </button>
-              i{" "}
+              {" "}
               <div className="flex items-center gap-2 bg-green-100 text-green-700 px-4 py-2 rounded-lg w-fit">
 
   <span className="relative flex h-3 w-3">
