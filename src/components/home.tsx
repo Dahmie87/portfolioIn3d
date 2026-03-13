@@ -4,6 +4,7 @@ import heroProfile from "../assets/profile-1.jfif";
 import { FileText, Github, Linkedin, Mail } from "lucide-react";
 import NavBar from "./navbar";
 import About from "./about";
+import SocialIcons from "./social";
 
 export default function ProtoType(): React.ReactElement {
   return (
@@ -57,12 +58,7 @@ export default function ProtoType(): React.ReactElement {
 
 </div>
             </div>
-            <div className="p-7 flex gap-9">
-              <Github className="" />
-              <Linkedin />
-              <Mail />
-              <FileText />
-            </div>
+            <SocialIcons/>
           </div>
 
           {/* RIGHT — abstract shape */}
