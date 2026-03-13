@@ -3,8 +3,10 @@ import AbstractShape from "./abstract";
 import heroProfile from "../assets/profile-1.jfif";
 import NavBar from "./navbar";
 import SocialIcons from "./social";
-
+import { BlurReveal, BlurText } from "./blur";
 import ConceptC from "./concept3";
+
+
 export default function ProtoType(): React.ReactElement {
   return (
     <div className="text-slate-900 min-h-screen">
