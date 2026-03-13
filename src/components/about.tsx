@@ -3,12 +3,12 @@ export default function About() {
     <section className="max-w-6xl mx-auto p-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Left Column */}
-        <div className="font-semibold text-4xl md:text-[42px]">
+        <div className="font-medium text-4xl md:text-[42px]">
           About Me
         </div>
 
         {/* Right Column */}
-        <div className="space-y-4">
+        <div className="space-y-4 text-slate-500">
           <p>
             I’m a full-stack developer with a strong focus on backend engineering. I’m currently an undergraduate student at Lagos State University (LASU), majoring in Computer Science.
           </p>

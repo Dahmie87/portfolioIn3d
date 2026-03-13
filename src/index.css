@@ -11,4 +11,33 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --blur-start: 14px;
+  --blur-duration: 0.9s;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
+
+@keyframes blur-in {
+    from {
+      opacity: 0;
+      filter: blur(var(--blur-start));
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      filter: blur(0px);
+      transform: translateY(0);
+    }
+  }
+
+  .reveal {
+    opacity: 0;
+    animation: blur-in var(--blur-duration) var(--ease) forwards;
+  }
+
+  /* word-by-word stagger */
+  .blur-words .word {
+    display: inline-block;
+    opacity: 0;
+    animation: blur-in 0.7s var(--ease) forwards;
+  }
