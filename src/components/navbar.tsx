@@ -110,7 +110,7 @@ const styles = `
   }
 `;
 
-const LINKS = ["Home", "About", "Blog"] as const;
+const LINKS = ["Home", "Blog", "Resume"] as const;
 type Link = (typeof LINKS)[number];
 
 export default function NavBar() {
@@ -161,7 +161,7 @@ export default function NavBar() {
         {/* CTA */}
         <button className="nav-cta nav-in nav-in-5">
           <span className="cta-dot" />
-          <span>Join waitlist</span>
+          <span>Contact Me</span>
         </button>
       </nav>
     </div>
