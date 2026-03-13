@@ -3,7 +3,7 @@ export default function About() {
     <section className="max-w-6xl mx-auto p-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Left Column */}
-        <div className="font-bold text-4xl md:text-5xl">
+        <div className="font-semibold text-4xl md:text-[42px]">
           About Me
         </div>
 
