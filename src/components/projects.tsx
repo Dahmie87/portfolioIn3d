@@ -4,7 +4,7 @@ export default function Project() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Left Column */}
         <div className="font-normal text-4xl md:text-[42px]">
-          About Me
+          Projects
         </div>
 
         {/* Right Column */}
