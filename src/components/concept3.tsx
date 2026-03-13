@@ -1,60 +1,193 @@
 const styles = `
-  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Serif+Display:ital@0;1&display=swap');
-
-
-
   .cc-about {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 80px; align-items: start;
-    border-top: 1px solid rgba(0,0,0,0.12);
-    padding-top: 56px; margin-bottom: 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+    border-top: 1px solid rgba(0,0,0,0.1);
+    padding-top: 56px;
+    margin-bottom: 80px;
   }
-  .cc-eyebrow { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: rgba(0,0,0,0.28); margin-bottom: 20px; }
+  .cc-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(0,0,0,0.35);
+    margin-bottom: 20px;
+    font-weight: 500;
+  }
   .cc-heading {
-    
-    font-size: clamp(42px,4.5vw,62px); font-weight: 400;
-    letter-spacing: -.03em; line-height: 1.05; color: rgba(0,0,0,0.88);
+    font-size: clamp(40px, 4.5vw, 58px);
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    color: rgba(0,0,0,0.9);
   }
-  .cc-heading em { font-style: italic; color: rgba(0,0,0,0.3); }
-
-  .cc-bio { font-size: 15px; font-weight: 300; line-height: 1.72; color: rgba(0,0,0,0.52); margin-bottom: 16px; }
+  .cc-heading em {
+    font-style: italic;
+    font-weight: 400;
+    color: rgba(0,0,0,0.35);
+  }
+  .cc-bio {
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.75;
+    color: rgba(0,0,0,0.55);
+    margin-bottom: 16px;
+  }
   .cc-meta {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
-    padding-top: 28px; border-top: 1px solid rgba(0,0,0,0.08); margin-top: 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding-top: 28px;
+    border-top: 1px solid rgba(0,0,0,0.08);
+    margin-top: 16px;
   }
-  .cc-meta-label { font-size: 11px; letter-spacing: .07em; text-transform: uppercase; color: rgba(0,0,0,0.25); margin-bottom: 6px; }
-  .cc-meta-val { font-size: 14px; color: rgba(0,0,0,0.65); font-weight: 400; letter-spacing: -.01em; }
-
+  .cc-meta-label {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(0,0,0,0.3);
+    margin-bottom: 5px;
+    font-weight: 500;
+  }
+  .cc-meta-val {
+    font-size: 13px;
+    color: rgba(0,0,0,0.72);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
   .cc-projects-label {
-    font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
-    color: rgba(0,0,0,0.28); margin-bottom: 24px;
-    display: flex; align-items: center; gap: 16px;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(0,0,0,0.35);
+    font-weight: 500;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
   }
-  .cc-projects-label::after { content: ''; flex: 1; height: 1px; background: rgba(0,0,0,0.1); }
-
-  .cc-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+  .cc-projects-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(0,0,0,0.09);
+  }
+  .cc-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
   .cc-card {
-    border: 1px solid rgba(0,0,0,0.1); border-radius: 14px;
-    overflow: hidden; background: rgba(255,255,255,0.5);
-    transition: background .18s, border-color .18s; cursor: pointer;
+    border: 1px solid rgba(0,0,0,0.09);
+    border-radius: 16px;
+    overflow: hidden;
+    background: #fff;
+    transition: border-color 0.18s ease, transform 0.18s ease;
+    cursor: pointer;
   }
-  .cc-card:hover { background: rgba(255,255,255,0.9); border-color: rgba(0,0,0,0.2); }
+  .cc-card:hover {
+    border-color: rgba(0,0,0,0.18);
+    transform: translateY(-2px);
+  }
 
-  .cc-card-top { height: 6px; }
-  .cc-card-top-1 { background: rgba(0,0,0,0.12); }
-  .cc-card-top-2 { background: rgba(0,0,0,0.07); }
-  .cc-card-top-3 { background: rgba(0,0,0,0.04); }
+  /* ── Shimmer skeleton ── */
+  .cc-card-img {
+    width: 100%;
+    height: 180px;
+    position: relative;
+    overflow: hidden;
+    background: #f0f0f0;
+  }
+  .cc-card-img::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255,255,255,0.6) 40%,
+      rgba(255,255,255,0.85) 50%,
+      rgba(255,255,255,0.6) 60%,
+      transparent 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.6s ease-in-out infinite;
+  }
+  @keyframes shimmer {
+    0%   { background-position: -200% 0; }
+    100% { background-position:  200% 0; }
+  }
 
-  .cc-card-body { padding: 22px; }
-  .cc-card-title { font-size: 15px; font-weight: 500; letter-spacing: -.02em; color: rgba(0,0,0,0.82); margin-bottom: 8px; line-height: 1.3; }
-  .cc-card-desc { font-size: 13px; font-weight: 300; line-height: 1.62; color: rgba(0,0,0,0.45); margin-bottom: 18px; }
+  /* inner skeleton lines inside the image */
+  .cc-skel-inner {
+    position: absolute;
+    inset: 0;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+  .cc-skel-bar {
+    height: 8px;
+    border-radius: 4px;
+    background: rgba(0,0,0,0.07);
+  }
+  .cc-skel-bar-short {
+    height: 8px;
+    width: 55%;
+    border-radius: 4px;
+    background: rgba(0,0,0,0.05);
+  }
+  .cc-skel-circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.07);
+    margin-bottom: 4px;
+  }
+
+  .cc-card-body { padding: 18px 20px 20px; }
+  .cc-card-title {
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: rgba(0,0,0,0.88);
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+  .cc-card-desc {
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.65;
+    color: rgba(0,0,0,0.5);
+    margin-bottom: 16px;
+  }
   .cc-card-footer {
-    display: flex; align-items: center; justify-content: space-between;
-    padding-top: 16px; border-top: 1px solid rgba(0,0,0,0.07);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 14px;
+    border-top: 1px solid rgba(0,0,0,0.07);
   }
-  .cc-card-stack { font-size: 11px; color: rgba(0,0,0,0.32); letter-spacing: .02em; }
-  .cc-card-cta { font-size: 11px; color: rgba(0,0,0,0.4); display: flex; align-items: center; gap: 4px; transition: color .18s; }
-  .cc-card:hover .cc-card-cta { color: rgba(0,0,0,0.8); }
+  .cc-card-stack {
+    font-size: 11px;
+    color: rgba(0,0,0,0.35);
+    letter-spacing: 0.02em;
+    font-weight: 400;
+  }
+  .cc-card-cta {
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(0,0,0,0.4);
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    transition: color 0.18s;
+  }
+  .cc-card:hover .cc-card-cta { color: rgba(0,0,0,0.88); }
 
   @media (max-width: 768px) {
     .cc-about { grid-template-columns: 1fr; gap: 36px; }
@@ -64,32 +197,44 @@ const styles = `
 
 const meta = [
   { label: "Institution", val: "LASU, Lagos" },
-  { label: "Focus", val: "Backend · Full-stack" },
-  { label: "Backend", val: "Python · Django · FastAPI" },
-  { label: "Frontend", val: "React · TypeScript" },
+  { label: "Focus",       val: "Backend · Full-stack" },
+  { label: "Backend",     val: "Python · Django · FastAPI" },
+  { label: "Frontend",    val: "React · TypeScript" },
 ];
 
 const projects = [
   {
-    title: "API Gateway Service", topClass: "cc-card-top-1",
+    title: "API Gateway Service",
     desc: "High-performance request routing and auth layer built with FastAPI and Redis-backed rate limiting.",
     stack: "FastAPI · Redis · Docker",
   },
   {
-    title: "Student Portal", topClass: "cc-card-top-2",
+    title: "Student Portal",
     desc: "University management platform with role-based access, built on Django REST and React.",
     stack: "Django · React · Postgres",
   },
   {
-    title: "Real-time Chat", topClass: "cc-card-top-3",
+    title: "Real-time Chat",
     desc: "WebSocket-powered messaging app with presence indicators and persistent history.",
     stack: "WebSocket · TypeScript",
   },
 ];
 
+function SkeletonImage() {
+  return (
+    <div className="cc-card-img">
+      <div className="cc-skel-inner">
+        <div className="cc-skel-circle" />
+        <div className="cc-skel-bar" />
+        <div className="cc-skel-bar-short" />
+      </div>
+    </div>
+  );
+}
+
 export default function ConceptC() {
   return (
-    <div className="cc-root" style={{ padding: "60px 40px 80px", maxWidth: 1200, margin: "0 auto" }}>
+    <div style={{ padding: "60px 40px 80px", maxWidth: 1200, margin: "0 auto" }}>
       <style>{styles}</style>
 
       <div className="cc-about">
@@ -122,7 +267,7 @@ export default function ConceptC() {
       <div className="cc-cards">
         {projects.map((p) => (
           <div key={p.title} className="cc-card">
-            <div className={`cc-card-top ${p.topClass}`} />
+            <SkeletonImage />
             <div className="cc-card-body">
               <h3 className="cc-card-title">{p.title}</h3>
               <p className="cc-card-desc">{p.desc}</p>
