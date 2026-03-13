@@ -5,7 +5,9 @@ import NavBar from "./navbar";
 import About from "./about";
 import SocialIcons from "./social";
 import Projects from "./projects";
-
+import ConceptA from "./concept1";
+import ConceptB from "./concept2";
+import ConceptC from "./concept3";
 export default function ProtoType(): React.ReactElement {
   return (
     <div className="text-slate-900 min-h-screen">
@@ -70,9 +72,9 @@ export default function ProtoType(): React.ReactElement {
           </div>
         </div>
 
-        <About  />   
-        <Projects/>
-      </div>
+        <ConceptC/>
+        <ConceptA/>
+              </div>
     </div>
   );
 }
