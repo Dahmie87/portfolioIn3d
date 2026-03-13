@@ -2,11 +2,8 @@ import type React from "react";
 import AbstractShape from "./abstract";
 import heroProfile from "../assets/profile-1.jfif";
 import NavBar from "./navbar";
-import About from "./about";
 import SocialIcons from "./social";
-import Projects from "./projects";
-import ConceptA from "./concept1";
-import ConceptB from "./concept2";
+
 import ConceptC from "./concept3";
 export default function ProtoType(): React.ReactElement {
   return (
