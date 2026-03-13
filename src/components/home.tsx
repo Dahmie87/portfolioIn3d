@@ -73,7 +73,6 @@ export default function ProtoType(): React.ReactElement {
         </div>
 
         <ConceptC/>
-        <ConceptA/>
               </div>
     </div>
   );
