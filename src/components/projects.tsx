@@ -16,9 +16,9 @@ export default function Projects() {
             My primary backend tools are Python, Django, and FastAPI, while my frontend experience revolves around React, TypeScript, and Tailwind CSS.
           </p>
         </div>
-      <div className="font-normal text-4xl md:text-[42px]">
-          About Me
-        </div>
+      <div className="font-normal text-4xl md:text-[42px] ml-100">
+          Projects
+                  </div>
 
       </div>
     </section>
