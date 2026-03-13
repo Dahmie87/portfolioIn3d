@@ -15,7 +15,7 @@ export default function ProtoType(): React.ReactElement {
         {/* nav */}
         <NavBar />
  
-        {/* hero */}
+         {/* hero */}
         <div className="flex flex-col md:flex-row md:items-center px-6 md:pt-38 pt-28 pb-16 gap-6">
  
           {/* LEFT — text */}
@@ -43,7 +43,7 @@ export default function ProtoType(): React.ReactElement {
             {/* Headline — word by word */}
             <BlurText
               tag="h1"
-              text="Your Digital Vision, Perfectly Realized."
+              text="Building Intelligent Systems, Driven by LLMs."
               baseDelay={0.2}
               stagger={0.07}
               className="text-[38px] font-normal leading-[1.1] tracking-tight mb-4 text-slate-900"
