@@ -34,14 +34,13 @@ export default function ProtoType(): React.ReactElement {
             </div>
 
             <h1 className="text-[38px] font-normal leading-[1.1] tracking-tight mb-4 text-slate-900">
-              Your Digital Vision,
+              
+              Engineering intelligent systems,
               <br />
-              Perfectly Realized.
+               not just software..
             </h1>
             <p className="text-slate-500 text-[15px] leading-relaxed mb-8 max-w-[95%]">
-              From concept to launch, I create websites with stunning visuals,
-              seamless user experiences, and expert development in Webflow and
-              Framer.
+              design and build AI-powered systems by combining traditional software engineering with modern LLM architecture
             </p>
             <div className="flex items-center gap-3 flex-wrap">
               <button className="bg-gray-900 text-white px-6 py-3 rounded-xl text-sm font-semibold ">
