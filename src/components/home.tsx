@@ -71,7 +71,7 @@ export default function ProtoType(): React.ReactElement {
         </div>
 
         <About />
-        <h1 className="text-4xl py-10 f ont- text-left">My Projects</h1>
+        
       </div>
     </div>
   );
