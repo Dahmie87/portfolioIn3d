@@ -71,8 +71,7 @@ export default function ProtoType(): React.ReactElement {
           </div>
         </div>
 
-        <About />
-<BlurryText/>        
+        <About  />   
       </div>
     </div>
   );
