@@ -1,7 +1,7 @@
 const styles = `
   @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Serif+Display:ital@0;1&display=swap');
 
-  .cc-root { font-family: 'DM Sans', sans-serif; }
+
 
   .cc-about {
     display: grid; grid-template-columns: 1fr 1fr;
@@ -11,7 +11,7 @@ const styles = `
   }
   .cc-eyebrow { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: rgba(0,0,0,0.28); margin-bottom: 20px; }
   .cc-heading {
-    font-family: 'DM Serif Display', serif;
+    
     font-size: clamp(42px,4.5vw,62px); font-weight: 400;
     letter-spacing: -.03em; line-height: 1.05; color: rgba(0,0,0,0.88);
   }
