@@ -43,7 +43,8 @@ export default function ProtoType(): React.ReactElement {
             {/* Headline — word by word */}
             <BlurText
               tag="h1"
-              text="Building Intelligent Systems, Driven by LLMs."
+              text="Building Intelligent Systems
+              , Driven by LLMs."
               baseDelay={0.2}
               stagger={0.07}
               className="text-[38px] font-normal leading-[1.1] tracking-tight mb-4 text-slate-900"
@@ -52,9 +53,8 @@ export default function ProtoType(): React.ReactElement {
             {/* Subtext */}
             <BlurReveal delay={0.75}>
               <p className="text-slate-500 text-[15px] leading-relaxed mb-8 max-w-[95%]">
-                From concept to launch, I create websites with stunning visuals,
-                seamless user experiences, and expert development in Webflow and
-                Framer.
+                 I design and build AI-powered systems by combining traditional software engineering with modern LLM architecture — turning ideas into intelligent applications.
+
               </p>
             </BlurReveal>
  
