@@ -246,11 +246,9 @@ export default function ConceptC() {
         </div>
         <div>
           <p className="cc-bio">
-            Full-stack developer with a strong focus on backend engineering. Currently an undergraduate at Lagos State University (LASU), majoring in Computer Science.
-          </p>
+Computer Science undergraduate at Lagos State University (LASU) focused on Software engineering and AI systems development.          </p>
           <p className="cc-bio">
-            Over 3+ years immersed in software development — from fundamentals to complex system architecture and full-stack application design.
-          </p>
+Over 3+ years of experience in software development — building full-stack applications, designing backend architectures, and exploring large language model systems and AI-driven applications.          </p>
           <div className="cc-meta">
             {meta.map((m) => (
               <div key={m.label}>
