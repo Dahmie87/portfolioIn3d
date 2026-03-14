@@ -241,7 +241,7 @@ export default function ConceptC() {
         <div>
           <p className="cc-eyebrow">About me</p>
           <h2 className="cc-heading">
-            Backend<br />engineer,<br /><em>full-stack</em><br />thinker.
+            Software<br />engineer,<br />with a <em>niche</em><br />in AI.
           </h2>
         </div>
         <div>
