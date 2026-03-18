@@ -448,7 +448,7 @@ function EmailCard() {
 }
 
 /* ── card map ──────────────────────────────── */
-const cardComponents: Record<string, () => JSX.Element> = {
+const cardComponents: Record<string, () => React.ReactElement> = {
   GitHub:   GitHubCard,
   LinkedIn: LinkedInCard,
   X:        XCard,
