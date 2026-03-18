@@ -81,7 +81,7 @@ export default function HomePage(): React.ReactElement {
             </BlurReveal>
  
             {/* Social icons */}
-            <BlurReveal delay={1.05}>
+            <BlurReveal delay={1.05} className="ml-14 my-2">
               <SocialIcons />
             </BlurReveal>
  

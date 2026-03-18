@@ -1,3 +1,5 @@
+import React from "react";
+
 /* ─────────────────────────────────────────────
    SocialIcons with platform-faithful hover cards
    Real data: Dahmie87 / Damilare Omotayo
