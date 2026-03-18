@@ -160,7 +160,7 @@ export default function NavBar() {
 
         {/* CTA */}
         <button className="nav-cta nav-in nav-in-5">
-          <span className="cta-dot" />
+          <span className="cta-dot sm:hidden" />
           <span>Contact Me</span>
         </button>
       </nav>
