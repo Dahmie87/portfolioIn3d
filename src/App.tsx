@@ -1,5 +1,5 @@
 import "./App.css";
-import ProtoType from "./components/home";
+import ProtoType from "./pages/home";
 import { BlurRevealStyles } from "./components/blur";
 
 function App() {

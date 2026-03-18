@@ -1,10 +1,10 @@
 import type React from "react";
-import AbstractShape from "./abstract";
+import AbstractShape from "../components/abstract";
 import heroProfile from "../assets/profile-1.jfif";
-import NavBar from "./navbar";
-import SocialIcons from "./social";
-import { BlurReveal, BlurText } from "./blur";
-import ConceptC from "./concept3";
+import NavBar from "../components/navbar";
+import SocialIcons from "../components/social";
+import { BlurReveal, BlurText } from "../components/blur";
+import ConceptC from "../components/concept3";
 
 
 export default function ProtoType(): React.ReactElement {
