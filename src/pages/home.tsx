@@ -7,7 +7,7 @@ import { BlurReveal, BlurText } from "../components/blur";
 import ConceptC from "../components/concept3";
 
 
-export default function ProtoType(): React.ReactElement {
+export default function HomePage(): React.ReactElement {
   return (
 <div className="text-slate-900 min-h-screen">
       <div className="md:mx-10 my-2 bg-white rounded-4xl shadow-sm overflow-hidden min-h-[calc(100vh-1rem)] relative">
