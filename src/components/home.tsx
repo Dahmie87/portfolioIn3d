@@ -58,7 +58,7 @@ export default function ProtoType(): React.ReactElement {
 
             {/* Subtext */}
             <BlurReveal delay={0.75}>
-              <p className="text-slate-500 text-[15px] leading-relaxed mb-8 max-w-[70%]">
+              <p className="text-slate-500 text-[15px] leading-relaxed mb-8  md:max-w-[70%]">
                  I design and build AI-powered systems by combining traditional software engineering with modern LLM architecture — turning ideas into intelligent applications.
 
               </p>
