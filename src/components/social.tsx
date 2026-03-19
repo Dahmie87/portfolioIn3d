@@ -462,14 +462,13 @@ const icons = [
   { Icon: GithubIcon,   href: `https://github.com/${GITHUB_USER}`,         label: "GitHub"   },
   { Icon: LinkedinIcon, href: "https://linkedin.com/in/damilare-omotayo",  label: "LinkedIn" },
   { Icon: XIcon,        href: "https://x.com/Dahmie87",                    label: "X"        },
-  { Icon: EmailIcon,    href: "mailto:omotayodamilare@gmail.com",           label: "Email"    },
+  { Icon: EmailIcon,    href: "mailto:omotayodamilare07@gmail.com",           label: "Email"    },
 ];
 
 /* ── root ──────────────────────────────────── */
 export default function SocialIcons() {
   return (
-    <div className="p-7 flex gap-2" style={{ }}>
-      <style>{styles}</style>
+<div className="flex gap-2" style={{ paddingTop: 30, paddingBottom: 8 }}>      <style>{styles}</style>
       {icons.map(({ Icon, href, label }, i) => {
         const Card = cardComponents[label];
         return (
