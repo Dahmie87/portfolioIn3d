@@ -2,7 +2,7 @@ import "./App.css";
 import HomePage from "./pages/home";
 import BlogPage from "./pages/blog";
 import { BlurRevealStyles } from "./components/blur";
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, } from 'react-router-dom';
 
 
 function App() {

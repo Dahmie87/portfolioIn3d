@@ -1,4 +1,4 @@
-
+import { Link } from "react-router-dom";
 
 import { useState } from "react";
 
@@ -159,10 +159,10 @@ export default function NavBar() {
         ))}
 
         {/* CTA */}
-        <button className="nav-cta nav-in nav-in-5">
+        <Link to={'/blog'} className="nav-cta nav-in nav-in-5">
           <span className="cta-dot hidden lg:block" />
           <span>Contact Me</span>
-        </button>
+        </Link>
       </nav>
     </div>
   );

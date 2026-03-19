@@ -1,8 +1,8 @@
-import React from 'react'
+
 
 const BlogPage = () => {
   return (
-    <div>BlogPage</div>
+    <div className="text-amber-700">BlogPage</div>
   )
 }
 
