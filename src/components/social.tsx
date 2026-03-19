@@ -468,7 +468,7 @@ const icons = [
 /* ── root ──────────────────────────────────── */
 export default function SocialIcons() {
   return (
-    <div className="p-7 flex gap-2" style={{ paddingTop: 90 }}>
+    <div className="p-7 flex gap-2" style={{ }}>
       <style>{styles}</style>
       {icons.map(({ Icon, href, label }, i) => {
         const Card = cardComponents[label];
