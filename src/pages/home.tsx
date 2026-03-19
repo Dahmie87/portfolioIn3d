@@ -1,4 +1,6 @@
 import type React from "react";
+import { Link } from "react-router-dom";
+
 import AbstractShape from "../components/abstract";
 import heroProfile from "../assets/profile-1.jfif";
 import NavBar from "../components/navbar";
@@ -67,9 +69,9 @@ export default function HomePage(): React.ReactElement {
             {/* CTA buttons */}
             <BlurReveal delay={0.9}>
               <div className="flex items-center gap-3 flex-wrap">
-                <button className="bg-gray-900 text-white px-6 py-3 rounded-xl text-sm font-semibold">
+                <Link  to={'/projects'} className="bg-gray-900 text-white px-6 py-3 rounded-xl text-sm font-semibold">
                   View Projects
-                </button>
+                </Link >
                 <div className="flex items-center gap-2 bg-green-100 text-green-700 px-4 py-2 rounded-lg w-fit">
                   <span className="relative flex h-3 w-3">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75" />
