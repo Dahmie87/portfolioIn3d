@@ -102,7 +102,7 @@ export default function HomePage(): React.ReactElement {
         </div>
  
         {/* About + Projects section */}
-        <BlurReveal delay={0.3} className="md:px-0 px-8">
+        <BlurReveal delay={0.3} className=" px-8">
           <ConceptC />
         </BlurReveal>
  

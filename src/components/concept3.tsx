@@ -196,9 +196,9 @@ const styles = `
 `;
 
 const meta = [
-  { label: "Institution", val: "LASU, Lagos" },
-  { label: "Focus",       val: "Backend · Full-stack" },
-  { label: "Backend",     val: "Python · Django · FastAPI" },
+  { label: "Experience", val: "LASU, Lagos" },
+  { label: "Focus",       val: "AI · Full-stack" },
+  { label: "Projects",     val: "12+" },
   { label: "Frontend",    val: "React · TypeScript" },
 ];
 
@@ -234,7 +234,7 @@ function SkeletonImage() {
 
 export default function ConceptC() {
   return (
-    <div style={{ padding: "", maxWidth: 1200, margin: "0 auto" }}>
+    <div style={{ padding: "", maxWidth: 1200, margin: "" }}>
       <style>{styles}</style>
 
       <div className="cc-about">
