@@ -196,10 +196,10 @@ const styles = `
 `;
 
 const meta = [
-  { label: "Experience", val: "LASU, Lagos" },
+  { label: "Experience", val: "3 years+" },
   { label: "Focus",       val: "AI · Full-stack" },
   { label: "Projects",     val: "12+" },
-  { label: "Frontend",    val: "React · TypeScript" },
+  { label: "Location",    val: "Lagos · Nigeria" },
 ];
 
 const projects = [
@@ -234,7 +234,7 @@ function SkeletonImage() {
 
 export default function ConceptC() {
   return (
-    <div style={{ padding: "", maxWidth: 1200, margin: "" }}>
+    <div style={{ padding: "", maxWidth: 1200, margin: "0 auto" }}>
       <style>{styles}</style>
 
       <div className="cc-about">
