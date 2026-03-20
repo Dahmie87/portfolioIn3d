@@ -234,7 +234,7 @@ function SkeletonImage() {
 
 export default function ConceptC() {
   return (
-    <div style={{ padding: "60px 40px 80px", maxWidth: 1200, margin: "0 auto" }}>
+    <div style={{ padding: "", maxWidth: 1200, margin: "0 auto" }}>
       <style>{styles}</style>
 
       <div className="cc-about">
