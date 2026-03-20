@@ -138,8 +138,9 @@ export default function NavBar() {
 
         {/* Flip links */}
         {LINKS.map((link, i) => (
-          <button
+          <Link
             key={link}
+            to={'/projects'}
             onClick={() => setActive(link)}
             className={`flip-link nav-in nav-in-${i + 2}`}
           >
@@ -155,7 +156,7 @@ export default function NavBar() {
               </span>
               <span className="flip-bottom">{link}</span>
             </div>
-          </button>
+          </Link>
         ))}
 
         {/* CTA */}

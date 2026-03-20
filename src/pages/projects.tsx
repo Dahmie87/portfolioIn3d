@@ -1,8 +1,7 @@
-import React from 'react'
 
 const ProjectsPage = () => {
   return (
-    <div>ProjectsPage</div>
+    <div className='text-blue-700 text-7xl'>Projects Page</div>
   )
 }
 
