@@ -224,9 +224,7 @@ function SkeletonImage() {
   return (
     <div className="cc-card-img">
       <div className="cc-skel-inner">
-        <div className="cc-skel-circle" />
-        <div className="cc-skel-bar" />
-        <div className="cc-skel-bar-short" />
+        
       </div>
     </div>
   );

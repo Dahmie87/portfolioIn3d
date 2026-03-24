@@ -6,7 +6,7 @@ import heroProfile from "../assets/profile-1.jfif";
 import NavBar from "../components/navbar";
 import SocialIcons from "../components/social";
 import { BlurReveal, BlurText } from "../components/blur";
-import ConceptC from "../components/concept3";
+import ConceptC from "../components/concept";
 
 
 export default function HomePage(): React.ReactElement {
