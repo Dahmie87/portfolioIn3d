@@ -110,7 +110,7 @@ const styles = `
   }
 `;
 
-const LINKS = ["Home", "Blog", "Resume"] as const;
+const LINKS = [ "Home", "Blog", "Resume"] as const;
 type Link = (typeof LINKS)[number];
 
 export default function NavBar() {
