@@ -12,13 +12,13 @@ import ConceptC from "../components/concept";
 export default function HomePage(): React.ReactElement {
   return (
     <div className="text-slate-900 min-h-screen">
-      <div className="md:mx-10 my-2 bg-white rounded-4xl shadow-sm">
+      <div className="md:mx-10 my-2 bg-white rounded-4xl shadow-sm overflow-hidden md:overflow-visible min-h-[calc(100vh-1rem)] md:min-h-0 relative md:static">
 
-        {/* hero — sticky so it freezes while concept slides over it */}
-        <div className="sticky top-0 z-0 min-h-[calc(100vh-1rem)] overflow-hidden rounded-4xl flex flex-col">
+        {/* hero — normal on mobile, sticky on desktop */}
+        <div className="md:sticky md:top-0 md:z-0 md:min-h-[calc(100vh-1rem)] md:overflow-hidden md:rounded-4xl md:flex md:flex-col">
           <NavBar />
 
-          <div className="flex flex-col md:flex-row md:items-center px-6 md:pt-38 pt-28 pb-16 gap-6 flex-1">
+          <div className="flex flex-col md:flex-row md:items-center px-6 md:pt-38 pt-28 pb-16 gap-6 md:flex-1">
 
             {/* LEFT — text */}
             <div className="flex-1">
@@ -101,8 +101,8 @@ export default function HomePage(): React.ReactElement {
           </div>
         </div>
 
-        {/* concept — slides up over the frozen hero */}
-        <div className="relative z-10 bg-white rounded-t-3xl shadow-[0_-8px_40px_rgba(0,0,0,0.10)] min-h-screen px-8 pt-10">
+        {/* concept — normal flow on mobile, slides over hero on desktop */}
+        <div className="md:relative md:z-10 md:bg-white md:rounded-t-3xl md:shadow-[0_-8px_40px_rgba(0,0,0,0.10)] md:min-h-screen px-8 md:pt-10">
           <ConceptC />
         </div>
 
