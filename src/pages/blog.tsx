@@ -1,6 +1,6 @@
 
 import NavBar from "../components/navbar";
-import { BlurReveal, BlurText } from "../components/blur";
+import { BlurReveal } from "../components/blur";
 
 const stats = [
   { label: "Articles", val: "24+" },

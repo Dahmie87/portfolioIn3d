@@ -3,7 +3,6 @@ import { useLocation } from "react-router-dom";
 
 import { useState } from "react";
 import resumeFile from "../assets/omotayo's-resume.pdf";
-import { Moon } from "lucide-react";
 
 const styles = `
   @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&display=swap');
