@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
 import { useState } from "react";
+import resumeFile from "../assets/omotayo's-resume.pdf";
 
 const styles = `
   @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&display=swap');
@@ -143,27 +144,50 @@ export default function NavBar() {
         </div>
 
         {/* Flip links */}
-        {LINKS.map((item, i) => (
-          <Link
-            key={item.label}
-            to={item.to}
-            onClick={() => setActive(item.label)}
-            className={`flip-link nav-in nav-in-${i + 2}`}
-          >
-            <div className="flip-link-inner">
-              <span
-                className="flip-top"
-                style={{
-                  color: pathname === item.to || active === item.label ? "rgba(0,0,0,0.85)" : undefined,
-                  fontWeight: pathname === item.to || active === item.label ? 500 : undefined,
-                }}
-              >
-                {item.label}
-              </span>
-              <span className="flip-bottom">{item.label}</span>
-            </div>
-          </Link>
-        ))}
+        {LINKS.map((item, i) =>
+          item.label === "Resume" ? (
+            <a
+              key={item.label}
+              href={resumeFile}
+              download="omotayo's-resume.pdf"
+              onClick={() => setActive(item.label)}
+              className={`flip-link nav-in nav-in-${i + 2}`}
+            >
+              <div className="flip-link-inner">
+                <span
+                  className="flip-top"
+                  style={{
+                    color: active === item.label ? "rgba(0,0,0,0.85)" : undefined,
+                    fontWeight: active === item.label ? 500 : undefined,
+                  }}
+                >
+                  {item.label}
+                </span>
+                <span className="flip-bottom">{item.label}</span>
+              </div>
+            </a>
+          ) : (
+            <Link
+              key={item.label}
+              to={item.to}
+              onClick={() => setActive(item.label)}
+              className={`flip-link nav-in nav-in-${i + 2}`}
+            >
+              <div className="flip-link-inner">
+                <span
+                  className="flip-top"
+                  style={{
+                    color: pathname === item.to || active === item.label ? "rgba(0,0,0,0.85)" : undefined,
+                    fontWeight: pathname === item.to || active === item.label ? 500 : undefined,
+                  }}
+                >
+                  {item.label}
+                </span>
+                <span className="flip-bottom">{item.label}</span>
+              </div>
+            </Link>
+          )
+        )}
 
         {/* CTA */}
         <Link to={'/contact'} className="nav-cta nav-in nav-in-5">

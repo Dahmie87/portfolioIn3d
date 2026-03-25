@@ -62,34 +62,7 @@ export default function BlogPage() {
       `}</style>
 
       {/* TopAppBar */}
-      <nav className="bg-white/70 backdrop-blur-md fixed top-0 w-full z-50">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center w-full">
-          <div className="flex items-center gap-2">
-            <span className="material-symbols-outlined text-indigo-600">architecture</span>
-            <span className="text-xl font-extrabold tracking-tighter text-slate-900 font-headline">
-              Architect
-            </span>
-          </div>
-          <div className="hidden md:flex items-center font-headline tracking-tight font-medium">
-            <a href="#" className="text-slate-500 hover:text-slate-900 transition-colors mx-4">
-              Home
-            </a>
-            <a
-              href="#"
-              className="text-indigo-600 border-b-2 border-indigo-600/50 pb-1 mx-4"
-            >
-              Blog
-            </a>
-            <a href="#" className="text-slate-500 hover:text-slate-900 transition-colors mx-4">
-              About
-            </a>
-          </div>
-          <div className="md:hidden">
-            <span className="material-symbols-outlined text-[#131b2e]">menu</span>
-          </div>
-        </div>
-      </nav>
-
+      
       {/* Main */}
       <main className="pt-24 pb-20">
 
