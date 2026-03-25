@@ -204,19 +204,19 @@ const meta = [
 
 const projects = [
   {
-    title: "API Gateway Service",
-    desc: "High-performance request routing and auth layer built with FastAPI and Redis-backed rate limiting.",
-    stack: "FastAPI · Redis · Docker",
+    title: "ProdigyAI For Students",
+    desc: "prodigy is an academic tool designed to empower students by providing a seamless platform to assess themselves, organize schedules, track assignments, and collaborate on projects, making academic life simpler and more productive.",
+    stack: "Django · TypeScript · Postgres",
   },
   {
-    title: "Student Portal",
-    desc: "University management platform with role-based access, built on Django REST and React.",
-    stack: "Django · React · Postgres",
+    title: "PadiSquare StoreFront",
+    desc: "PadiSquae is an e-commerce platform that allows traders to create their own online marketspace called storefront, PadiSquare allows dynamic mangement of trades, orders and payments too.",
+    stack: "NextJS · React · FastApi",
   },
   {
-    title: "Real-time Chat",
-    desc: "WebSocket-powered messaging app with presence indicators and persistent history.",
-    stack: "WebSocket · TypeScript",
+    title: "Prompt2PDF",
+    desc: "PrompttoPdf allows a user to create an entire Book with standard chapters, literal content and genunine readable format",
+    stack: "OpenAI · Fastapi · LangChain ",
   },
 ];
 
@@ -270,7 +270,7 @@ working toward a practice where strong software engineering and intelligent syst
             <SkeletonImage />
             <div className="cc-card-body">
               <h3 className="cc-card-title">{p.title}</h3>
-              <p className="cc-card-desc">{p.desc}</p>
+              <p className="cc-card-desc line-clamp-2">{p.desc}</p>
               <div className="cc-card-footer">
                 <span className="cc-card-stack">{p.stack}</span>
                 <span className="cc-card-cta">View ↗</span>
