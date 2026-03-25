@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const styles = `
   .cc-about {
     display: grid;
@@ -189,6 +191,34 @@ const styles = `
   }
   .cc-card:hover .cc-card-cta { color: rgba(0,0,0,0.88); }
 
+  .cc-view-all {
+    display: flex;
+    justify-content: center;
+    margin-top: 48px;
+    padding-top: 28px;
+    border-top: 1px solid rgba(0,0,0,0.08);
+  }
+  .cc-view-all-btn {
+    padding: 12px 28px;
+    border: 1px solid rgba(0,0,0,0.18);
+    border-radius: 8px;
+    background: transparent;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(0,0,0,0.7);
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+  }
+  .cc-view-all-btn:hover {
+    border-color: rgba(0,0,0,0.3);
+    color: rgba(0,0,0,0.88);
+    background: rgba(0,0,0,0.02);
+  }
+
   @media (max-width: 768px) {
     .cc-about { grid-template-columns: 1fr; gap: 36px; }
     .cc-cards { grid-template-columns: 1fr; }
@@ -280,7 +310,11 @@ working toward a practice where strong software engineering and intelligent syst
         ))}
       </div>
 
-      {/* <div className="bg-black text-white">View all Projects</div> */}
+      <div className="cc-view-all">
+        <Link to="/projects" className="cc-view-all-btn">
+          View all projects ↗
+        </Link>
+      </div>
     </div>
   );
 }
