@@ -1,4 +1,12 @@
 
+import NavBar from "../components/navbar";
+import { BlurReveal, BlurText } from "../components/blur";
+
+const stats = [
+  { label: "Articles", val: "24+" },
+  { label: "Topics", val: "15+ areas" },
+  { label: "Avg. Read", val: "7 minutes" },
+];
 
 const articles = [
   {
@@ -35,182 +43,395 @@ const articles = [
   },
 ];
 
+const styles = `
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&display=swap');
+  
+  .blog-root * { font-family: 'DM Sans', sans-serif; }
+
+  .blog-header {
+    text-align: center;
+    margin-bottom: 80px;
+  }
+
+  .blog-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(0,0,0,0.35);
+    margin-bottom: 20px;
+    font-weight: 500;
+    display: block;
+  }
+
+  .blog-title {
+    font-size: clamp(36px, 4vw, 56px);
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    color: rgba(0,0,0,0.9);
+    margin-bottom: 16px;
+  }
+
+  .blog-subtitle {
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.75;
+    color: rgba(0,0,0,0.55);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .blog-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+    padding-top: 48px;
+    border-top: 1px solid rgba(0,0,0,0.08);
+  }
+
+  @media (max-width: 768px) {
+    .blog-stats {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+  }
+
+  .blog-stat-item {
+    text-align: center;
+  }
+
+  .blog-stat-label {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(0,0,0,0.3);
+    margin-bottom: 6px;
+    font-weight: 500;
+    display: block;
+  }
+
+  .blog-stat-val {
+    font-size: 20px;
+    font-weight: 500;
+    color: rgba(0,0,0,0.85);
+    letter-spacing: -0.01em;
+  }
+
+  .blog-section-title {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(0,0,0,0.35);
+    font-weight: 500;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .blog-section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(0,0,0,0.09);
+  }
+
+  .blog-articles-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-bottom: 80px;
+  }
+
+  @media (max-width: 768px) {
+    .blog-articles-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+  }
+
+  .blog-article-card {
+    border: 1px solid rgba(0,0,0,0.09);
+    border-radius: 14px;
+    padding: 28px;
+    background: #fff;
+    transition: all 0.18s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .blog-article-card:hover {
+    border-color: rgba(0,0,0,0.18);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  }
+
+  .blog-article-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+
+  .blog-article-date {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(0,0,0,0.35);
+    font-weight: 500;
+  }
+
+  .blog-article-tag {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(0,0,0,0.5);
+    background: rgba(0,0,0,0.04);
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+
+  .blog-article-title {
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: rgba(0,0,0,0.88);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .blog-article-card:hover .blog-article-title {
+    color: rgba(0,0,0,0.95);
+  }
+
+  .blog-article-desc {
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.65;
+    color: rgba(0,0,0,0.55);
+    margin-bottom: 16px;
+    flex-grow: 1;
+  }
+
+  .blog-article-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 12px;
+    border-top: 1px solid rgba(0,0,0,0.07);
+  }
+
+  .blog-article-readtime {
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(0,0,0,0.4);
+  }
+
+  .blog-article-cta {
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(0,0,0,0.4);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: color 0.18s;
+  }
+
+  .blog-article-card:hover .blog-article-cta {
+    color: rgba(0,0,0,0.85);
+  }
+
+  .blog-newsletter {
+    border: 1px solid rgba(0,0,0,0.09);
+    border-radius: 14px;
+    padding: 40px;
+    background: linear-gradient(135deg, rgba(0,0,0,0.02) 0%, rgba(0,0,0,0.01) 100%);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+    margin-bottom: 80px;
+  }
+
+  @media (max-width: 768px) {
+    .blog-newsletter {
+      grid-template-columns: 1fr;
+      gap: 24px;
+      padding: 28px;
+    }
+  }
+
+  .blog-newsletter-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: rgba(0,0,0,0.88);
+    margin-bottom: 8px;
+  }
+
+  .blog-newsletter-desc {
+    font-size: 13px;
+    line-height: 1.65;
+    color: rgba(0,0,0,0.55);
+  }
+
+  .blog-newsletter-form {
+    display: flex;
+    gap: 10px;
+  }
+
+  @media (max-width: 768px) {
+    .blog-newsletter-form {
+      flex-direction: column;
+    }
+  }
+
+  .blog-newsletter-input {
+    flex: 1;
+    padding: 12px 16px;
+    border: 1px solid rgba(0,0,0,0.12);
+    border-radius: 10px;
+    font-size: 14px;
+    font-family: inherit;
+    background: rgba(255,255,255,0.6);
+    color: rgba(0,0,0,0.85);
+    transition: border-color 0.2s ease;
+  }
+
+  .blog-newsletter-input::placeholder {
+    color: rgba(0,0,0,0.35);
+  }
+
+  .blog-newsletter-input:focus {
+    outline: none;
+    border-color: rgba(0,0,0,0.28);
+    background: rgba(255,255,255,0.9);
+  }
+
+  .blog-newsletter-btn {
+    padding: 12px 24px;
+    background: rgba(0,0,0,0.88);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    white-space: nowrap;
+  }
+
+  .blog-newsletter-btn:hover {
+    background: rgba(0,0,0,1);
+    transform: translateY(-1px);
+  }
+
+  .blog-load-more {
+    display: flex;
+    justify-content: center;
+    padding-top: 40px;
+    border-top: 1px solid rgba(0,0,0,0.08);
+  }
+
+  .blog-load-more-btn {
+    padding: 12px 28px;
+    border: 1px solid rgba(0,0,0,0.18);
+    border-radius: 10px;
+    background: transparent;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(0,0,0,0.7);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+  }
+
+  .blog-load-more-btn:hover {
+    border-color: rgba(0,0,0,0.3);
+    color: rgba(0,0,0,0.88);
+    background: rgba(0,0,0,0.02);
+  }
+`;
+
 export default function BlogPage() {
   return (
-    <div className="font-body bg-[#faf8ff] text-[#131b2e] min-h-screen antialiased">
-
-      {/* Google Fonts */}
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Inter:wght@400;500;600&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
-        .font-headline { font-family: 'Manrope', sans-serif; }
-        .font-body, body { font-family: 'Inter', sans-serif; }
-        .material-symbols-outlined {
-          font-family: 'Material Symbols Outlined';
-          font-weight: normal;
-          font-style: normal;
-          font-size: 24px;
-          line-height: 1;
-          letter-spacing: normal;
-          text-transform: none;
-          display: inline-block;
-          white-space: nowrap;
-          word-wrap: normal;
-          direction: ltr;
-          font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-      `}</style>
-
-      {/* TopAppBar */}
+    <div className="blog-root text-slate-900 min-h-screen">
+      <style>{styles}</style>
       
-      {/* Main */}
-      <main className="pt-24 pb-20">
+      <div className="md:mx-10 my-2 bg-white rounded-4xl shadow-sm overflow-hidden md:overflow-visible md:rounded-4xl md:min-h-screen relative">
+        <NavBar />
 
-        {/* Featured Post */}
-        <section className="max-w-7xl mx-auto px-6 mb-20">
-          <div className="group relative overflow-hidden rounded-xl bg-[#f2f3ff] transition-all duration-300">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 items-stretch">
-              <div className="aspect-video lg:aspect-auto overflow-hidden">
-                <img
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1AI5EnHGB-MJtDejjvzPGbWSPrsHlKJ0Ldg-QTPGhyMVej9iDCPdUU2hv3whb_TeA_cuPzQ-5SkU8o_qCrseZwjMcHs2-Oj-oihfVgsnV80bBd3HWzC3Z2-gWW8D-gqxq0pqStyGQgvPJ42MHS55aHlxMaTTk193E_Gfj_7ETb7ydJos1tGlOLFjJkhErPUdOtHwPoa46ZA8ir9cPnys7-whzVsM_ieb8f5iW2gf32JlynPNB6LVl3Gtd_9kcnjDFb_6-CVR5GrW_"
-                  alt="Featured Post Illustration"
-                  className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
-                />
-              </div>
-              <div className="p-8 lg:p-16 flex flex-col justify-center">
-                <div className="flex items-center gap-4 mb-6">
-                  <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-[#3525cd] bg-[#e2dfff]/20 px-3 py-1 rounded-full font-headline">
-                    Featured
-                  </span>
-                  <span className="text-xs font-medium text-[#777587]">March 14, 2024</span>
+        <div className="px-6 md:px-8 py-16 md:py-20">
+          {/* Header */}
+          <BlurReveal delay={0.1} className="blog-header">
+            <span className="blog-eyebrow">Articles & Insights</span>
+                        <div className="blog-stats">
+              {stats.map((stat) => (
+                <div key={stat.label} className="blog-stat-item">
+                  <span className="blog-stat-label">{stat.label}</span>
+                  <span className="blog-stat-val">{stat.val}</span>
                 </div>
-                <h1 className="font-headline text-4xl lg:text-6xl font-extrabold tracking-tight text-[#131b2e] leading-[1.1] mb-6">
-                  Designing Atomic Systems for Scale
-                </h1>
-                <p className="text-lg text-[#464555] leading-relaxed mb-8 max-w-xl">
-                  How we architected a multi-brand design system using CSS variables, Tailwind,
-                  and a strict adherence to atomic principles.
-                </p>
-                <div className="flex items-center gap-6">
-                  <a href="#" className="inline-flex items-center gap-2 group/btn">
-                    <span className="font-headline font-bold text-[#3525cd] tracking-tight">
-                      Read Analysis
-                    </span>
-                    <span className="material-symbols-outlined text-[#3525cd] group-hover/btn:translate-x-1 transition-transform">
-                      arrow_forward
-                    </span>
-                  </a>
-                </div>
-              </div>
+              ))}
             </div>
-          </div>
-        </section>
+          </BlurReveal>
 
-        {/* Blog Feed */}
-        <section className="max-w-7xl mx-auto px-6">
-          <div className="mb-12">
-            <h2 className="font-headline text-2xl font-bold text-[#131b2e] flex items-center gap-3">
-              Recent Articles
-              <span className="h-[1px] flex-grow bg-[#c7c4d8]/30" />
-            </h2>
-          </div>
+          {/* Articles Section */}
+          <BlurReveal delay={0.4}>
+            <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+              <p className="blog-section-title">Latest Articles</p>
 
-          <div className="space-y-16">
-            {articles.map((article, i) => (
-              <article
-                key={i}
-                className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12 group"
-              >
-                <div className="md:col-span-3 pt-2">
-                  <span className="text-sm uppercase tracking-widest text-[#777587] block mb-1 font-label">
-                    {article.date}
-                  </span>
-                  <div className="flex flex-wrap gap-2 mt-3">
-                    <span className="text-[10px] font-bold text-[#454386] bg-[#b6b4ff] px-2 py-0.5 rounded">
-                      {article.tag}
-                    </span>
+              <div className="blog-articles-grid">
+                {articles.map((article, idx) => (
+                  <div key={idx} className="blog-article-card">
+                    <div className="blog-article-meta">
+                      <span className="blog-article-date">{article.date}</span>
+                      <span className="blog-article-tag">{article.tag}</span>
+                    </div>
+                    <h3 className="blog-article-title">{article.title}</h3>
+                    <p className="blog-article-desc">{article.description}</p>
+                    <div className="blog-article-footer">
+                      <span className="blog-article-readtime">{article.readTime}</span>
+                      <span className="blog-article-cta">Read ↗</span>
+                    </div>
                   </div>
-                </div>
-                <div className="md:col-span-9">
-                  <h3 className="font-headline text-2xl font-bold text-[#131b2e] mb-4 group-hover:text-[#3525cd] transition-colors cursor-pointer">
-                    {article.title}
-                  </h3>
-                  <p className="text-[#464555] leading-relaxed mb-6 max-w-2xl">
-                    {article.description}
+                ))}
+              </div>
+
+              {/* Newsletter */}
+              <div className="blog-newsletter">
+                <div>
+                  <h3 className="blog-newsletter-title">Subscribe for updates</h3>
+                  <p className="blog-newsletter-desc">
+                    Get notified when I publish new articles about full-stack development, AI integration, and system design.
                   </p>
-                  <div className="flex items-center gap-4">
-                    <span className="text-xs font-semibold text-[#131b2e]">{article.readTime}</span>
-                    <span className="w-1 h-1 rounded-full bg-[#c7c4d8]" />
-                    <a
-                      href="#"
-                      className="text-xs font-bold text-[#3525cd] uppercase tracking-wider hover:underline"
-                    >
-                      Full Article
-                    </a>
-                  </div>
                 </div>
-              </article>
-            ))}
-          </div>
-
-          {/* Load More */}
-          <div className="mt-24 flex justify-center">
-            <button className="px-8 py-3 rounded-lg bg-[#e2e7ff] hover:bg-[#dae2fd] transition-colors font-headline font-bold text-[#3525cd] tracking-tight">
-              Load More Articles
-            </button>
-          </div>
-        </section>
-
-        {/* Newsletter */}
-        <section className="mt-32 bg-[#f2f3ff] py-20">
-          <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="font-headline text-3xl font-extrabold tracking-tight text-[#131b2e] mb-4">
-                The Architect's Log
-              </h2>
-              <p className="text-[#464555] leading-relaxed text-lg max-w-md">
-                Join 2,400+ developers receiving monthly deep-dives on systems architecture,
-                front-end engineering, and digital craft.
-              </p>
-            </div>
-            <div>
-              <div className="flex flex-col sm:flex-row gap-3">
-                <input
-                  type="email"
-                  placeholder="email@example.com"
-                  className="flex-grow bg-white border-none px-6 py-4 rounded-lg focus:ring-2 focus:ring-indigo-300 outline-none font-body text-[#131b2e]"
-                />
-                <button className="bg-[#3525cd] text-white px-8 py-4 rounded-lg font-headline font-bold transition-all hover:bg-[#3323cc] active:scale-95">
-                  Subscribe
-                </button>
+                <div>
+                  <form className="blog-newsletter-form" onSubmit={(e) => e.preventDefault()}>
+                    <input
+                      type="email"
+                      placeholder="your@email.com"
+                      className="blog-newsletter-input"
+                      required
+                    />
+                    <button type="submit" className="blog-newsletter-btn">
+                      Subscribe
+                    </button>
+                  </form>
+                </div>
               </div>
-              <p className="text-xs text-[#777587] mt-4">
-                Zero spam. Pure technical architecture. Unsubscribe anytime.
-              </p>
-            </div>
-          </div>
-        </section>
-      </main>
 
-      {/* Footer */}
-      <footer className="bg-slate-50 w-full py-16">
-        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8 text-sm leading-relaxed">
-          <div className="text-slate-500">
-            © 2024 Digital Architect. Editorial Framework for Developers.
-          </div>
-          <div className="flex gap-8">
-            <a href="#" className="text-slate-500 hover:text-slate-900 transition-colors">
-              Github
-            </a>
-            <a href="#" className="text-slate-500 hover:text-slate-900 transition-colors">
-              LinkedIn
-            </a>
-            <a href="#" className="text-slate-500 hover:text-slate-900 transition-colors">
-              RSS
-            </a>
-          </div>
+              {/* Load More */}
+              <div className="blog-load-more">
+                <button className="blog-load-more-btn">Load more articles</button>
+              </div>
+            </div>
+          </BlurReveal>
         </div>
-      </footer>
+      </div>
     </div>
   );
 }
