@@ -49,7 +49,7 @@ const styles = `
     text-transform: uppercase;
     color: rgba(0,0,0,0.3);
     margin-bottom: 5px;
-    font-weight: 500;
+    font-weight: 900;
   }
   .cc-meta-val {
     font-size: 13px;
