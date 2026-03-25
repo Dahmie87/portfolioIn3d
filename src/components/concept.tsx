@@ -196,7 +196,7 @@ const styles = `
 `;
 
 const meta = [
-  { label: "Experience", val: "3 years+" },
+  { label: "Experience", val: "5 years+" },
   { label: "Focus",       val: "AI · Full-stack" },
   { label: "Projects",     val: "12+" },
   { label: "Location",    val: "Lagos · Nigeria" },
@@ -244,9 +244,13 @@ export default function ConceptC() {
         </div>
         <div>
           <p className="cc-bio">
-Computer Science undergraduate at Lagos State University (LASU) focused on Software engineering and AI systems development.          </p>
+I'm Omotayo Damilare, 
+a software engineer and CS Major with 5+ years of experience crafting full-stack applications and production grade APIs,          </p>
           <p className="cc-bio">
-Over 3+ years of experience in software development — building full-stack applications, designing backend architectures, and exploring large language model systems and AI-driven applications.          </p>
+My current focus is AI and machine learning, i'm
+working toward a practice where strong software engineering and intelligent systems are inseparable.
+ I believe the most powerful applications of the next decade will be built by engineers
+  who understand both          </p>
           <div className="cc-meta">
             {meta.map((m) => (
               <div key={m.label}>
