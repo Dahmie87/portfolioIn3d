@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 
 import { useState } from "react";
 import resumeFile from "../assets/omotayo's-resume.pdf";
+import { Moon } from "lucide-react";
 
 const styles = `
   @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&display=swap');
@@ -137,11 +138,7 @@ export default function NavBar() {
         }}
       >
         {/* Logo */}
-        <div className="nav-logo nav-in nav-in-1 mr-1">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-          </svg>
-        </div>
+        
 
         {/* Flip links */}
         {LINKS.map((item, i) =>

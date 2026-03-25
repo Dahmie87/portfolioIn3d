@@ -12,7 +12,7 @@ import ConceptC from "../components/concept";
 export default function HomePage(): React.ReactElement {
   return (
     <div className="text-slate-900 min-h-screen">
-      <div className="md:mx-10 my-2 bg-white rounded-4xl shadow-sm overflow-hidden md:overflow-visible min-h-[calc(100vh-1rem)] md:min-h-0 relative md:static">
+      <div className="md:mx-10 my-2 bg-white rounded-4xl shadow-sm overflow-visible md:overflow-visible min-h-[calc(100vh-1rem)] md:min-h-0 relative md:static">
 
         {/* hero — normal on mobile, sticky on desktop */}
         <div className="md:sticky md:top-0 md:z-0 md:min-h-[calc(100vh-1rem)] md:overflow-hidden md:rounded-4xl md:flex md:flex-col">
@@ -105,7 +105,7 @@ export default function HomePage(): React.ReactElement {
 
         <BlurReveal
         delay={1.5}
-        className="md:relative md:z-10 md:bg-white md:rounded-t-3xl md:shadow-[0_-8px_40px_rgba(0,0,0,0.10)] md:min-h-screen px-8 md:pt-10">
+        className="md:relative md:z-5 md:bg-white md:rounded-t-3xl md:shadow-[0_-8px_40px_rgba(0,0,0,0.10)] md:min-h-screen px-8 md:pt-10">
           <ConceptC />
         </BlurReveal>
 
