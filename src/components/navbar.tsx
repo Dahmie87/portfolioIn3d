@@ -127,12 +127,12 @@ export default function NavBar() {
       <style>{styles}</style>
 
       <nav
-        className="backdrop-blur-xl nav-in fixed flex items-center gap-1.5 pl-2.5 pr-2 py-2 rounded-full border"
+        className="nav-in fixed flex items-center gap-1.5 pl-2.5 pr-2 py-2 rounded-full border z-10"
         style={{
-          // background: "rgba(255,255,255,0.3)",
+          background: "rgba(255,255,255,0.3)",
           borderColor: "rgba(0,0,0,0.11)",
-          // backdropFilter: "blur(14px)",
-          // WebkitBackdropFilter: "blur(14px)",
+          backdropFilter: "blur(14px)",
+          WebkitBackdropFilter: "blur(14px)",
         }}
       >
         {/* Logo */}

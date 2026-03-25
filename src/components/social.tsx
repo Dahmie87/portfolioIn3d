@@ -45,7 +45,7 @@ const styles = `
   .social-preview-card {
     position: absolute;
     bottom: calc(100% + 14px);
-    left: 50%;
+    left: 100%;
     transform: translateX(-50%) translateY(8px);
     pointer-events: none;
     opacity: 0;
@@ -117,6 +117,7 @@ function GitHubCard() {
         fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif",
         fontSize: 14,
         boxShadow: "0 8px 24px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04)",
+        
       }}>
         <div style={{ padding: "16px" }}>
 
