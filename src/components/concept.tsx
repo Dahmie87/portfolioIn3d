@@ -232,7 +232,7 @@ function SkeletonImage() {
 
 export default function ConceptC() {
   return (
-    <div style={{ padding: "", maxWidth: 1200, margin: "0 auto" }}>
+    <div style={{maxWidth: 1200, margin: "0 auto" }}>
       <style>{styles}</style>
 
       <div className="cc-about">
@@ -279,6 +279,8 @@ working toward a practice where strong software engineering and intelligent syst
           </div>
         ))}
       </div>
+
+      {/* <div className="bg-black text-white">View all Projects</div> */}
     </div>
   );
 }
