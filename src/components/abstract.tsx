@@ -1,21 +1,20 @@
 import { useRef, useState, useEffect } from "react";
 
+type BadgeState = "in" | "out";
+
 type Badge = {
   id: number;
   label: string;
   color: string;
   posKey: number;
-  state: "in" | "out";
+  state: BadgeState;
 };
 
-// Container is 280×280, center is 140×140
-// Badges are ~80px wide × 24px tall
-// Positions cluster tightly around the central shape
 const POSITIONS = [
-  { top: 30,  left: 160 }, // top-right
-  { top: 30,  left: 40  }, // top-left
-  { top: 225, left: 160 }, // bottom-right
-  { top: 225, left: 40  }, // bottom-left
+  { top: 30,  left: 160 },
+  { top: 30,  left: 40  },
+  { top: 225, left: 160 },
+  { top: 225, left: 40  },
 ] as const;
 
 const STACKS = [
@@ -28,55 +27,69 @@ const COLORS = [
   "#CE412B", "#76B900", "#326CE5", "#EE4C2C", "#E535AB",
 ];
 
-function useLoopingBadges(): Badge[] {
-  const [badges, setBadges] = useState<Badge[]>([]);
-  const counter  = useRef(0);
-  const occupied = useRef<Set<number>>(new Set());
+const ENTER_MS    = 400;
+const EXIT_MS     = 500;
+const LIFE_MIN    = 1400;
+const LIFE_MAX    = 2600;
+const RESPAWN_MIN = 300;
+const RESPAWN_MAX = 1200;
 
-  useEffect(() => {
-    const spawn = () => {
-      const free = ([0, 1, 2, 3] as const).filter(
-        (i) => !occupied.current.has(i)
-      );
-      if (free.length === 0) return;
-
-      const posKey = free[Math.floor(Math.random() * free.length)];
-      const si     = Math.floor(Math.random() * STACKS.length);
-      const id     = counter.current++;
-
-      occupied.current.add(posKey);
-      setBadges((prev) => [...prev, { id, label: STACKS[si], color: COLORS[si], posKey, state: "in" }]);
-
-      setTimeout(() => {
-        setBadges((prev) => prev.map((x) => x.id === id ? { ...x, state: "out" as const } : x));
-      }, 2400);
-
-      setTimeout(() => {
-        occupied.current.delete(posKey);
-        setBadges((prev) => prev.filter((x) => x.id !== id));
-      }, 2900);
-    };
-
-    spawn();
-    const t = setInterval(spawn, 800);
-    return () => clearInterval(t);
-  }, []);
-
-  return badges;
+function rand(min: number, max: number) {
+  return min + Math.random() * (max - min);
 }
 
 export default function AbstractShape(): React.ReactElement {
-  const badges = useLoopingBadges();
+  const [badges, setBadges] = useState<Badge[]>([]);
+  const occupied   = useRef<Set<number>>(new Set());
+  const stackCursor = useRef(0);
+  const idCounter  = useRef(0);
+  const allTimers  = useRef<ReturnType<typeof setTimeout>[]>([]);
+
+  useEffect(() => {
+    const track = (t: ReturnType<typeof setTimeout>) => {
+      allTimers.current.push(t);
+      return t;
+    };
+
+    const spawnAt = (posKey: number) => {
+      if (occupied.current.has(posKey)) return;
+
+      const si  = stackCursor.current % STACKS.length;
+      stackCursor.current++;
+      const id  = idCounter.current++;
+
+      occupied.current.add(posKey);
+
+      setBadges(prev => [
+        ...prev,
+        { id, label: STACKS[si], color: COLORS[si], posKey, state: "in" },
+      ]);
+
+      const life = rand(LIFE_MIN, LIFE_MAX);
+
+      track(setTimeout(() => {
+        setBadges(prev =>
+          prev.map(b => b.id === id ? { ...b, state: "out" as BadgeState } : b)
+        );
+      }, ENTER_MS + life));
+
+      track(setTimeout(() => {
+        occupied.current.delete(posKey);
+        setBadges(prev => prev.filter(b => b.id !== id));
+        track(setTimeout(() => spawnAt(posKey), rand(RESPAWN_MIN, RESPAWN_MAX)));
+      }, ENTER_MS + life + EXIT_MS));
+    };
+
+    // stagger initial spawns across all 4 positions
+    POSITIONS.forEach((_, posKey) => {
+      track(setTimeout(() => spawnAt(posKey), rand(0, 1000)));
+    });
+
+    return () => allTimers.current.forEach(clearTimeout);
+  }, []);
 
   return (
-    <div
-      style={{
-        position: "relative",
-        width: 280,
-        height: 280,
-        flexShrink: 0,
-      }}
-    >
+    <div style={{ position: "relative", width: 280, height: 280, flexShrink: 0 }}>
       <style>{`
         @keyframes spin-cw   { from { transform: rotate(0deg) } to { transform: rotate(360deg) } }
         @keyframes morph-out {
@@ -90,13 +103,12 @@ export default function AbstractShape(): React.ReactElement {
           0%,100% { transform: translateX(-50%) translateY(0px) }
           50%     { transform: translateX(-50%) translateY(4px)  }
         }
-        @keyframes badge-in  { from { opacity:0; transform:translateY(6px)  scale(.86) } to { opacity:1; transform:translateY(0)   scale(1)   } }
-        @keyframes badge-out { from { opacity:1; transform:translateY(0)    scale(1)   } to { opacity:0; transform:translateY(-6px) scale(.86) } }
+        @keyframes badge-in  { from { opacity:0; transform:translateY(6px) scale(.86) } to { opacity:1; transform:translateY(0) scale(1) } }
+        @keyframes badge-out { from { opacity:1; transform:translateY(0) scale(1) } to { opacity:0; transform:translateY(-6px) scale(.86) } }
         .sc-wrap { position:absolute; bottom:10px; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:3px; animation:scroll-b 1.8s ease-in-out infinite; }
         .sc-lbl  { font-family:monospace; font-size:6px; letter-spacing:.2em; text-transform:uppercase; color:rgba(30,30,30,.35); white-space:nowrap; }
       `}</style>
 
-      {/* ── central shape group, floats as one unit ── */}
       <div
         style={{
           position: "absolute",
@@ -104,7 +116,6 @@ export default function AbstractShape(): React.ReactElement {
           animation: "float-sh 7s ease-in-out infinite",
         }}
       >
-        {/* radial glow layers */}
         {([280, 200, 130] as const).map((s, i) => (
           <div
             key={i}
@@ -120,7 +131,6 @@ export default function AbstractShape(): React.ReactElement {
           />
         ))}
 
-        {/* outer morphing border */}
         <div
           style={{
             position: "absolute",
@@ -133,7 +143,6 @@ export default function AbstractShape(): React.ReactElement {
           }}
         />
 
-        {/* inner spinning square */}
         <div
           style={{
             position: "absolute",
@@ -155,7 +164,6 @@ export default function AbstractShape(): React.ReactElement {
         </div>
       </div>
 
-      {/* ── badges sit outside the float wrapper so they don't move ── */}
       {badges.map((b) => {
         const pos = POSITIONS[b.posKey];
         return (
