@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import { useState } from "react";
 
@@ -110,11 +111,16 @@ const styles = `
   }
 `;
 
-const LINKS = [ "Home", "Blog", "Resume"] as const;
-type Link = (typeof LINKS)[number];
+const LINKS = [
+  { label: "Home", to: "/" },
+  { label: "Blog", to: "/blog" },
+  { label: "Resume", to: "/projects" },
+] as const;
+type NavItem = (typeof LINKS)[number];
 
 export default function NavBar() {
-  const [active, setActive] = useState<Link>("Home");
+  const { pathname } = useLocation();
+  const [active, setActive] = useState<NavItem["label"]>("Home");
 
   return (
     <div className="nav-root w-full flex justify-center pt-6">
@@ -137,24 +143,24 @@ export default function NavBar() {
         </div>
 
         {/* Flip links */}
-        {LINKS.map((link, i) => (
+        {LINKS.map((item, i) => (
           <Link
-            key={link}
-            to={'/projects'}
-            onClick={() => setActive(link)}
+            key={item.label}
+            to={item.to}
+            onClick={() => setActive(item.label)}
             className={`flip-link nav-in nav-in-${i + 2}`}
           >
             <div className="flip-link-inner">
               <span
                 className="flip-top"
                 style={{
-                  color: active === link ? "rgba(0,0,0,0.85)" : undefined,
-                  fontWeight: active === link ? 500 : undefined,
+                  color: pathname === item.to || active === item.label ? "rgba(0,0,0,0.85)" : undefined,
+                  fontWeight: pathname === item.to || active === item.label ? 500 : undefined,
                 }}
               >
-                {link}
+                {item.label}
               </span>
-              <span className="flip-bottom">{link}</span>
+              <span className="flip-bottom">{item.label}</span>
             </div>
           </Link>
         ))}
