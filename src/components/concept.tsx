@@ -196,7 +196,7 @@ const styles = `
 `;
 
 const meta = [
-  { label: "Experience", val: "5 years+" },
+  { label: "Experience", val: "5 years" },
   { label: "Focus",       val: "AI · Full-stack" },
   { label: "Projects",     val: "12+" },
   { label: "Location",    val: "Lagos · Nigeria" },
@@ -247,7 +247,7 @@ export default function ConceptC() {
 I'm Omotayo Damilare, 
 a software engineer and CS Major with 5+ years of experience crafting full-stack applications and production grade APIs,          </p>
           <p className="cc-bio">
-My current focus is AI and machine learning, i'm
+My current focus is on AI and machine learning, i'm
 working toward a practice where strong software engineering and intelligent systems are inseparable.
  I believe the most powerful applications of the next decade will be built by engineers
   who understand both          </p>

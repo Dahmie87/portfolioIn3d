@@ -102,9 +102,12 @@ export default function HomePage(): React.ReactElement {
         </div>
 
         {/* concept — normal flow on mobile, slides over hero on desktop */}
-        <div className="md:relative md:z-10 md:bg-white md:rounded-t-3xl md:shadow-[0_-8px_40px_rgba(0,0,0,0.10)] md:min-h-screen px-8 md:pt-10">
+
+        <BlurReveal
+        delay={1.5}
+        className="md:relative md:z-10 md:bg-white md:rounded-t-3xl md:shadow-[0_-8px_40px_rgba(0,0,0,0.10)] md:min-h-screen px-8 md:pt-10">
           <ConceptC />
-        </div>
+        </BlurReveal>
 
       </div>
     </div>
