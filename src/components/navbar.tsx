@@ -166,7 +166,7 @@ export default function NavBar() {
         ))}
 
         {/* CTA */}
-        <Link to={'/blog'} className="nav-cta nav-in nav-in-5">
+        <Link to={'/contact'} className="nav-cta nav-in nav-in-5">
           <span className="cta-dot hidden lg:block" />
           <span>Contact Me</span>
         </Link>
