@@ -27,16 +27,25 @@ const styles = `
                 background .25s ease, color .25s ease, box-shadow .25s ease;
   }
   .social-icon-box:hover, .social-icon-box:focus {
-    transform: translateY(-4px) scale(1.12);
+    transform: translateY(-57px) scale(1.12);
     border-color: rgba(0,0,0,0.9); color: rgba(0,0,0,1);
     background: rgba(0,0,0,0.08);
     box-shadow: 0 6px 16px rgba(0,0,0,0.18); z-index: 10;
   }
-  .social-icon-box svg { width: 18px; height: 18px; stroke-width: 2.7; }
+  .social-icon-box svg { width: 18px; height: 18px; stroke-width: 2; }
 
   @keyframes iconJump {
     0%   { transform: translateY(10px) scale(0.8); opacity: 0; }
     60%  { transform: translateY(-4px) scale(1.05); opacity: 1; }
+    100% { transform: translateY(0) scale(1); opacity: 1; }
+  }
+
+  @keyframes iconDrop {
+    0% { transform: translateY(-34px) scale(0.86); opacity: 0; }
+    32% { transform: translateY(12px) scale(1.03); opacity: 1; }
+    50% { transform: translateY(-9px) scale(0.99); }
+    66% { transform: translateY(6px) scale(1.01); }
+    80% { transform: translateY(-3px) scale(0.998); }
     100% { transform: translateY(0) scale(1); opacity: 1; }
   }
 

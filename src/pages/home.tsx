@@ -2,7 +2,7 @@ import type React from "react";
 import { Link } from "react-router-dom";
 
 import AbstractShape from "../components/abstract";
-import heroProfile from "../assets/profile-1.jfif";
+import heroProfile from "../assets/download.jfif";
 import NavBar from "../components/navbar";
 import SocialIcons from "../components/social";
 import { BlurReveal, BlurText } from "../components/blur";
