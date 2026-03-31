@@ -122,35 +122,8 @@ const styles = `
     100% { background-position:  200% 0; }
   }
 
-  /* inner skeleton lines inside the image */
-  .cc-skel-inner {
-    position: absolute;
-    inset: 0;
-    padding: 18px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    gap: 8px;
-  }
-  .cc-skel-bar {
-    height: 8px;
-    border-radius: 4px;
-    background: rgba(0,0,0,0.07);
-  }
-  .cc-skel-bar-short {
-    height: 8px;
-    width: 55%;
-    border-radius: 4px;
-    background: rgba(0,0,0,0.05);
-  }
-  .cc-skel-circle {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: rgba(0,0,0,0.07);
-    margin-bottom: 4px;
-  }
-
+  
+  
   .cc-card-body { padding: 18px 20px 20px; }
   .cc-card-title {
     font-size: 15px;
@@ -253,9 +226,9 @@ const projects = [
 function SkeletonImage() {
   return (
     <div className="cc-card-img">
-      <div className="cc-skel-inner">
+      
         
-      </div>
+      
     </div>
   );
 }
