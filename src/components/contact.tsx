@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Github, Linkedin, Send, Twitter } from 'lucide-react';
+import { Github, Linkedin, MessageCircle, Phone, PhoneCall, Send, Twitter, Youtube } from 'lucide-react';
 
 export const ContactOption1: React.FC = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
@@ -143,7 +143,7 @@ export const ContactOption1: React.FC = () => {
           <div className="option1-contact-info">
             <div className="info-item">
               <div className="info-label">Email</div>
-              <div className="info-value">hello@example.com</div>
+              <div className="info-value">omotayodamilare07@gmail.com</div>
             </div>
             <div className="info-item">
               <div className="info-label">Location</div>
@@ -153,13 +153,16 @@ export const ContactOption1: React.FC = () => {
               <div className="info-label">Social</div>
               <div style={{ display: 'flex', gap: '12px', marginTop: '8px' }}>
                 <a href="#" className="text-slate-500 hover:text-slate-900 transition" aria-label="GitHub">
-                  <Github size={20} />
+                  <MessageCircle size={20} />
                 </a>
                 <a href="#" className="text-slate-500 hover:text-slate-900 transition" aria-label="LinkedIn">
-                  <Linkedin size={20} />
+                  <Phone size={20} />
                 </a>
                 <a href="#" className="text-slate-500 hover:text-slate-900 transition" aria-label="Twitter">
-                  <Twitter size={20} />
+                  <Twitter size={23} />
+                </a>
+                 <a href="#" className="text-slate-500 hover:text-slate-900 transition" aria-label="Twitter">
+                  <Youtube size={25} />
                 </a>
               </div>
             </div>

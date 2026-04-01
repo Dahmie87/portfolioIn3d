@@ -32,15 +32,15 @@ const styles = `
   }
 
   .projects-title {
-    font-size: 56px;
-    font-weight: 700;
+    font-size: 36px;
+    font-weight: 500;
     letter-spacing: -0.02em;
     margin-bottom: 16px;
     color: #1a1a1a;
   }
 
   .projects-subtitle {
-    font-size: 18px;
+    font-size: 15px;
     color: #666;
     font-weight: 400;
   }
