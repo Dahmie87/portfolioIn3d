@@ -1,7 +1,7 @@
 import "./App.css";
 import HomePage from "./pages/home";
 import BlogPage from "./pages/blog";
-import ProjectsPage from "./pages/projects";
+import ProjectsPage from "./pages/projects.tsx";
 import ContactPage from "./pages/contact";
 import { BlurRevealStyles } from "./components/blur";
 import { BrowserRouter, Routes, Route, } from 'react-router-dom';
