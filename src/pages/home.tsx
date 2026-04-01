@@ -3,28 +3,23 @@ import { Link } from "react-router-dom";
 
 import AbstractShape from "../components/abstract";
 import heroProfile from "../assets/download.jfif";
+import contactBanner from "../assets/prodigy.png";
 import NavBar from "../components/navbar";
 import SocialIcons from "../components/social";
 import { BlurReveal, BlurText } from "../components/blur";
 import ConceptC from "../components/concept";
 import SkillsExperienceSection from "../components/skills";
-
+import { ContactOption1 } from "../components/contact";
 
 export default function HomePage(): React.ReactElement {
   return (
     <div className="text-slate-900 min-h-screen">
       <div className="md:mx-10 my-2 bg-white rounded-4xl shadow-sm overflow-visible md:overflow-visible min-h-[calc(100vh-1rem)] md:min-h-0 relative md:static">
-
-        {/* hero section */}
         <div className="md:min-h-[calc(100vh-1rem)] md:overflow-hidden md:rounded-4xl md:flex md:flex-col">
           <NavBar />
 
           <div className="flex flex-col md:flex-row md:items-center px-6 md:pt-38 pt-28 pb-16 gap-6 md:flex-1">
-
-            {/* LEFT — text */}
             <div className="flex-1">
-
-              {/* Profile row */}
               <BlurReveal delay={0.1}>
                 <div className="flex items-center gap-4 mb-10">
                   <img
@@ -43,7 +38,6 @@ export default function HomePage(): React.ReactElement {
                 </div>
               </BlurReveal>
 
-              {/* Headline — word by word */}
               <BlurText
                 tag="h1"
                 text="Building Intelligent Systems,"
@@ -59,17 +53,20 @@ export default function HomePage(): React.ReactElement {
                 className="text-[38px] font-normal leading-[1.1] tracking-tight mb-4 text-slate-900"
               />
 
-              {/* Subtext */}
               <BlurReveal delay={0.75}>
                 <p className="text-slate-500 text-[15px] leading-relaxed mb-8 md:max-w-[70%]">
- I engineer software with AI at the core combining full-stack development with large language models to build applications that are not just functional, but intelligent.
+                  I engineer software with AI at the core combining full-stack
+                  development with large language models to build applications
+                  that are not just functional, but intelligent.
                 </p>
               </BlurReveal>
 
-              {/* CTA buttons */}
               <BlurReveal delay={0.9}>
                 <div className="flex items-center gap-3 flex-wrap">
-                  <Link to={'/projects'} className="bg-gray-900 text-white px-6 py-3 rounded-xl text-sm font-semibold">
+                  <Link
+                    to="/projects"
+                    className="bg-gray-900 text-white px-6 py-3 rounded-xl text-sm font-semibold"
+                  >
                     View Projects
                   </Link>
                   <div className="flex items-center gap-2 bg-green-100 text-green-700 px-4 py-2 rounded-lg w-fit">
@@ -82,14 +79,11 @@ export default function HomePage(): React.ReactElement {
                 </div>
               </BlurReveal>
 
-              {/* Social icons */}
-              <BlurReveal delay={1.05} className="">
+              <BlurReveal delay={1.05}>
                 <SocialIcons />
               </BlurReveal>
-
             </div>
 
-            {/* RIGHT — abstract shape */}
             <BlurReveal
               delay={0.5}
               style={{ flexShrink: 0, position: "relative", margin: "auto" }}
@@ -98,15 +92,13 @@ export default function HomePage(): React.ReactElement {
                 <AbstractShape />
               </div>
             </BlurReveal>
-
           </div>
         </div>
 
-        {/* concept — normal flow on mobile, slides over hero on desktop */}
-
         <BlurReveal
-        delay={1.5}
-        className="md:relative md:z-5 md:bg-white md:min-h-screen px-8 md:pt-10">
+          delay={1.5}
+          className="md:relative md:z-5 md:bg-white md:min-h-screen px-8 md:pt-10"
+        >
           <ConceptC />
         </BlurReveal>
 
@@ -114,6 +106,53 @@ export default function HomePage(): React.ReactElement {
           <SkillsExperienceSection />
         </BlurReveal>
 
+        <section className="px-6 pb-8 md:pb-12 bg-white">
+          <div className="max-w-5xl mx-auto rounded-3xl border border-slate-200 bg-white overflow-hidden mb-2">
+            <div className="grid md:grid-cols-[1.2fr_1fr] items-stretch">
+              <div className="px-5 md:px-8 py-7">
+                <p className="text-xs tracking-[0.16em] uppercase text-slate-500 mb-2">
+                  Open To Collaborations
+                </p>
+                <h3 className="text-2xl md:text-3xl font-semibold tracking-tight text-slate-900 mb-3">
+                  Have a bold idea? Let&apos;s ship it fast.
+                </h3>
+                <p className="text-slate-600 text-sm md:text-base leading-relaxed">
+                  I partner with teams to design and build intelligent products
+                  that feel polished and production-ready from day one.
+                </p>
+              </div>
+              <div className="relative min-h-45 md:min-h-full">
+                <img
+                  src={contactBanner}
+                  alt="Collaboration banner"
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+                <div className="absolute inset-0 bg-linear-to-r from-black/40 via-black/10 to-transparent" />
+              </div>
+            </div>
+          </div>
+          <ContactOption1 />
+        </section>
+
+        <footer className="bg-white border-t border-slate-200 px-6 py-8">
+          <div className="max-w-5xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-3 text-sm text-slate-500">
+            <p>
+              Copyright {new Date().getFullYear()} Omotayo Damilare. All rights
+              reserved.
+            </p>
+            <div className="flex items-center gap-4">
+              <Link to="/projects" className="hover:text-slate-900 transition-colors">
+                Projects
+              </Link>
+              <Link to="/blog" className="hover:text-slate-900 transition-colors">
+                Blog
+              </Link>
+              <Link to="/contact" className="hover:text-slate-900 transition-colors">
+                Contact
+              </Link>
+            </div>
+          </div>
+        </footer>
       </div>
     </div>
   );
