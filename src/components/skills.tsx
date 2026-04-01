@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+interface Skill {
+  name: string;
+  icon?: string;
+}
 
 interface SkillCategory {
   icon: string;
   title: string;
-  skills: string[];
+  skills: Skill[];
 }
 
 interface ExperienceItem {
@@ -13,36 +18,103 @@ interface ExperienceItem {
   description: string;
 }
 
-const skillsData: SkillCategory[] = [
+const allSkillsData: SkillCategory[] = [
   {
     icon: '💻',
-    title: 'Frontend Development',
-    skills: ['React', 'TypeScript', 'NextJS', 'Tailwind CSS', 'Redux', 'Webpack'],
+    title: 'Frontend',
+    skills: [
+      { name: 'React', icon: '⚛️' },
+      { name: 'TypeScript', icon: '📘' },
+      { name: 'NextJS', icon: '▲' },
+      { name: 'Tailwind CSS', icon: '🎨' },
+      { name: 'Redux', icon: '🔄' },
+      { name: 'Webpack', icon: '📦' },
+    ],
   },
   {
     icon: '⚡',
-    title: 'Backend & APIs',
-    skills: ['FastAPI', 'Django', 'Python', 'REST APIs', 'GraphQL', 'WebSockets'],
+    title: 'Backend',
+    skills: [
+      { name: 'FastAPI', icon: '🚀' },
+      { name: 'Django', icon: '🐍' },
+      { name: 'Python', icon: '🐍' },
+      { name: 'REST APIs', icon: '🔗' },
+      { name: 'GraphQL', icon: '📊' },
+      { name: 'WebSockets', icon: '🔌' },
+    ],
   },
   {
     icon: '🗄️',
-    title: 'Databases & Storage',
-    skills: ['PostgreSQL', 'MongoDB', 'Redis', 'SQLAlchemy', 'Firebase'],
+    title: 'Databases',
+    skills: [
+      { name: 'PostgreSQL', icon: '🐘' },
+      { name: 'MongoDB', icon: '🍃' },
+      { name: 'Redis', icon: '⚡' },
+      { name: 'SQLAlchemy', icon: '📚' },
+      { name: 'Firebase', icon: '🔥' },
+    ],
   },
   {
     icon: '🤖',
-    title: 'AI & Machine Learning',
-    skills: ['LangChain', 'OpenAI API', 'Prompt Engineering', 'RAG', 'Vector DB'],
+    title: 'AI & ML',
+    skills: [
+      { name: 'LangChain', icon: '⛓️' },
+      { name: 'OpenAI API', icon: '🤖' },
+      { name: 'Prompt Engineering', icon: '💬' },
+      { name: 'RAG', icon: '🔍' },
+      { name: 'Vector DB', icon: '📍' },
+    ],
   },
   {
     icon: '☁️',
-    title: 'DevOps & Infrastructure',
-    skills: ['Docker', 'AWS', 'GitHub Actions', 'Vercel', 'Linux'],
+    title: 'DevOps',
+    skills: [
+      { name: 'Docker', icon: '🐳' },
+      { name: 'AWS', icon: '☁️' },
+      { name: 'GitHub Actions', icon: '⚙️' },
+      { name: 'Vercel', icon: '▲' },
+      { name: 'Linux', icon: '🐧' },
+    ],
   },
   {
     icon: '🛠️',
-    title: 'Tools & Workflow',
-    skills: ['Git', 'VS Code', 'Figma', 'Postman', 'Linear', 'ChatGPT'],
+    title: 'Tools',
+    skills: [
+      { name: 'Git', icon: '🔀' },
+      { name: 'VS Code', icon: '💻' },
+      { name: 'Figma', icon: '🎨' },
+      { name: 'Postman', icon: '📮' },
+      { name: 'Linear', icon: '📋' },
+      { name: 'ChatGPT', icon: '💡' },
+    ],
+  },
+];
+
+// Initial view: Software and AI
+const initialSkillsData: SkillCategory[] = [
+  {
+    icon: '💻',
+    title: 'Software',
+    skills: [
+      { name: 'React', icon: '⚛️' },
+      { name: 'TypeScript', icon: '📘' },
+      { name: 'Python', icon: '🐍' },
+      { name: 'FastAPI', icon: '🚀' },
+      { name: 'PostgreSQL', icon: '🐘' },
+      { name: 'Docker', icon: '🐳' },
+      { name: 'AWS', icon: '☁️' },
+    ],
+  },
+  {
+    icon: '🤖',
+    title: 'AI & ML',
+    skills: [
+      { name: 'LangChain', icon: '⛓️' },
+      { name: 'OpenAI API', icon: '🤖' },
+      { name: 'Prompt Engineering', icon: '💬' },
+      { name: 'RAG', icon: '🔍' },
+      { name: 'Vector DB', icon: '📍' },
+    ],
   },
 ];
 
@@ -69,7 +141,6 @@ const experienceData: ExperienceItem[] = [
       'Pursuing CS degree while building side projects, learning full-stack practices, and developing deep understanding of software architecture and design patterns.',
   },
 ];
-
 
 const styles = `
   .skills-section,
@@ -119,62 +190,109 @@ const styles = `
     line-height: 1.75;
   }
 
-  .skills-grid {
+  /* TECH STACK SECTION */
+  .tech-stack-section {
+    margin-bottom: 60px;
+  }
+
+  .tech-stack-header {
+    margin-bottom: 32px;
+  }
+
+  .tech-stack-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 32px;
-    margin-bottom: 40px;
+    gap: 24px;
+    margin-bottom: 32px;
   }
 
-  .skill-category {
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    padding-top: 32px;
+  .tech-stack-card {
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 12px;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.02);
+    transition: all 0.3s ease;
   }
 
-  .category-title {
-    font-size: 16px;
-    font-weight: 600;
-    color: rgba(0, 0, 0, 0.9);
-    margin-bottom: 20px;
+  .tech-stack-card:hover {
+    border-color: rgba(0, 0, 0, 0.15);
+    background: rgba(0, 0, 0, 0.03);
+    transform: translateY(-2px);
+  }
+
+  .tech-card-title {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
+    margin-bottom: 16px;
   }
 
-  .category-icon {
-    width: 28px;
-    height: 28px;
+  .tech-card-icon {
+    width: 24px;
+    height: 24px;
     border-radius: 6px;
-    background: rgba(0, 0, 0, 0.04);
+    background: rgba(0, 0, 0, 0.05);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: rgba(0, 0, 0, 0.5);
-    font-size: 16px;
+    font-size: 14px;
   }
 
-  .skills-list {
+  .tech-card-label {
+    font-size: 15px;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.9);
+  }
+
+  .tech-skills-list {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
   }
 
-  .skill-tag {
-    padding: 8px 16px;
-    background: rgba(0, 0, 0, 0.02);
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    border-radius: 20px;
+  .tech-skill-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    background: rgba(0, 0, 0, 0.04);
+    border: 0.5px solid rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
     font-size: 13px;
     color: rgba(0, 0, 0, 0.7);
     font-weight: 500;
-    transition: all 0.3s ease;
-    cursor: default;
+    transition: all 0.2s ease;
   }
 
-  .skill-tag:hover {
-    background: rgba(0, 0, 0, 0.05);
+  .tech-skill-item:hover {
+    background: rgba(0, 0, 0, 0.06);
     border-color: rgba(0, 0, 0, 0.15);
-    transform: translateY(-2px);
+  }
+
+  .tech-skill-icon {
+    font-size: 14px;
+    width: 16px;
+    text-align: center;
+  }
+
+  .view-all-button {
+    display: block;
+    margin: 0 auto;
+    padding: 12px 28px;
+    background: transparent;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.7);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .view-all-button:hover {
+    background: rgba(0, 0, 0, 0.03);
+    border-color: rgba(0, 0, 0, 0.25);
+    color: rgba(0, 0, 0, 0.9);
   }
 
   .divider {
@@ -258,7 +376,7 @@ const styles = `
       padding: 60px 16px;
     }
 
-    .skills-grid, .experience-grid {
+    .tech-stack-grid, .experience-grid {
       grid-template-columns: 1fr;
       gap: 24px;
     }
@@ -270,37 +388,48 @@ const styles = `
 `;
 
 export const SkillsExperienceSection: React.FC = () => {
+  const [showAllSkills, setShowAllSkills] = useState(false);
+  const displayedSkills = showAllSkills ? allSkillsData : initialSkillsData;
+
   return (
     <>
       <style>{styles}</style>
       <div className="skills-section">
-        {/* Header */}
-        <div className="section-header">
-          <p className="section-eyebrow">Skills & Expertise</p>
-          <h2 className="section-title">What I Work With</h2>
-          <p className="section-subtitle">
-            Full-stack engineer specialized in building scalable applications and
-            AI-powered systems.
-          </p>
-        </div>
+        
+        {/* Tech Stack Section */}
+        <div className="tech-stack-section">
+          <div className="tech-stack-header">
+            <p className="section-eyebrow">Tech Stack</p>
+            <h2 className="section-title">What I Work With</h2>
+          </div>
 
-        {/* Skills Grid */}
-        <div className="skills-grid">
-          {skillsData.map((category, index) => (
-            <div key={index} className="skill-category">
-              <h3 className="category-title">
-                <div className="category-icon">{category.icon}</div>
-                {category.title}
-              </h3>
-              <div className="skills-list">
-                {category.skills.map((skill, skillIndex) => (
-                  <span key={skillIndex} className="skill-tag">
-                    {skill}
-                  </span>
-                ))}
+          <div className="tech-stack-grid">
+            {displayedSkills.map((category, index) => (
+              <div key={index} className="tech-stack-card">
+                <div className="tech-card-title">
+                  <div className="tech-card-icon">{category.icon}</div>
+                  <span className="tech-card-label">{category.title}</span>
+                </div>
+                <div className="tech-skills-list">
+                  {category.skills.map((skill, skillIndex) => (
+                    <div key={skillIndex} className="tech-skill-item">
+                      <span className="tech-skill-icon">{skill.icon}</span>
+                      <span>{skill.name}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+
+          {!showAllSkills && (
+            <button 
+              className="view-all-button"
+              onClick={() => setShowAllSkills(true)}
+            >
+              View all skills →
+            </button>
+          )}
         </div>
 
         <div className="divider"></div>
