@@ -8,7 +8,7 @@ import {
  
 } from "lucide-react";
 import { projectsData, type Project, type Tech } from "../projects/data";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const styles = `
   * {
@@ -387,6 +387,32 @@ const styles = `
     justify-content: space-between;
     align-items: center;
     gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .clean-footer-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .view-details {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    border: 1px solid #d8d8d8;
+    border-radius: 999px;
+    padding: 6px 10px;
+    background: #fff;
+    transition: all 0.2s ease;
+  }
+
+  .project-card-clean:hover .view-details {
+    background: #1a1a1a;
+    color: #fff;
+    border-color: #1a1a1a;
   }
 
   .clean-links {
@@ -449,11 +475,24 @@ const TechIconMap: Record<Tech, ReactElement> = {
 
 interface ProjectCardProps {
   project: Project;
+  onOpen: (id: number) => void;
 }
 
-function ProjectCardClean({ project }: ProjectCardProps) {
+function ProjectCardClean({ project, onOpen }: ProjectCardProps) {
   return (
-    <div className="project-card-clean">
+    <article
+      className="project-card-clean"
+      onClick={() => onOpen(project.id)}
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          onOpen(project.id);
+        }
+      }}
+      role="button"
+      tabIndex={0}
+      aria-label={`Open ${project.title} details`}
+    >
       <div className="cc-card-img">
         <div
           className={`clean-badge ${
@@ -478,24 +517,37 @@ function ProjectCardClean({ project }: ProjectCardProps) {
         </div>
 
         <div className="clean-footer">
-          <span className="clean-label">{project.stack.join(" · ")}</span>
+          <div className="clean-footer-left">
+            <span className="clean-label">{project.stack.join(" · ")}</span>
+            <span className="view-details">View Details</span>
+          </div>
           <div className="clean-links">
-            <a href={project.github} className="clean-link" title="GitHub">
+            <a
+              href={project.github}
+              className="clean-link"
+              title="GitHub"
+              onClick={(event) => event.stopPropagation()}
+            >
               <Github size={18} />
             </a>
-            <a href={project.demo} className="clean-link" title="Live Demo">
+            <a
+              href={project.demo}
+              className="clean-link"
+              title="Live Demo"
+              onClick={(event) => event.stopPropagation()}
+            >
               <ExternalLink size={18} />
             </a>
           </div>
         </div>
       </div>
-    </div>
+    </article>
   );
 }
 
 // Main Component
 export default function ProjectsPage() {
-  
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -516,7 +568,11 @@ export default function ProjectsPage() {
 
           <div className="projects-grid-clean">
             {projectsData.map((project) => (
-              <ProjectCardClean key={project.id} project={project} />
+              <ProjectCardClean
+                key={project.id}
+                project={project}
+                onOpen={(projectId) => navigate(`/projects/${projectId}`)}
+              />
             ))}
           </div>
         

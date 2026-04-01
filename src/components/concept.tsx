@@ -94,6 +94,11 @@ const styles = `
     transition: border-color 0.18s ease, transform 0.18s ease;
     cursor: pointer;
   }
+  .cc-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
   .cc-card:hover {
     border-color: rgba(0,0,0,0.18);
     transform: translateY(-2px);
@@ -212,16 +217,19 @@ const meta = [
 
 const projects = [
   {
+    id: 1,
     title: "ProdigyAI For Students",
     desc: "prodigy is an academic tool designed to empower students by providing a seamless platform to assess themselves, organize schedules, track assignments, and collaborate on projects, making academic life simpler and more productive.",
     stack: "Django · TypeScript · Postgres",
   },
   {
+    id: 2,
     title: "PadiSquare StoreFront",
     desc: "PadiSquae is an e-commerce platform that allows traders to create their own online marketspace called storefront, PadiSquare allows dynamic mangement of trades, orders and payments too.",
     stack: "NextJS · React · FastApi",
   },
   {
+    id: 3,
     title: "Prompt2PDF",
     desc: "PrompttoPdf allows a user to create an entire Book with standard chapters, literal content and genunine readable format",
     stack: "OpenAI · Fastapi · LangChain ",
@@ -272,17 +280,19 @@ working toward a practice where strong software engineering and intelligent syst
 
       <div className="cc-cards">
         {projects.map((p) => (
-          <div key={p.title} className="cc-card">
-            <SkeletonImage />
-            <div className="cc-card-body">
-              <h3 className="cc-card-title">{p.title}</h3>
-              <p className="cc-card-desc line-clamp-2">{p.desc}</p>
-              <div className="cc-card-footer">
-                <span className="cc-card-stack">{p.stack}</span>
-                <span className="cc-card-cta">View ↗</span>
+          <Link key={p.id} to={`/projects/${p.id}`} className="cc-card-link" aria-label={`Open ${p.title} details`}>
+            <div className="cc-card">
+              <SkeletonImage />
+              <div className="cc-card-body">
+                <h3 className="cc-card-title">{p.title}</h3>
+                <p className="cc-card-desc line-clamp-2">{p.desc}</p>
+                <div className="cc-card-footer">
+                  <span className="cc-card-stack">{p.stack}</span>
+                  <span className="cc-card-cta">View ↗</span>
+                </div>
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
 
