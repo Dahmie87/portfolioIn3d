@@ -61,6 +61,26 @@ const styles = `
     transition: opacity .18s ease, transform .18s ease;
     z-index: 200;
   }
+  
+  /* Shift leftmost cards to stay in frame */
+  .social-card-wrapper:nth-child(1) .social-preview-card {
+    left: 0;
+    transform: translateX(0) translateY(8px);
+  }
+  .social-card-wrapper:nth-child(1):hover .social-preview-card,
+  .social-card-wrapper:nth-child(1):focus-within .social-preview-card {
+    transform: translateX(0) translateY(0);
+  }
+  
+  .social-card-wrapper:nth-child(2) .social-preview-card {
+    left: 0;
+    transform: translateX(0) translateY(8px);
+  }
+  .social-card-wrapper:nth-child(2):hover .social-preview-card,
+  .social-card-wrapper:nth-child(2):focus-within .social-preview-card {
+    transform: translateX(0) translateY(0);
+  }
+  
   .social-card-wrapper:hover .social-preview-card,
   .social-card-wrapper:focus-within .social-preview-card {
     opacity: 1;
