@@ -19,7 +19,7 @@ const styles = `
     font-weight: 500;
   }
   .cc-heading {
-    font-size: clamp(40px, 4.5vw, 58px);
+    font-size: clamp(30px, 3.45vw, 48px);
     font-weight: 500;
     letter-spacing: -0.03em;
     line-height: 1.1;
@@ -226,8 +226,6 @@ const projects = [
 function SkeletonImage() {
   return (
     <div className="cc-card-img">
-      
-        
       
     </div>
   );

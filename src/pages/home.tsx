@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 import AbstractShape from "../components/abstract";
 import heroProfile from "../assets/download.jfif";
-import contactBanner from "../assets/prodigy.png";
 import NavBar from "../components/navbar";
 import SocialIcons from "../components/social";
 import { BlurReveal, BlurText } from "../components/blur";
@@ -121,14 +120,7 @@ export default function HomePage(): React.ReactElement {
                   that feel polished and production-ready from day one.
                 </p>
               </div>
-              <div className="relative min-h-45 md:min-h-full">
-                <img
-                  src={contactBanner}
-                  alt="Collaboration banner"
-                  className="absolute inset-0 h-full w-full object-cover"
-                />
-                <div className="absolute inset-0 bg-linear-to-r from-black/40 via-black/10 to-transparent" />
-              </div>
+              <div className="min-h-45 md:min-h-full bg-slate-100" />
             </div>
           </div>
           <ContactOption1 />

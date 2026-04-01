@@ -104,7 +104,7 @@ const styles = `
   }
 
   .section-title {
-    font-size: clamp(40px, 4.5vw, 58px);
+    font-size: clamp(28px, 3.15vw, 41px);
     font-weight: 500;
     letter-spacing: -0.03em;
     line-height: 1.1;
