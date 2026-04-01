@@ -434,7 +434,7 @@ const styles = `
   }
 `;
 
-type DesignVariant = "immersive" | "clean";
+
 
 const TechIconMap: Record<Tech, ReactElement> = {
   react: <Code2 size={16} />,

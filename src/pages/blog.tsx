@@ -1,6 +1,7 @@
-
+import { useEffect } from "react"
 import NavBar from "../components/navbar";
 import { BlurReveal } from "../components/blur";
+
 
 const stats = [
   { label: "Articles", val: "24+" },
@@ -358,6 +359,11 @@ const styles = `
 `;
 
 export default function BlogPage() {
+
+  useEffect(()=>{
+    window.scrollTo(0,0)
+  })
+
   return (
     <div className="blog-root text-slate-900 min-h-screen">
       <style>{styles}</style>
