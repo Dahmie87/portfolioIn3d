@@ -7,6 +7,7 @@ import NavBar from "../components/navbar";
 import SocialIcons from "../components/social";
 import { BlurReveal, BlurText } from "../components/blur";
 import ConceptC from "../components/concept";
+import SkillsExperienceSection from "../components/skills";
 
 
 export default function HomePage(): React.ReactElement {
@@ -14,8 +15,8 @@ export default function HomePage(): React.ReactElement {
     <div className="text-slate-900 min-h-screen">
       <div className="md:mx-10 my-2 bg-white rounded-4xl shadow-sm overflow-visible md:overflow-visible min-h-[calc(100vh-1rem)] md:min-h-0 relative md:static">
 
-        {/* hero — normal on mobile, sticky on desktop */}
-        <div className="md:sticky md:top-0 md:z-0 md:min-h-[calc(100vh-1rem)] md:overflow-hidden md:rounded-4xl md:flex md:flex-col">
+        {/* hero section */}
+        <div className="md:min-h-[calc(100vh-1rem)] md:overflow-hidden md:rounded-4xl md:flex md:flex-col">
           <NavBar />
 
           <div className="flex flex-col md:flex-row md:items-center px-6 md:pt-38 pt-28 pb-16 gap-6 md:flex-1">
@@ -105,8 +106,12 @@ export default function HomePage(): React.ReactElement {
 
         <BlurReveal
         delay={1.5}
-        className="md:relative md:z-5 md:bg-white md:rounded-t-3xl md:shadow-[0_-8px_40px_rgba(0,0,0,0.10)] md:min-h-screen px-8 md:pt-10">
+        className="md:relative md:z-5 md:bg-white md:min-h-screen px-8 md:pt-10">
           <ConceptC />
+        </BlurReveal>
+
+        <BlurReveal delay={1.7}>
+          <SkillsExperienceSection />
         </BlurReveal>
 
       </div>
