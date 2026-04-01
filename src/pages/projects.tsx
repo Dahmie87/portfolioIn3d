@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, type ReactElement } from "react";
 import {
   Github,
   ExternalLink,
@@ -432,8 +432,32 @@ const styles = `
   }
 `;
 
-// Tech icon components
-const TechIconMap = {
+type ProjectStatus = "live" | "progress";
+
+type Tech =
+  | "react"
+  | "nextjs"
+  | "django"
+  | "fastapi"
+  | "typescript"
+  | "python"
+  | "postgres"
+  | "langchain";
+
+type DesignVariant = "immersive" | "clean";
+
+interface Project {
+  id: number;
+  title: string;
+  desc: string;
+  stack: Tech[];
+  status: ProjectStatus;
+  image: string;
+  github: string;
+  demo: string;
+}
+
+const TechIconMap: Record<Tech, ReactElement> = {
   react: <Code2 size={16} />,
   nextjs: <Zap size={16} />,
   django: <Code2 size={16} />,
@@ -445,7 +469,7 @@ const TechIconMap = {
 };
 
 // Enhanced project data with all necessary fields
-const projectsData = [
+const projectsData: Project[] = [
   {
     id: 1,
     title: "ProdigyAI For Students",
@@ -514,50 +538,11 @@ const projectsData = [
   },
 ];
 
-// // Option 1: Image-First Immersive
-// function ProjectCardImmersive({ project}:any) {
-//   return (
-//     <div className="project-card-immersive">
-//       <div className="immersive-image-wrapper">
-//         <img src={project.image} alt={project.title} className="immersive-image" />
-//         <div className="immersive-overlay">
-//           <div
-//             className={`immersive-badge ${
-//               project.status === "live" ? "live" : "progress"
-//             }`}
-//           >
-//             {project.status === "live" ? "🟢 Live" : "🟡 In Progress"}
-//           </div>
-//           <div>
-//             <h3 className="immersive-title">{project.title}</h3>
-//             <p className="immersive-desc">{project.desc}</p>
-//           </div>
-//         </div>
-//       </div>
+interface ProjectCardProps {
+  project: Project;
+}
 
-//       <div className="immersive-footer">
-//         <div className="tech-icons-immersive">
-//           {project.stack.map((tech:any) => (
-//             <div key={tech} className="tech-icon" title={tech}>
-//               {TechIconMap[tech] || <Code2 size={16} />}
-//             </div>
-//           ))}
-//         </div>
-//         <div className="immersive-links">
-//           <a href={project.github} className="project-link-icon" title="GitHub">
-//             <Github size={16} />
-//           </a>
-//           <a href={project.demo} className="project-link-icon" title="Live Demo">
-//             <ExternalLink size={16} />
-//           </a>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-// Option 2: Minimal Clean Cards
-function ProjectCardClean({ project}:any) {
+function ProjectCardClean({ project }: ProjectCardProps) {
   return (
     <div className="project-card-clean">
       <div className="cc-card-img">
@@ -576,7 +561,7 @@ function ProjectCardClean({ project}:any) {
         <p className="clean-desc">{project.desc}</p>
 
         <div className="clean-tech-stack">
-          {project.stack.map((tech:any) => (
+          {project.stack.map((tech) => (
             <div key={tech} className="clean-tech-icon" title={tech}>
               {TechIconMap[tech] || <Code2 size={16} />}
             </div>
@@ -601,7 +586,7 @@ function ProjectCardClean({ project}:any) {
 
 // Main Component
 export default function ProjectsPage() {
-  const [design, setDesign] = useState("immersive");
+  const [design, setDesign] = useState<DesignVariant>("immersive");
 
   return (
     <div>
