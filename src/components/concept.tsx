@@ -19,11 +19,16 @@ const styles = `
     font-weight: 500;
   }
   .cc-heading {
-    font-size: clamp(30px, 3.45vw, 48px);
+    font-size: clamp(40px, 4.5vw, 58px);
     font-weight: 500;
     letter-spacing: -0.03em;
     line-height: 1.1;
     color: rgba(0,0,0,0.9);
+  }
+  @media (min-width: 1024px) {
+    .cc-heading {
+      font-size: clamp(32px, 3.6vw, 46.4px);
+    }
   }
   .cc-heading em {
     font-style: italic;

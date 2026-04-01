@@ -14,7 +14,7 @@ const styles = `
 
   .social-icon-box {
     width: 38px; height: 38px;
-    border: 2px solid rgba(0,0,0,0.55);
+    border: 1px solid rgba(0,0,0,0.55);
     margin: 5px;
     border-radius: 10px;
     background: rgba(0,0,0,0.03);

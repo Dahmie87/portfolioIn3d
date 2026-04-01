@@ -43,14 +43,14 @@ export default function HomePage(): React.ReactElement {
                 text="Building Intelligent Systems,"
                 baseDelay={0.2}
                 stagger={0.07}
-                className="text-[38px] font-normal leading-[1.1] tracking-tight text-slate-900"
+                className="text-[38px] md:text-[28px] font-normal leading-[1.1] tracking-tight text-slate-900"
               />
               <BlurText
                 tag="h1"
                 text="Driven by LLMs."
                 baseDelay={0.4}
                 stagger={0.07}
-                className="text-[38px] font-normal leading-[1.1] tracking-tight mb-4 text-slate-900"
+                className="text-[38px] md:text-[28px] font-normal leading-[1.1] tracking-tight mb-4 text-slate-900"
               />
 
               <BlurReveal delay={0.75}>
