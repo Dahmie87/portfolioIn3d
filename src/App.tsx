@@ -5,6 +5,7 @@ import ProjectsPage from "./pages/projects.tsx";
 import ProjectDetailsPage from "./pages/project-details";
 import ContactPage from "./pages/contact";
 import { BlurRevealStyles } from "./components/blur";
+import PortfolioFooter from "./components/footer";
 import { BrowserRouter, Routes, Route, } from 'react-router-dom';
 
 
@@ -21,6 +22,7 @@ function App() {
         <Route path="/projects/:id" element={<ProjectDetailsPage/>}/>
         <Route path="/contact" element={<ContactPage/>}/>
       </Routes>
+      <PortfolioFooter />
    </BrowserRouter>
     </>
   );
