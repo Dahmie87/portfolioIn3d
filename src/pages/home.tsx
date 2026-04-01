@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import AbstractShape from "../components/abstract";
 import heroProfile from "../assets/download.jfif";
+import bannerBackground from "../assets/O9FG5M0.jpg";
 import NavBar from "../components/navbar";
 import SocialIcons from "../components/social";
 import { BlurReveal, BlurText } from "../components/blur";
@@ -106,21 +107,21 @@ export default function HomePage(): React.ReactElement {
         </BlurReveal>
 
         <section className="px-6 pb-8 md:pb-12 bg-white">
-          <div className="max-w-5xl mx-auto rounded-3xl border border-slate-200 bg-white overflow-hidden mb-2">
-            <div className="grid md:grid-cols-[1.2fr_1fr] items-stretch">
-              <div className="px-5 md:px-8 py-7">
-                <p className="text-xs tracking-[0.16em] uppercase text-slate-500 mb-2">
-                  Open To Collaborations
-                </p>
-                <h3 className="text-2xl md:text-3xl font-semibold tracking-tight text-slate-900 mb-3">
-                  Have a bold idea? Let&apos;s ship it fast.
-                </h3>
-                <p className="text-slate-600 text-sm md:text-base leading-relaxed">
-                  I partner with teams to design and build intelligent products
-                  that feel polished and production-ready from day one.
-                </p>
-              </div>
-              <div className="min-h-45 md:min-h-full bg-slate-100" />
+          <div
+            className="max-w-5xl mx-auto rounded-3xl border border-slate-200 overflow-hidden mb-2 bg-cover bg-center"
+            style={{
+              backgroundImage:
+                `linear-gradient(135deg, rgba(0,0,0,0.78), rgba(0,0,0,0.55)), url(${bannerBackground})`,
+            }}
+          >
+            <div className="px-5 md:px-8 py-6 md:py-8">
+              <p className="text-xs tracking-[0.16em] uppercase text-white/75 mb-2">
+                Open To Collaborations
+              </p>
+              <h3 className="text-2xl md:text-3xl font-semibold tracking-tight text-white mb-3">
+                Have a bold idea? Let&apos;s ship it fast.
+              </h3>
+             
             </div>
           </div>
           <ContactOption1 />
