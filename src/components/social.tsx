@@ -470,7 +470,7 @@ const cardComponents: Record<string, () => React.ReactElement> = {
 /* ── icon list ─────────────────────────────── */
 const icons = [
   { Icon: GithubIcon,   href: `https://github.com/${GITHUB_USER}`,         label: "GitHub"   },
-  { Icon: LinkedinIcon, href: "https://linkedin.com/in/damilare-omotayo",  label: "LinkedIn" },
+  { Icon: LinkedinIcon, href: "https://www.linkedin.com/in/damilare-omotayo-b22658248",  label: "LinkedIn" },
   { Icon: XIcon,        href: "https://x.com/Dahmie87",                    label: "X"        },
   { Icon: EmailIcon,    href: "mailto:omotayodamilare07@gmail.com",           label: "Email"    },
 ];
