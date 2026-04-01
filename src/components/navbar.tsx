@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
-import { useState } from "react";
 import resumeFile from "../assets/omotayo's-resume.pdf";
 
 const styles = `
@@ -121,7 +120,10 @@ type NavItem = (typeof LINKS)[number];
 
 export default function NavBar() {
   const { pathname } = useLocation();
-  const [active, setActive] = useState<NavItem["label"]>("Home");
+  const isActive = (item: NavItem) => {
+    if (item.to === "/") return pathname === "/";
+    return pathname.startsWith(item.to);
+  };
 
   return (
     <div className="nav-root w-full flex justify-center pt-6">
@@ -146,16 +148,11 @@ export default function NavBar() {
               key={item.label}
               href={resumeFile}
               download="omotayo's-resume.pdf"
-              onClick={() => setActive(item.label)}
               className={`flip-link nav-in nav-in-${i + 2}`}
             >
               <div className="flip-link-inner">
                 <span
                   className="flip-top"
-                  style={{
-                    color: active === item.label ? "rgba(0,0,0,0.85)" : undefined,
-                    fontWeight: active === item.label ? 500 : undefined,
-                  }}
                 >
                   {item.label}
                 </span>
@@ -166,15 +163,14 @@ export default function NavBar() {
             <Link
               key={item.label}
               to={item.to}
-              onClick={() => setActive(item.label)}
               className={`flip-link nav-in nav-in-${i + 2}`}
             >
               <div className="flip-link-inner">
                 <span
                   className="flip-top"
                   style={{
-                    color: pathname === item.to || active === item.label ? "rgba(0,0,0,0.85)" : undefined,
-                    fontWeight: pathname === item.to || active === item.label ? 500 : undefined,
+                    color: isActive(item) ? "rgba(0,0,0,0.85)" : undefined,
+                    fontWeight: isActive(item) ? 500 : undefined,
                   }}
                 >
                   {item.label}
