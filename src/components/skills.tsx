@@ -48,16 +48,16 @@ const skillsData: SkillCategory[] = [
 
 const experienceData: ExperienceItem[] = [
   {
-    year: '2024',
-    role: 'Senior Full-Stack Engineer',
-    company: 'Current: Building AI Products',
+    year: '2026',
+    role: 'Frontend Engineer',
+    company: 'PadiSquare',
     description:
-      'Leading development of production-grade AI applications with focus on scalability, system design, and full-stack implementation across modern tech stack.',
+      'initiating the development of production-grade AI applications with focus on scalability, system design, and full-stack implementation across modern tech stack.',
   },
   {
-    year: '2022 - 2024',
+    year: '2025 - 2026',
     role: 'Full-Stack Developer',
-    company: 'Digital & Tech Companies',
+    company: 'Prodigy',
     description:
       'Built and shipped multiple web applications and APIs, working across frontend frameworks, backend services, and infrastructure. Strong focus on code quality and performance.',
   },
@@ -66,7 +66,7 @@ const experienceData: ExperienceItem[] = [
     role: 'Learning & Foundation',
     company: 'Self-taught & University',
     description:
-      'Completed CS degree while building side projects, learning full-stack practices, and developing deep understanding of software architecture and design patterns.',
+      'Pursuing CS degree while building side projects, learning full-stack practices, and developing deep understanding of software architecture and design patterns.',
   },
 ];
 
