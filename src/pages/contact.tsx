@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import NavBar from "../components/navbar";
 import { BlurReveal, BlurText } from "../components/blur";
 
@@ -257,6 +257,10 @@ interface FormData {
 }
 
 export default function ContactPage() {
+
+
+  useEffect(()=>{window.scrollTo(0,0)})
+
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
