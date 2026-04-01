@@ -212,7 +212,7 @@ const styles = `
     margin-top: 40px;
     padding: 20px;
     background: linear-gradient(135deg, rgba(16,185,129,0.08) 0%, rgba(16,185,129,0.03) 100%);
-    border: 1px solid rgba(16,185,129,0.15);
+    border: 1px solid rgba(16,185,19,0.15);
     border-radius: 12px;
   }
 
@@ -220,7 +220,7 @@ const styles = `
     font-size: 11px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: rgba(16,185,129,0.7);
+    color: rgba(16,185,19,0.7);
     margin-bottom: 8px;
     font-weight: 500;
     display: block;
@@ -228,7 +228,7 @@ const styles = `
 
   .contact-availability-text {
     font-size: 14px;
-    color: rgba(16,185,129,0.85);
+    color: rgba(16,195,19,0.85);
     font-weight: 500;
     display: flex;
     align-items: center;
@@ -239,7 +239,7 @@ const styles = `
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: rgba(16,185,129,1);
+    background: rgba(16,185,19,1);
     animation: pulse 2s ease-in-out infinite;
   }
 
@@ -396,7 +396,7 @@ export default function ContactPage() {
                   <span className="contact-info-label">Email</span>
                   <div className="contact-info-value">
                     <a href="mailto:omotayodamilare@gmail.com">
-                      omotayodamilare@gmail.com
+                      omotayodamilare07@gmail.com
                     </a>
                   </div>
                 </div>
