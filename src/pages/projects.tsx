@@ -8,6 +8,7 @@ import {
  
 } from "lucide-react";
 import { projectsData, type Project, type Tech } from "../projects/data";
+import { Link } from "react-router-dom";
 
 const styles = `
   * {
@@ -494,7 +495,7 @@ function ProjectCardClean({ project }: ProjectCardProps) {
 
 // Main Component
 export default function ProjectsPage() {
-  const [design, setDesign] = useState<DesignVariant>("immersive");
+  
 
   return (
     <div>
@@ -507,19 +508,10 @@ export default function ProjectsPage() {
           </p>
         </div>
 
-        <div className="design-toggle">
-          <button
-            className={`toggle-btn ${design === "immersive" ? "active" : ""}`}
-            onClick={() => setDesign("immersive")}
-          >
-            Design 1: Image First
-          </button>
-          <button
-            className={`toggle-btn ${design === "clean" ? "active" : ""}`}
-            onClick={() => setDesign("clean")}
-          >
-            Design 2: Minimal Clean
-          </button>
+        <div className="design-toggle cursor-pointer">
+         <Link to={'/'} className="text-gray-500 text-sm hover:text-black">Home</Link>
+         <p className="text-gray-500 text-sm">{">"}</p>
+         <p className="text-black text-sm">Projects</p>
         </div>
 
           <div className="projects-grid-clean">
