@@ -27,6 +27,8 @@ const styles = `
     letter-spacing: -0.03em;
     line-height: 1.1;
     color: rgba(0,0,0,0.9);
+    font-style: italic;
+    
   }
   @media (min-width: 1024px) {
     .cc-heading {
@@ -435,7 +437,7 @@ export default function ConceptC() {
         <div>
           <p className="cc-eyebrow">About me</p>
           <h2 className="cc-heading">
-            Software<br />engineer,<br />with a <em>niche</em><br />in AI.
+            "The future<br />belongs,<br />to those who <em>invest</em><br />in it."
           </h2>
         </div>
         <div>
