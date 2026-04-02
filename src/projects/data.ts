@@ -186,10 +186,10 @@ export const projectsData: Project[] = [
     },
     {
         id: 4,
-        title: "AI Code Assistant",
-        desc: "A VS Code extension that leverages machine learning to provide intelligent code suggestions, auto-completion, and bug detection in real-time.",
+        title: "Inkter",
+        desc: "Inkter is a content sharing platform that allows both professional writers or average user to share text based content ",
         fullDescription:
-            "AI Code Assistant is a developer productivity extension focused on contextual suggestions and issue detection while coding. It integrates directly into editor workflows to surface actionable recommendations and reduce context switching between coding, debugging, and documentation.",
+            "Inkter is a content sharing platform that allows both professional writers or average user to share text based content ",
         stack: ["typescript", "langchain", "python"],
         techStackDetailed: [
             {

@@ -1,6 +1,7 @@
 import { ExternalLink, Github, ArrowLeft, CalendarDays, Briefcase } from "lucide-react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { getProjectById } from "../projects/data";
+import { useEffect } from "react";
 
 const styles = `
   * {
@@ -50,7 +51,7 @@ const styles = `
 
   .hero-image {
     width: 100%;
-    aspect-ratio: 16 / 8;
+    aspect-ratio: 16 / 2;
     object-fit: cover;
     display: block;
   }
@@ -299,6 +300,9 @@ const styles = `
 `;
 
 export default function ProjectDetailsPage() {
+  useEffect(()=>{
+    window.scrollTo(0,0)
+  })
   const { id } = useParams();
   const projectId = Number(id);
 
