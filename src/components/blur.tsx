@@ -17,6 +17,11 @@ const blurKeyframes = `
   }
   .blur-reveal {
     opacity: 0;
+    filter: blur(12px);
+    transform: translateY(8px);
+    will-change: transform, filter, opacity;
+  }
+  .blur-reveal.is-visible {
     animation: blur-in 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
   .blur-word {
@@ -43,6 +48,9 @@ interface BlurRevealProps {
   delay?: number;
   className?: string;
   style?: CSSProperties;
+  threshold?: number;
+  rootMargin?: string;
+  once?: boolean;
 }
 
 export function BlurReveal({
@@ -50,10 +58,37 @@ export function BlurReveal({
   delay = 0,
   className = "",
   style,
+  threshold = 0.18,
+  rootMargin = "0px 0px -10% 0px",
+  once = true,
 }: BlurRevealProps) {
+  const elementRef = React.useRef<HTMLDivElement | null>(null);
+  const [isVisible, setIsVisible] = React.useState(false);
+
+  React.useEffect(() => {
+    const node = elementRef.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          if (once) observer.unobserve(node);
+        } else if (!once) {
+          setIsVisible(false);
+        }
+      },
+      { threshold, rootMargin }
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [once, rootMargin, threshold]);
+
   return (
     <div
-      className={`blur-reveal ${className}`}
+      ref={elementRef}
+      className={`blur-reveal ${isVisible ? "is-visible" : ""} ${className}`}
       style={{ animationDelay: `${delay}s`, ...style }}
     >
       {children}

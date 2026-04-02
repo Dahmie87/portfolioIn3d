@@ -96,35 +96,38 @@ export default function HomePage(): React.ReactElement {
         </div>
 
         <BlurReveal
-          delay={1.5}
+          delay={0.08}
           className="md:relative md:z-5 md:bg-white md:min-h-screen px-8 md:pt-10"
         >
           <ConceptC />
         </BlurReveal>
 
-        <BlurReveal delay={1.7}>
+        <BlurReveal delay={0.08}>
           <SkillsExperienceSection />
         </BlurReveal>
 
         <section className="px-6 pb-8 md:pb-12 bg-white">
-          <div
-            className="max-w-5xl mx-auto rounded-3xl border border-slate-200 overflow-hidden mb-2 bg-cover bg-center"
-            style={{
-              backgroundImage:
-                `linear-gradient(135deg, rgba(0,0,0,0.78), rgba(0,0,0,0.55)), url(${bannerBackground})`,
-            }}
-          >
-            <div className="px-5 md:px-8 py-6 md:py-8">
-              <p className="text-xs tracking-[0.16em] uppercase text-white/75 mb-2">
-                Open To Collaborations
-              </p>
-              <h3 className="text-2xl md:text-3xl font-semibold tracking-tight text-white mb-3">
-                Have a bold idea? Let&apos;s ship it fast.
-              </h3>
-             
+          <BlurReveal delay={0.06}>
+            <div
+              className="max-w-5xl mx-auto rounded-3xl border border-slate-200 overflow-hidden mb-2 bg-cover bg-center"
+              style={{
+                backgroundImage:
+                  `linear-gradient(135deg, rgba(0,0,0,0.78), rgba(0,0,0,0.55)), url(${bannerBackground})`,
+              }}
+            >
+              <div className="px-5 md:px-8 py-6 md:py-8">
+                <p className="text-xs tracking-[0.16em] uppercase text-white/75 mb-2">
+                  Open To Collaborations
+                </p>
+                <h3 className="text-2xl md:text-3xl font-semibold tracking-tight text-white mb-3">
+                  Have a bold idea? Let&apos;s ship it fast.
+                </h3>
+              </div>
             </div>
-          </div>
-          <ContactOption1 />
+          </BlurReveal>
+          <BlurReveal delay={0.12}>
+            <ContactOption1 />
+          </BlurReveal>
         </section>
 
       </div>
