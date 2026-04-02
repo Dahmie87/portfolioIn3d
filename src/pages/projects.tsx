@@ -338,7 +338,7 @@ const styles = `
   }
 
   .clean-content {
-    padding: 18px;
+    padding: 24px;
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -355,20 +355,22 @@ const styles = `
   .clean-desc {
     font-size: 14px;
     color: #666;
-    line-height: 1.5;
-    margin-bottom: 12px;
+    line-height: 1.6;
+    margin-bottom: 16px;
+    flex: 1;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
 
   .clean-tech-stack {
     display: flex;
-    gap: 8px;
-    margin-top: auto;
-    padding-top: 10px;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding: 12px 0;
     border-top: 1px solid #e8e8e8;
+    border-bottom: 1px solid #e8e8e8;
     align-items: center;
     justify-content: space-between;
   }
@@ -376,8 +378,8 @@ const styles = `
   .clean-tech-icons {
     display: flex;
     gap: 8px;
-    align-items: center;
     flex-wrap: wrap;
+    align-items: center;
   }
 
   .clean-tech-icon {
@@ -522,9 +524,6 @@ function ProjectCardClean({ project, onOpen }: ProjectCardProps) {
       </div>
 
       <div className="clean-content">
-        <h3 className="clean-title">{project.title}</h3>
-        <p className="clean-desc">{project.desc}</p>
-
         <div className="clean-tech-stack">
           <div className="clean-tech-icons">
             {project.stack.map((tech) => (
@@ -532,26 +531,35 @@ function ProjectCardClean({ project, onOpen }: ProjectCardProps) {
                 <img src={TechIconMap[tech]} alt={tech} />
               </div>
             ))}
-            <div className="clean-links">
-              <a
-                href={project.github}
-                className="clean-link"
-                title="GitHub"
-                onClick={(event) => event.stopPropagation()}
-              >
-                <Github size={18} />
-              </a>
-              <a
-                href={project.demo}
-                className="clean-link"
-                title="Live Demo"
-                onClick={(event) => event.stopPropagation()}
-              >
-                <ExternalLink size={18} />
-              </a>
-            </div>
           </div>
-          <span className="view-details">View Details</span>
+          <div className="clean-links">
+            <a
+              href={project.github}
+              className="clean-link"
+              title="GitHub"
+              onClick={(event) => event.stopPropagation()}
+            >
+              <Github size={18} />
+            </a>
+            <a
+              href={project.demo}
+              className="clean-link"
+              title="Live Demo"
+              onClick={(event) => event.stopPropagation()}
+            >
+              <ExternalLink size={18} />
+            </a>
+          </div>
+        </div>
+
+        <h3 className="clean-title">{project.title}</h3>
+        <p className="clean-desc">{project.desc}</p>
+
+        <div className="clean-footer">
+          <div className="clean-footer-left">
+            <span className="clean-label">{project.stack.join(" · ")}</span>
+            <span className="view-details">View Details</span>
+          </div>
         </div>
       </div>
     </article>
