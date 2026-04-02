@@ -1,14 +1,18 @@
-import { type ReactElement } from "react";
 import {
   Github,
   ExternalLink,
-  Zap,
-  Code2,
-  Database,
  
 } from "lucide-react";
 import { projectsData, type Project, type Tech } from "../projects/data";
 import { Link, useNavigate } from "react-router-dom";
+import djangoLogo from "../assets/django.png";
+import fastapiLogo from "../assets/fastapi.png";
+import nextLogo from "../assets/next.png";
+import postgresLogo from "../assets/postgres.png";
+import pythonLogo from "../assets/python.jfif";
+import reactLogo from "../assets/react.png";
+import typescriptLogo from "../assets/ts.png";
+import langchainLogo from "../assets/chatgpt.png";
 
 const styles = `
   * {
@@ -334,7 +338,7 @@ const styles = `
   }
 
   .clean-content {
-    padding: 24px;
+    padding: 18px;
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -351,11 +355,10 @@ const styles = `
   .clean-desc {
     font-size: 14px;
     color: #666;
-    line-height: 1.6;
-    margin-bottom: 16px;
-    flex: 1;
+    line-height: 1.5;
+    margin-bottom: 12px;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
@@ -363,10 +366,17 @@ const styles = `
   .clean-tech-stack {
     display: flex;
     gap: 8px;
-    margin-bottom: 16px;
-    padding: 12px 0;
+    margin-top: auto;
+    padding-top: 10px;
     border-top: 1px solid #e8e8e8;
-    border-bottom: 1px solid #e8e8e8;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .clean-tech-icons {
+    display: flex;
+    gap: 8px;
+    align-items: center;
     flex-wrap: wrap;
   }
 
@@ -379,7 +389,14 @@ const styles = `
     background: #f5f5f5;
     border-radius: 4px;
     color: #666;
-    font-size: 13px;
+    overflow: hidden;
+    border: 1px solid #ececec;
+  }
+
+  .clean-tech-icon img {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
   }
 
   .clean-footer {
@@ -462,15 +479,15 @@ const styles = `
 
 
 
-const TechIconMap: Record<Tech, ReactElement> = {
-  react: <Code2 size={16} />,
-  nextjs: <Zap size={16} />,
-  django: <Code2 size={16} />,
-  fastapi: <Zap size={16} />,
-  typescript: <Code2 size={16} />,
-  python: <Code2 size={16} />,
-  postgres: <Database size={16} />,
-  langchain: <Code2 size={16} />,
+const TechIconMap: Record<Tech, string> = {
+  react: reactLogo,
+  nextjs: nextLogo,
+  django: djangoLogo,
+  fastapi: fastapiLogo,
+  typescript: typescriptLogo,
+  python: pythonLogo,
+  postgres: postgresLogo,
+  langchain: langchainLogo,
 };
 
 interface ProjectCardProps {
@@ -509,36 +526,32 @@ function ProjectCardClean({ project, onOpen }: ProjectCardProps) {
         <p className="clean-desc">{project.desc}</p>
 
         <div className="clean-tech-stack">
-          {project.stack.map((tech) => (
-            <div key={tech} className="clean-tech-icon" title={tech}>
-              {TechIconMap[tech] || <Code2 size={16} />}
+          <div className="clean-tech-icons">
+            {project.stack.map((tech) => (
+              <div key={tech} className="clean-tech-icon" title={tech}>
+                <img src={TechIconMap[tech]} alt={tech} />
+              </div>
+            ))}
+            <div className="clean-links">
+              <a
+                href={project.github}
+                className="clean-link"
+                title="GitHub"
+                onClick={(event) => event.stopPropagation()}
+              >
+                <Github size={18} />
+              </a>
+              <a
+                href={project.demo}
+                className="clean-link"
+                title="Live Demo"
+                onClick={(event) => event.stopPropagation()}
+              >
+                <ExternalLink size={18} />
+              </a>
             </div>
-          ))}
-        </div>
-
-        <div className="clean-footer">
-          <div className="clean-footer-left">
-            <span className="clean-label">{project.stack.join(" · ")}</span>
-            <span className="view-details">View Details</span>
           </div>
-          <div className="clean-links">
-            <a
-              href={project.github}
-              className="clean-link"
-              title="GitHub"
-              onClick={(event) => event.stopPropagation()}
-            >
-              <Github size={18} />
-            </a>
-            <a
-              href={project.demo}
-              className="clean-link"
-              title="Live Demo"
-              onClick={(event) => event.stopPropagation()}
-            >
-              <ExternalLink size={18} />
-            </a>
-          </div>
+          <span className="view-details">View Details</span>
         </div>
       </div>
     </article>

@@ -116,7 +116,7 @@ const styles = `
     width: 100%;
     aspect-ratio: 16 / 10;
     overflow: hidden;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #f2f2f2 0%, #dedede 100%);
   }
 
   .clean-badge {
