@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { ExternalLink, Github } from "lucide-react";
 import { projectsData, type Project, type Tech } from "../projects/data";
+import { useState } from "react";
 import djangoLogo from "../assets/django.png";
 import fastapiLogo from "../assets/fastapi.png";
 import nextLogo from "../assets/next.png";
@@ -158,6 +159,14 @@ const styles = `
 
   .project-card-clean:hover .clean-image {
     transform: scale(1.05);
+  }
+
+  .cc-card-img.image-loaded {
+    background: transparent !important;
+  }
+
+  .cc-card-img.image-loaded::after {
+    animation: none !important;
   }
 
   .cc-card-img::before {
@@ -382,6 +391,8 @@ interface ProjectCardProps {
 }
 
 function ProjectCardClean({ project, onOpen }: ProjectCardProps) {
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
+  
   return (
     <article
       className="project-card-clean"
@@ -396,7 +407,7 @@ function ProjectCardClean({ project, onOpen }: ProjectCardProps) {
       tabIndex={0}
       aria-label={`Open ${project.title} details`}
     >
-      <div className="cc-card-img">
+      <div className={`cc-card-img ${isImageLoaded ? "image-loaded" : ""}`}>
         <div
           className={`clean-badge ${
             project.status === "live" ? "live" : "progress"
@@ -404,7 +415,12 @@ function ProjectCardClean({ project, onOpen }: ProjectCardProps) {
         >
           {project.status === "live" ? "Live" : "In Progress"}
         </div>
-        <img src={project.image} alt={project.title} className="clean-image" />
+        <img
+          src={project.image}
+          alt={project.title}
+          className="clean-image"
+          onLoad={() => setIsImageLoaded(true)}
+        />
       </div>
 
       <div className="clean-content">
