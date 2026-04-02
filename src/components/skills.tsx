@@ -1,8 +1,22 @@
 import React, { useState } from 'react';
+import chatgptIcon from '../assets/chatgpt.png';
+import djangoIcon from '../assets/django.png';
+import fastapiIcon from '../assets/fastapi.png';
+import gitIcon from '../assets/git.png';
+import githubIcon from '../assets/github.png';
+import jsIcon from '../assets/js.png';
+import nextIcon from '../assets/next.png';
+import postgresIcon from '../assets/postgres.png';
+import postmanIcon from '../assets/postman.png';
+import pythonIcon from '../assets/python.jfif';
+import reactIcon from '../assets/react.png';
+import sqlIcon from '../assets/sql.png';
+import tailwindIcon from '../assets/tailwind.png';
+import tsIcon from '../assets/ts.png';
+import vscodeIcon from '../assets/vscode.png';
 
 interface Skill {
   name: string;
-  icon?: string;
 }
 
 interface SkillCategory {
@@ -20,72 +34,72 @@ interface ExperienceItem {
 
 const allSkillsData: SkillCategory[] = [
   {
-    icon: '💻',
+    icon: reactIcon,
     title: 'Frontend',
     skills: [
-      { name: 'React', icon: '⚛️' },
-      { name: 'TypeScript', icon: '📘' },
-      { name: 'NextJS', icon: '▲' },
-      { name: 'Tailwind CSS', icon: '🎨' },
-      { name: 'Redux', icon: '🔄' },
-      { name: 'Webpack', icon: '📦' },
+      { name: 'React' },
+      { name: 'TypeScript' },
+      { name: 'NextJS' },
+      { name: 'Tailwind CSS' },
+      { name: 'Redux' },
+      { name: 'Webpack' },
     ],
   },
   {
-    icon: '⚡',
+    icon: fastapiIcon,
     title: 'Backend',
     skills: [
-      { name: 'FastAPI', icon: '🚀' },
-      { name: 'Django', icon: '🐍' },
-      { name: 'Python', icon: '🐍' },
-      { name: 'REST APIs', icon: '🔗' },
-      { name: 'GraphQL', icon: '📊' },
-      { name: 'WebSockets', icon: '🔌' },
+      { name: 'FastAPI' },
+      { name: 'Django' },
+      { name: 'Python' },
+      { name: 'REST APIs' },
+      { name: 'GraphQL' },
+      { name: 'WebSockets' },
     ],
   },
   {
-    icon: '🗄️',
+    icon: postgresIcon,
     title: 'Databases',
     skills: [
-      { name: 'PostgreSQL', icon: '🐘' },
-      { name: 'MongoDB', icon: '🍃' },
-      { name: 'Redis', icon: '⚡' },
-      { name: 'SQLAlchemy', icon: '📚' },
-      { name: 'Firebase', icon: '🔥' },
+      { name: 'PostgreSQL' },
+      { name: 'MongoDB' },
+      { name: 'Redis' },
+      { name: 'SQLAlchemy' },
+      { name: 'Firebase' },
     ],
   },
   {
-    icon: '🤖',
+    icon: chatgptIcon,
     title: 'AI & ML',
     skills: [
-      { name: 'LangChain', icon: '⛓️' },
-      { name: 'OpenAI API', icon: '🤖' },
-      { name: 'Prompt Engineering', icon: '💬' },
-      { name: 'RAG', icon: '🔍' },
-      { name: 'Vector DB', icon: '📍' },
+      { name: 'LangChain' },
+      { name: 'OpenAI API' },
+      { name: 'Prompt Engineering' },
+      { name: 'RAG' },
+      { name: 'Vector DB' },
     ],
   },
   {
-    icon: '☁️',
+    icon: githubIcon,
     title: 'DevOps',
     skills: [
-      { name: 'Docker', icon: '🐳' },
-      { name: 'AWS', icon: '☁️' },
-      { name: 'GitHub Actions', icon: '⚙️' },
-      { name: 'Vercel', icon: '▲' },
-      { name: 'Linux', icon: '🐧' },
+      { name: 'Docker' },
+      { name: 'AWS' },
+      { name: 'GitHub Actions' },
+      { name: 'Vercel' },
+      { name: 'Linux' },
     ],
   },
   {
-    icon: '🛠️',
+    icon: vscodeIcon,
     title: 'Tools',
     skills: [
-      { name: 'Git', icon: '🔀' },
-      { name: 'VS Code', icon: '💻' },
-      { name: 'Figma', icon: '🎨' },
-      { name: 'Postman', icon: '📮' },
-      { name: 'Linear', icon: '📋' },
-      { name: 'ChatGPT', icon: '💡' },
+      { name: 'Git' },
+      { name: 'VS Code' },
+      { name: 'Figma' },
+      { name: 'Postman' },
+      { name: 'Linear' },
+      { name: 'ChatGPT' },
     ],
   },
 ];
@@ -93,30 +107,66 @@ const allSkillsData: SkillCategory[] = [
 // Initial view: Software and AI
 const initialSkillsData: SkillCategory[] = [
   {
-    icon: '💻',
+    icon: reactIcon,
     title: 'Software',
     skills: [
-      { name: 'React', icon: '⚛️' },
-      { name: 'TypeScript', icon: '📘' },
-      { name: 'Python', icon: '🐍' },
-      { name: 'FastAPI', icon: '🚀' },
-      { name: 'PostgreSQL', icon: '🐘' },
-      { name: 'Docker', icon: '🐳' },
-      { name: 'AWS', icon: '☁️' },
+      { name: 'React' },
+      { name: 'TypeScript' },
+      { name: 'Python' },
+      { name: 'FastAPI' },
+      { name: 'PostgreSQL' },
+      { name: 'Docker' },
+      { name: 'AWS' },
     ],
   },
   {
-    icon: '🤖',
+    icon: chatgptIcon,
     title: 'AI & ML',
     skills: [
-      { name: 'LangChain', icon: '⛓️' },
-      { name: 'OpenAI API', icon: '🤖' },
-      { name: 'Prompt Engineering', icon: '💬' },
-      { name: 'RAG', icon: '🔍' },
-      { name: 'Vector DB', icon: '📍' },
+      { name: 'LangChain' },
+      { name: 'OpenAI API' },
+      { name: 'Prompt Engineering' },
+      { name: 'RAG' },
+      { name: 'Vector DB' },
     ],
   },
 ];
+
+const skillIconMap: Record<string, string> = {
+  React: reactIcon,
+  TypeScript: tsIcon,
+  NextJS: nextIcon,
+  'Tailwind CSS': tailwindIcon,
+  Redux: jsIcon,
+  Webpack: jsIcon,
+  FastAPI: fastapiIcon,
+  Django: djangoIcon,
+  Python: pythonIcon,
+  'REST APIs': fastapiIcon,
+  GraphQL: jsIcon,
+  WebSockets: jsIcon,
+  PostgreSQL: postgresIcon,
+  MongoDB: sqlIcon,
+  Redis: sqlIcon,
+  SQLAlchemy: sqlIcon,
+  Firebase: jsIcon,
+  LangChain: chatgptIcon,
+  'OpenAI API': chatgptIcon,
+  'Prompt Engineering': chatgptIcon,
+  RAG: chatgptIcon,
+  'Vector DB': sqlIcon,
+  Docker: fastapiIcon,
+  AWS: githubIcon,
+  'GitHub Actions': githubIcon,
+  Vercel: nextIcon,
+  Linux: jsIcon,
+  Git: gitIcon,
+  'VS Code': vscodeIcon,
+  Figma: jsIcon,
+  Postman: postmanIcon,
+  Linear: jsIcon,
+  ChatGPT: chatgptIcon,
+};
 
 const experienceData: ExperienceItem[] = [
   {
@@ -235,7 +285,13 @@ const styles = `
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 14px;
+    overflow: hidden;
+  }
+
+  .tech-card-icon img {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
   }
 
   .tech-card-label {
@@ -270,9 +326,18 @@ const styles = `
   }
 
   .tech-skill-icon {
-    font-size: 14px;
     width: 16px;
-    text-align: center;
+    height: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .tech-skill-icon img {
+    width: 14px;
+    height: 14px;
+    object-fit: contain;
+    border-radius: 2px;
   }
 
   .view-all-button {
@@ -407,13 +472,17 @@ export const SkillsExperienceSection: React.FC = () => {
             {displayedSkills.map((category, index) => (
               <div key={index} className="tech-stack-card">
                 <div className="tech-card-title">
-                  <div className="tech-card-icon">{category.icon}</div>
+                  <div className="tech-card-icon">
+                    <img src={category.icon} alt={`${category.title} icon`} />
+                  </div>
                   <span className="tech-card-label">{category.title}</span>
                 </div>
                 <div className="tech-skills-list">
                   {category.skills.map((skill, skillIndex) => (
                     <div key={skillIndex} className="tech-skill-item">
-                      <span className="tech-skill-icon">{skill.icon}</span>
+                      <span className="tech-skill-icon">
+                        <img src={skillIconMap[skill.name] || jsIcon} alt={`${skill.name} icon`} />
+                      </span>
                       <span>{skill.name}</span>
                     </div>
                   ))}

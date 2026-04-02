@@ -1,4 +1,7 @@
-import { Link } from "react-router-dom";
+import { type ReactElement } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Code2, Database, ExternalLink, Github, Zap } from "lucide-react";
+import { projectsData, type Project, type Tech } from "../projects/data";
 
 const styles = `
   .cc-about {
@@ -83,35 +86,85 @@ const styles = `
   }
   .cc-cards {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 14px;
-  }
-  .cc-card {
-    border: 1px solid rgba(0,0,0,0.09);
-    border-radius: 16px;
-    overflow: hidden;
-    background: #fff;
-    transition: border-color 0.18s ease, transform 0.18s ease;
-    cursor: pointer;
-  }
-  .cc-card-link {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-  }
-  .cc-card:hover {
-    border-color: rgba(0,0,0,0.18);
-    transform: translateY(-2px);
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 28px;
   }
 
-  /* ── Shimmer skeleton ── */
-  .cc-card-img {
-    width: 100%;
-    height: 180px;
-    position: relative;
+  .project-card-clean {
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    border-radius: 8px;
     overflow: hidden;
-    background: #f0f0f0;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
   }
+
+  .project-card-clean:hover {
+    border-color: #1a1a1a;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+    transform: translateY(-4px);
+  }
+
+  .cc-card-img {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+
+  .clean-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background: #fff;
+    color: #1a1a1a;
+    z-index: 2;
+  }
+
+  .clean-badge.live {
+    background: #4ade80;
+  }
+
+  .clean-badge.progress {
+    background: #fbbf24;
+  }
+
+  .clean-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .project-card-clean:hover .clean-image {
+    transform: scale(1.05);
+  }
+
+  .cc-card-img::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      0deg,
+      rgba(255,255,255,0.12) 0%,
+      rgba(255,255,255,0.05) 40%,
+      rgba(255,255,255,0) 100%
+    );
+    z-index: 1;
+    pointer-events: none;
+  }
+
   .cc-card-img::after {
     content: '';
     position: absolute;
@@ -132,47 +185,120 @@ const styles = `
     100% { background-position:  200% 0; }
   }
 
-  
-  
-  .cc-card-body { padding: 18px 20px 20px; }
-  .cc-card-title {
-    font-size: 15px;
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    color: rgba(0,0,0,0.88);
-    margin-bottom: 6px;
-    line-height: 1.3;
+  .clean-content {
+    padding: 24px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
   }
-  .cc-card-desc {
-    font-size: 13px;
-    font-weight: 400;
-    line-height: 1.65;
-    color: rgba(0,0,0,0.5);
+
+  .clean-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+
+  .clean-desc {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.6;
     margin-bottom: 16px;
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
-  .cc-card-footer {
+
+  .clean-tech-stack {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    padding: 12px 0;
+    border-top: 1px solid #e8e8e8;
+    border-bottom: 1px solid #e8e8e8;
+    flex-wrap: wrap;
+  }
+
+  .clean-tech-icon {
+    width: 28px;
+    height: 28px;
     display: flex;
     align-items: center;
+    justify-content: center;
+    background: #f5f5f5;
+    border-radius: 4px;
+    color: #666;
+    font-size: 13px;
+  }
+
+  .clean-footer {
+    display: flex;
     justify-content: space-between;
-    padding-top: 14px;
-    border-top: 1px solid rgba(0,0,0,0.07);
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
   }
-  .cc-card-stack {
-    font-size: 11px;
-    color: rgba(0,0,0,0.35);
-    letter-spacing: 0.02em;
-    font-weight: 400;
-  }
-  .cc-card-cta {
-    font-size: 12px;
-    font-weight: 500;
-    color: rgba(0,0,0,0.4);
+
+  .clean-footer-left {
     display: flex;
     align-items: center;
-    gap: 3px;
-    transition: color 0.18s;
+    gap: 10px;
   }
-  .cc-card:hover .cc-card-cta { color: rgba(0,0,0,0.88); }
+
+  .view-details {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    border: 1px solid #d8d8d8;
+    border-radius: 999px;
+    padding: 6px 10px;
+    background: #fff;
+    transition: all 0.2s ease;
+  }
+
+  .project-card-clean:hover .view-details {
+    background: #1a1a1a;
+    color: #fff;
+    border-color: #1a1a1a;
+  }
+
+  .clean-links {
+    display: flex;
+    gap: 8px;
+  }
+
+  .clean-link {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    color: #666;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+
+  .clean-link:hover {
+    background: #1a1a1a;
+    color: #fff;
+    border-color: #1a1a1a;
+  }
+
+  .clean-label {
+    font-size: 11px;
+    color: #999;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
 
   .cc-view-all {
     display: flex;
@@ -215,36 +341,92 @@ const meta = [
   { label: "Location",    val: "Lagos · Nigeria" },
 ];
 
-const projects = [
-  {
-    id: 1,
-    title: "ProdigyAI For Students",
-    desc: "prodigy is an academic tool designed to empower students by providing a seamless platform to assess themselves, organize schedules, track assignments, and collaborate on projects, making academic life simpler and more productive.",
-    stack: "Django · TypeScript · Postgres",
-  },
-  {
-    id: 2,
-    title: "PadiSquare StoreFront",
-    desc: "PadiSquae is an e-commerce platform that allows traders to create their own online marketspace called storefront, PadiSquare allows dynamic mangement of trades, orders and payments too.",
-    stack: "NextJS · React · FastApi",
-  },
-  {
-    id: 3,
-    title: "Prompt2PDF",
-    desc: "PrompttoPdf allows a user to create an entire Book with standard chapters, literal content and genunine readable format",
-    stack: "OpenAI · Fastapi · LangChain ",
-  },
-];
+const TechIconMap: Record<Tech, ReactElement> = {
+  react: <Code2 size={16} />,
+  nextjs: <Zap size={16} />,
+  django: <Code2 size={16} />,
+  fastapi: <Zap size={16} />,
+  typescript: <Code2 size={16} />,
+  python: <Code2 size={16} />,
+  postgres: <Database size={16} />,
+  langchain: <Code2 size={16} />,
+};
 
-function SkeletonImage() {
+interface ProjectCardProps {
+  project: Project;
+  onOpen: (id: number) => void;
+}
+
+function ProjectCardClean({ project, onOpen }: ProjectCardProps) {
   return (
-    <div className="cc-card-img">
-      
-    </div>
+    <article
+      className="project-card-clean"
+      onClick={() => onOpen(project.id)}
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          onOpen(project.id);
+        }
+      }}
+      role="button"
+      tabIndex={0}
+      aria-label={`Open ${project.title} details`}
+    >
+      <div className="cc-card-img">
+        <div
+          className={`clean-badge ${
+            project.status === "live" ? "live" : "progress"
+          }`}
+        >
+          {project.status === "live" ? "Live" : "In Progress"}
+        </div>
+        <img src={project.image} alt={project.title} className="clean-image" />
+      </div>
+
+      <div className="clean-content">
+        <h3 className="clean-title">{project.title}</h3>
+        <p className="clean-desc">{project.desc}</p>
+
+        <div className="clean-tech-stack">
+          {project.stack.map((tech) => (
+            <div key={tech} className="clean-tech-icon" title={tech}>
+              {TechIconMap[tech] || <Code2 size={16} />}
+            </div>
+          ))}
+        </div>
+
+        <div className="clean-footer">
+          <div className="clean-footer-left">
+            <span className="clean-label">{project.stack.join(" · ")}</span>
+            <span className="view-details">View Details</span>
+          </div>
+          <div className="clean-links">
+            <a
+              href={project.github}
+              className="clean-link"
+              title="GitHub"
+              onClick={(event) => event.stopPropagation()}
+            >
+              <Github size={18} />
+            </a>
+            <a
+              href={project.demo}
+              className="clean-link"
+              title="Live Demo"
+              onClick={(event) => event.stopPropagation()}
+            >
+              <ExternalLink size={18} />
+            </a>
+          </div>
+        </div>
+      </div>
+    </article>
   );
 }
 
 export default function ConceptC() {
+  const navigate = useNavigate();
+
   return (
     <div style={{maxWidth: 1200, margin: "0 auto" }}>
       <style>{styles}</style>
@@ -279,20 +461,12 @@ working toward a practice where strong software engineering and intelligent syst
       <p className="cc-projects-label">Selected projects</p>
 
       <div className="cc-cards">
-        {projects.map((p) => (
-          <Link key={p.id} to={`/projects/${p.id}`} className="cc-card-link" aria-label={`Open ${p.title} details`}>
-            <div className="cc-card">
-              <SkeletonImage />
-              <div className="cc-card-body">
-                <h3 className="cc-card-title">{p.title}</h3>
-                <p className="cc-card-desc line-clamp-2">{p.desc}</p>
-                <div className="cc-card-footer">
-                  <span className="cc-card-stack">{p.stack}</span>
-                  <span className="cc-card-cta">View ↗</span>
-                </div>
-              </div>
-            </div>
-          </Link>
+        {projectsData.slice(0, 3).map((project) => (
+          <ProjectCardClean
+            key={project.id}
+            project={project}
+            onOpen={(projectId) => navigate(`/projects/${projectId}`)}
+          />
         ))}
       </div>
 
