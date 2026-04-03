@@ -135,16 +135,16 @@ const styles = `
 
   .clean-badge {
     position: absolute;
-    top: 12px;
-    right: 12px;
-    padding: 6px 12px;
+    top: 10px;
+    right: 10px;
+    padding: 4px 8px;
     border-radius: 4px;
-    font-size: 11px;
-    font-weight: 700;
+    font-size: 10px;
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     background: #fff;
-    color: #1a1a1a;
+    color: #fff;
     z-index: 2;
   }
 
@@ -401,6 +401,9 @@ interface ProjectCardProps {
 
 function ProjectCardClean({ project, onOpen }: ProjectCardProps) {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
+  const [isImageError, setIsImageError] = useState(false);
+  const hasImage = Boolean(project.image?.trim());
+  const hasRenderableImage = hasImage && !isImageError;
   
   return (
     <article
@@ -417,19 +420,28 @@ function ProjectCardClean({ project, onOpen }: ProjectCardProps) {
       aria-label={`Open ${project.title} details`}
     >
       <div className={`cc-card-img ${isImageLoaded ? "image-loaded" : ""}`}>
-        <div
-          className={`clean-badge ${
-            project.status === "live" ? "live" : "progress"
-          }`}
-        >
-          {project.status === "live" ? "Live" : "In Progress"}
-        </div>
-        <img
-          src={project.image}
-          alt={project.title}
-          className="clean-image"
-          onLoad={() => setIsImageLoaded(true)}
-        />
+        {hasRenderableImage && (
+          <>
+            <div
+              className={`clean-badge ${
+                project.status === "live" ? "live" : "progress"
+              }`}
+            >
+              {project.status === "live" ? "Live" : "In Progress"}
+            </div>
+            <img
+              src={project.image}
+              alt=""
+              aria-hidden="true"
+              className="clean-image"
+              onLoad={() => setIsImageLoaded(true)}
+              onError={() => {
+                setIsImageError(true);
+                setIsImageLoaded(false);
+              }}
+            />
+          </>
+        )}
       </div>
 
       <div className="clean-content">

@@ -1,7 +1,7 @@
-import { ExternalLink, Github, ArrowLeft, CalendarDays, Briefcase } from "lucide-react";
+import { ExternalLink, Github, ArrowLeft, ArrowRight, CalendarDays, Briefcase } from "lucide-react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { getProjectById } from "../projects/data";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const styles = `
   * {
@@ -229,8 +229,89 @@ const styles = `
 
   .gallery {
     display: grid;
+    gap: 14px;
+  }
+
+  .carousel-shell {
+    display: grid;
+    gap: 14px;
+  }
+
+  .carousel-frame {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #ececec;
+    background: #fff;
+  }
+
+  .carousel-slide {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    display: block;
+  }
+
+  .carousel-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     gap: 12px;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    flex-wrap: wrap;
+  }
+
+  .carousel-nav {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .carousel-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    border: 1px solid #e4e4e4;
+    background: #fff;
+    color: #222;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .carousel-btn:hover {
+    border-color: #171717;
+    background: #171717;
+    color: #fff;
+  }
+
+  .carousel-counter {
+    font-size: 13px;
+    color: #6a6a6a;
+    font-weight: 500;
+  }
+
+  .carousel-dots {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .carousel-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    border: none;
+    background: #d2d2d2;
+    cursor: pointer;
+    padding: 0;
+    transition: all 0.2s ease;
+  }
+
+  .carousel-dot.active {
+    width: 28px;
+    background: #171717;
   }
 
   .shot {
@@ -290,10 +371,6 @@ const styles = `
       grid-template-columns: 1fr;
     }
 
-    .gallery {
-      grid-template-columns: 1fr;
-    }
-
     .hero-content {
       padding: 22px;
     }
@@ -301,9 +378,10 @@ const styles = `
 `;
 
 export default function ProjectDetailsPage() {
-  useEffect(()=>{
-    window.scrollTo(0,0)
-  })
+  const [currentScreenshot, setCurrentScreenshot] = useState(0);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  });
   const { id } = useParams();
   const projectId = Number(id);
 
@@ -316,6 +394,17 @@ export default function ProjectDetailsPage() {
   if (!project) {
     return <Navigate to="/projects" replace />;
   }
+
+  const screenshotCount = project.screenshots.length;
+  const activeScreenshot = project.screenshots[currentScreenshot] ?? project.screenshots[0];
+
+  const goToPreviousScreenshot = () => {
+    setCurrentScreenshot((current) => (current - 1 + screenshotCount) % screenshotCount);
+  };
+
+  const goToNextScreenshot = () => {
+    setCurrentScreenshot((current) => (current + 1) % screenshotCount);
+  };
 
   return (
     <div>
@@ -420,13 +509,54 @@ export default function ProjectDetailsPage() {
 
         <section className="panel">
           <h2 className="panel-title">Multiple Screenshots</h2>
-          <div className="gallery">
-            {project.screenshots.map((image, index) => (
-              <figure className="shot" key={`${project.id}-${index}`}>
-                <img src={image} alt={`${project.title} screenshot ${index + 1}`} />
+          {screenshotCount > 0 ? (
+            <div className="carousel-shell">
+              <figure className="carousel-frame">
+                <img
+                  src={activeScreenshot}
+                  alt={`${project.title} screenshot ${currentScreenshot + 1}`}
+                  className="carousel-slide"
+                />
               </figure>
-            ))}
-          </div>
+
+              <div className="carousel-controls">
+                <div className="carousel-nav">
+                  <button
+                    type="button"
+                    className="carousel-btn"
+                    onClick={goToPreviousScreenshot}
+                    aria-label="Previous screenshot"
+                  >
+                    <ArrowLeft size={16} />
+                  </button>
+                  <button
+                    type="button"
+                    className="carousel-btn"
+                    onClick={goToNextScreenshot}
+                    aria-label="Next screenshot"
+                  >
+                    <ArrowRight size={16} />
+                  </button>
+                  <span className="carousel-counter">
+                    {currentScreenshot + 1} / {screenshotCount}
+                  </span>
+                </div>
+
+                <div className="carousel-dots" aria-label="Screenshot navigation">
+                  {project.screenshots.map((_, index) => (
+                    <button
+                      key={`${project.id}-dot-${index}`}
+                      type="button"
+                      className={`carousel-dot ${index === currentScreenshot ? "active" : ""}`}
+                      onClick={() => setCurrentScreenshot(index)}
+                      aria-label={`Show screenshot ${index + 1}`}
+                      aria-pressed={index === currentScreenshot}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+          ) : null}
         </section>
       </main>
     </div>

@@ -9,6 +9,7 @@ import gitIcon from '../assets/git.png';
 import githubIcon from '../assets/github.png';
 import jsIcon from '../assets/js.png';
 import langchainIcon from '../assets/lang.png';
+import LinuxIcon from "../assets/linux.png"
 import nextIcon from '../assets/next.png';
 import postgresIcon from '../assets/postgres.png';
 import postmanIcon from '../assets/postman.png';
@@ -169,7 +170,7 @@ const skillIconMap: Record<string, string> = {
   AWS: githubIcon,
   'GitHub Actions': githubIcon,
   Vercel: nextIcon,
-  Linux: jsIcon,
+  Linux: LinuxIcon,
   Git: gitIcon,
   'VS Code': vscodeIcon,
   Figma: figmaIcon,
