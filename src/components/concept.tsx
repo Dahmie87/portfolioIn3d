@@ -9,7 +9,10 @@ import postgresLogo from "../assets/postgres.png";
 import pythonLogo from "../assets/python.jfif";
 import reactLogo from "../assets/react.png";
 import typescriptLogo from "../assets/ts.png";
-import langchainLogo from "../assets/chatgpt.png";
+import javasriptLogo from "../assets/js.png"
+import sqlLogo from "../assets/sql.png"
+import ssrLogo from "../assets/ssr.png";
+import langchainLogo from "../assets/lang.png";
 
 const styles = `
   .cc-about {
@@ -378,11 +381,14 @@ const TechIconMap: Record<Tech, string> = {
   react: reactLogo,
   nextjs: nextLogo,
   django: djangoLogo,
+  ssr: ssrLogo,
   fastapi: fastapiLogo,
   typescript: typescriptLogo,
   python: pythonLogo,
   postgres: postgresLogo,
   langchain: langchainLogo,
+  javascript: javasriptLogo,
+  sqlite:sqlLogo
 };
 
 interface ProjectCardProps {

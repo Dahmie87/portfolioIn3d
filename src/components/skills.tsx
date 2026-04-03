@@ -1,19 +1,29 @@
 import React, { useState } from 'react';
 import chatgptIcon from '../assets/chatgpt.png';
 import djangoIcon from '../assets/django.png';
+import dockerIcon from '../assets/docker.png';
 import fastapiIcon from '../assets/fastapi.png';
+import figmaIcon from '../assets/figma.png';
+import graphIcon from '../assets/graph.png';
 import gitIcon from '../assets/git.png';
 import githubIcon from '../assets/github.png';
 import jsIcon from '../assets/js.png';
+import langchainIcon from '../assets/lang.png';
 import nextIcon from '../assets/next.png';
 import postgresIcon from '../assets/postgres.png';
 import postmanIcon from '../assets/postman.png';
+import promptIcon from '../assets/prompt.png';
 import pythonIcon from '../assets/python.jfif';
+import ragIcon from '../assets/rag.png';
 import reactIcon from '../assets/react.png';
+import redisIcon from '../assets/redis.png';
+import sqlAlchemyIcon from '../assets/sqlalch.png';
 import sqlIcon from '../assets/sql.png';
 import tailwindIcon from '../assets/tailwind.png';
 import tsIcon from '../assets/ts.png';
+import vectorDbIcon from '../assets/vectordb.png';
 import vscodeIcon from '../assets/vscode.png';
+import websocketsIcon from '../assets/websockets.png';
 
 interface Skill {
   name: string;
@@ -69,7 +79,7 @@ const allSkillsData: SkillCategory[] = [
     ],
   },
   {
-    icon: chatgptIcon,
+    icon: langchainIcon,
     title: 'AI & ML',
     skills: [
       { name: 'LangChain' },
@@ -120,7 +130,7 @@ const initialSkillsData: SkillCategory[] = [
     ],
   },
   {
-    icon: chatgptIcon,
+    icon: langchainIcon,
     title: 'AI & ML',
     skills: [
       { name: 'LangChain' },
@@ -137,32 +147,32 @@ const skillIconMap: Record<string, string> = {
   TypeScript: tsIcon,
   NextJS: nextIcon,
   'Tailwind CSS': tailwindIcon,
-  Redux: jsIcon,
+  Redux: graphIcon,
   Webpack: jsIcon,
   FastAPI: fastapiIcon,
   Django: djangoIcon,
   Python: pythonIcon,
   'REST APIs': fastapiIcon,
-  GraphQL: jsIcon,
-  WebSockets: jsIcon,
+  GraphQL: graphIcon,
+  WebSockets: websocketsIcon,
   PostgreSQL: postgresIcon,
   MongoDB: sqlIcon,
-  Redis: sqlIcon,
-  SQLAlchemy: sqlIcon,
+  Redis: redisIcon,
+  SQLAlchemy: sqlAlchemyIcon,
   Firebase: jsIcon,
-  LangChain: chatgptIcon,
+  LangChain: langchainIcon,
   'OpenAI API': chatgptIcon,
-  'Prompt Engineering': chatgptIcon,
-  RAG: chatgptIcon,
-  'Vector DB': sqlIcon,
-  Docker: fastapiIcon,
+  'Prompt Engineering': promptIcon,
+  RAG: ragIcon,
+  'Vector DB': vectorDbIcon,
+  Docker: dockerIcon,
   AWS: githubIcon,
   'GitHub Actions': githubIcon,
   Vercel: nextIcon,
   Linux: jsIcon,
   Git: gitIcon,
   'VS Code': vscodeIcon,
-  Figma: jsIcon,
+  Figma: figmaIcon,
   Postman: postmanIcon,
   Linear: jsIcon,
   ChatGPT: chatgptIcon,

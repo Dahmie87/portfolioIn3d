@@ -1,6 +1,7 @@
 import { useState,useEffect } from "react";
 import NavBar from "../components/navbar";
 import { BlurReveal, BlurText } from "../components/blur";
+// import { Send } from "lucide-react";
 
 const styles = `
   .contact-root {

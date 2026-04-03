@@ -279,7 +279,7 @@ function LinkedInCard() {
           </div>
           {/* headline */}
           <div style={{ fontSize: 13, color: "rgba(0,0,0,0.6)", lineHeight: "1.4", marginBottom: 4 }}>
-            Full Stack Developer · Backend Enthusiast
+            AI/Ml Engineer · Chess Enthusiast
           </div>
           {/* location */}
           <div style={{ fontSize: 12, color: "rgba(0,0,0,0.5)", marginBottom: 10, display: "flex", alignItems: "center", gap: 4 }}>

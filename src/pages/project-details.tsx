@@ -263,15 +263,16 @@ const styles = `
     padding: 4px 10px;
     border-radius: 999px;
     font-size: 11px;
+    font-weight:900;
     text-transform: uppercase;
     letter-spacing: 0.07em;
     border: 1px solid transparent;
   }
 
   .status-pill.live {
-    background: #e8fff1;
-    color: #166534;
-    border-color: #bef3d2;
+    background: #e8fffe;
+    color: #20ff20;
+    border-color: #beffdd;
   }
 
   .status-pill.progress {

@@ -12,8 +12,11 @@ import nextLogo from "../assets/next.png";
 import postgresLogo from "../assets/postgres.png";
 import pythonLogo from "../assets/python.jfif";
 import reactLogo from "../assets/react.png";
+import ssrLogo from "../assets/ssr.png";
+import javascriptLogo from "../assets/js.png";
+import sqliteLogo from "../assets/sql.png";
 import typescriptLogo from "../assets/ts.png";
-import langchainLogo from "../assets/chatgpt.png";
+import langchainLogo from "../assets/lang.png";
 
 const styles = `
   * {
@@ -494,6 +497,9 @@ const TechIconMap: Record<Tech, string> = {
   react: reactLogo,
   nextjs: nextLogo,
   django: djangoLogo,
+  ssr: ssrLogo,
+  sqlite: sqliteLogo,
+  javascript: javascriptLogo,
   fastapi: fastapiLogo,
   typescript: typescriptLogo,
   python: pythonLogo,

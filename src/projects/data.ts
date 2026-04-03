@@ -4,6 +4,9 @@ export type Tech =
     | "react"
     | "nextjs"
     | "django"
+    | "ssr"
+    | "sqlite"
+    | "javascript"
     | "fastapi"
     | "typescript"
     | "python"
@@ -66,9 +69,9 @@ export const projectsData: Project[] = [
             "Instructor-friendly export for progress review",
         ],
         screenshots: [
-            "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1400&h=900&fit=crop",
-            "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=1400&h=900&fit=crop",
-            "https://images.unsplash.com/photo-1487014679447-9f8336841d58?w=1400&h=900&fit=crop",
+            "https://images.unsplash.com/&fit=crop",
+            "https://images.unsplash.com/&fit=crop",
+            "https://images.unsplash.com/&fit=crop",
         ],
         role: "AI/Full-stack Engineer",
         challenges: [
@@ -80,9 +83,9 @@ export const projectsData: Project[] = [
         date: "2025-10",
         status: "live",
         image:
-            "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&h=500&fit=crop",
+            "https://images.unsplash.com/",
         github: "https://github.com",
-        demo: "https://example.com",
+        demo: "https://prodigylasu.vercel.app",
     },
     {
         id: 2,
@@ -116,9 +119,9 @@ export const projectsData: Project[] = [
             "Sales insights for top products and repeat customers",
         ],
         screenshots: [
-            "https://images.unsplash.com/photo-1460925895917-adf4e4be4f3f?w=1400&h=900&fit=crop",
-            "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1400&h=900&fit=crop",
-            "https://images.unsplash.com/photo-1556155092-490a1ba16284?w=1400&h=900&fit=crop",
+            "https://images.unsplash.com/photo-=crop",
+            "https://images.unsplash.com/photo-1=crop",
+            "https://images.unsplash.com/photo-1=crop",
         ],
         role: "Lead Product Engineer",
         challenges: [
@@ -130,9 +133,9 @@ export const projectsData: Project[] = [
         date: "2025-06",
         status: "live",
         image:
-            "https://images.unsplash.com/photo-1460925895917-adf4e4be4f3f?w=800&h=500&fit=crop",
+            "https://images.unsplash.com/",
         github: "https://github.com",
-        demo: "https://example.com",
+        demo: "https://padi-square-next-app.vercel.app/",
     },
     {
         id: 3,
@@ -166,9 +169,9 @@ export const projectsData: Project[] = [
             "Versioning to compare draft iterations",
         ],
         screenshots: [
-            "https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?w=1400&h=900&fit=crop",
-            "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=1400&h=900&fit=crop",
-            "https://images.unsplash.com/photo-1456324504439-367cee3b3c32?w=1400&h=900&fit=crop",
+            "https://images.unsplash.com/fit=crop",
+            "https://images.unsplash.com/fit=crop",
+            "https://images.unsplash.com/fit=crop",
         ],
         role: "AI Engineer",
         challenges: [
@@ -180,8 +183,8 @@ export const projectsData: Project[] = [
         date: "2026-01",
         status: "progress",
         image:
-            "https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?w=800&h=500&fit=crop",
-        github: "https://github.com",
+            "https://images.unsplash.com/pcrop",
+        github: "https://github.com/Dahmie87",
         demo: "https://example.com",
     },
     {
@@ -190,49 +193,49 @@ export const projectsData: Project[] = [
         desc: "Inkter is a content sharing platform that allows both professional writers or average user to share text based content ",
         fullDescription:
             "Inkter is a content sharing platform that allows both professional writers or average user to share text based content ",
-        stack: ["typescript", "langchain", "python"],
+        stack: ["django", "sqlite", "javascript"],
         techStackDetailed: [
             {
-                name: "TypeScript",
-                purpose: "Extension host logic and UI integration",
-                highlights: ["VS Code API usage", "Command orchestration", "Lightweight panel rendering"],
+                name: "Django",
+                purpose: "This handles the core logic of the server from business logic to server side rendering",
+                highlights: ["Django templates", "WSGi"],
             },
             {
-                name: "LangChain",
-                purpose: "Prompt routing and context-aware completion chains",
-                highlights: ["Few-shot templates", "Context chunking", "Tool invocation policies"],
+                name: "sqlite",
+                purpose: "This is a non persisent relaional database used here",
+                highlights: ["Relational DBs", "SQL", "ORM"],
             },
             {
-                name: "Python",
-                purpose: "Model-side services for ranking and diagnostics",
-                highlights: ["Inference adapters", "Telemetry processing", "Quality evaluation scripts"],
+                name: "Javascript",
+                purpose: "This handles the ui and client side",
+                highlights: ["User Interface", "user experience", "Quality evaluation scripts"],
             },
         ],
         features: [
-            "Inline code suggestions tuned to open-file context",
-            "Issue hints with quick-fix style recommendations",
-            "Command palette actions for refactors and docs",
-            "Configurable assistant behavior by project type",
-            "Usage telemetry dashboard for improvement loops",
+            "users can add posts with title, description",
+            "users can see all added postss",
+            "users can query by title, topic, author",
+            "owner of a post can modify it",
+            "admin gas super priviledge on all content ",
         ],
         screenshots: [
-            "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1400&h=900&fit=crop",
-            "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1400&h=900&fit=crop",
-            "https://images.unsplash.com/photo-1517336714739-489689fd1ca8?w=1400&h=900&fit=crop",
+            "https://images.unsplash.com/",
+            "https://images.unsplash.com/",
+            "https://images.unsplash.com/",
         ],
-        role: "ML + Developer Tools Engineer",
+        role:"Lead Backend Engineer",
         challenges: [
             "Controlling latency while preserving suggestion quality",
             "Reducing noisy or low-confidence completions",
             "Designing fallback behavior for offline/limited network",
         ],
-        projectType: "Developer Productivity Tool",
+        projectType: "Content Creation Playform",
         date: "2025-12",
         status: "live",
         image:
-            "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&h=500&fit=crop",
+            "https://images.unsplash.com/ph",
         github: "https://github.com",
-        demo: "https://example.com",
+        demo: "https://inkter.onrender.com",
     },
     {
         id: 5,
@@ -266,9 +269,9 @@ export const projectsData: Project[] = [
             "Role-based access for sensitive metrics",
         ],
         screenshots: [
-            "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1400&h=900&fit=crop",
-            "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1400&h=900&fit=crop",
-            "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1400&h=900&fit=crop",
+            "https://images.unsplash.com/crop",
+            "https://images.unsplash.com/crop",
+            "https://images.unsplash.com/crop",
         ],
         role: "Frontend + Data Platform Engineer",
         challenges: [
@@ -280,7 +283,7 @@ export const projectsData: Project[] = [
         date: "2024-11",
         status: "progress",
         image:
-            "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=500&fit=crop",
+            "https://images.unsplash.com/photo-",
         github: "https://github.com",
         demo: "https://example.com",
     },
@@ -316,9 +319,9 @@ export const projectsData: Project[] = [
             "Lightweight animations tuned for battery efficiency",
         ],
         screenshots: [
-            "https://images.unsplash.com/photo-1534088568595-a066f410bcda?w=1400&h=900&fit=crop",
-            "https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?w=1400&h=900&fit=crop",
-            "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?w=1400&h=900&fit=crop",
+            "https://images.unsplash.com/photo-1=crop",
+            "https://images.unsplash.com/photo-1=crop",
+            "https://images.unsplash.com/photo-1&fit=crop",
         ],
         role: "Full-stack Product Engineer",
         challenges: [
@@ -330,7 +333,7 @@ export const projectsData: Project[] = [
         date: "2025-03",
         status: "live",
         image:
-            "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=500&fit=crop",
+            "https://images.unsplash.com/photo-1",
         github: "https://github.com",
         demo: "https://example.com",
     },
