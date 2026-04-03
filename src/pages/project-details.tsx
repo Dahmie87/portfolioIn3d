@@ -42,6 +42,8 @@ const styles = `
   }
 
   .hero {
+    display: flex;
+    align-items: stretch;
     background: #fff;
     border: 1px solid #e7e7e7;
     border-radius: 20px;
@@ -49,14 +51,21 @@ const styles = `
     margin-bottom: 26px;
   }
 
+  .hero-media {
+    flex: 0 0 38%;
+    min-width: 280px;
+    background: #f5f5f5;
+  }
+
   .hero-image {
     width: 100%;
-    aspect-ratio: 16 / 2;
+    height: 100%;
     object-fit: cover;
     display: block;
   }
 
   .hero-content {
+    flex: 1;
     padding: 28px;
   }
 
@@ -332,6 +341,19 @@ const styles = `
   }
 
   @media (max-width: 900px) {
+    .hero {
+      display: block;
+    }
+
+    .hero-media {
+      min-width: 0;
+    }
+
+    .hero-image {
+      height: auto;
+      aspect-ratio: 16 / 7;
+    }
+
     .meta-grid {
       grid-template-columns: 1fr;
     }
@@ -398,7 +420,9 @@ export default function ProjectDetailsPage() {
         </div>
 
         <section className="hero">
-          <img src={project.image} alt={project.title} className="hero-image" />
+          <div className="hero-media">
+            <img src={project.image} alt={project.title} className="hero-image" />
+          </div>
           <div className="hero-content">
             <h1 className="hero-title">{project.title}</h1>
             <p className="hero-description">{project.fullDescription}</p>

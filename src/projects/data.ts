@@ -1,3 +1,5 @@
+import padiSquareImage from "../assets/project-images/padisquare.png";
+
 export type ProjectStatus = "live" | "progress";
 
 export type Tech =
@@ -119,9 +121,7 @@ export const projectsData: Project[] = [
             "Sales insights for top products and repeat customers",
         ],
         screenshots: [
-            "https://images.unsplash.com/photo-=crop",
-            "https://images.unsplash.com/photo-1=crop",
-            "https://images.unsplash.com/photo-1=crop",
+            padiSquareImage,
         ],
         role: "Lead Product Engineer",
         challenges: [
@@ -133,7 +133,7 @@ export const projectsData: Project[] = [
         date: "2025-06",
         status: "live",
         image:
-            "https://images.unsplash.com/",
+            padiSquareImage,
         github: "https://github.com",
         demo: "https://padi-square-next-app.vercel.app/",
     },

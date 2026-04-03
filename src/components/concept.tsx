@@ -175,7 +175,7 @@ const styles = `
     animation: none !important;
   }
 
-  .cc-card-img::before {
+  .cc-card-img:not(.image-loaded)::before {
     content: '';
     position: absolute;
     inset: 0;
@@ -189,7 +189,7 @@ const styles = `
     pointer-events: none;
   }
 
-  .cc-card-img::after {
+  .cc-card-img:not(.image-loaded)::after {
     content: '';
     position: absolute;
     inset: 0;
