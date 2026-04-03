@@ -329,7 +329,7 @@ const styles = `
     overflow: hidden;
     background: #f0f0f0;
   }
-  .cc-card-img::after {
+  .cc-card-img:not(.image-loaded)::after {
     content: '';
     position: absolute;
     inset: 0;

@@ -1,4 +1,5 @@
 import padiSquareImage from "../assets/project-images/padisquare.png";
+import prodigyImage from "../assets/project-images/prodigy.png";
 
 export type ProjectStatus = "live" | "progress";
 
@@ -71,9 +72,7 @@ export const projectsData: Project[] = [
             "Instructor-friendly export for progress review",
         ],
         screenshots: [
-            "https://images.unsplash.com/&fit=crop",
-            "https://images.unsplash.com/&fit=crop",
-            "https://images.unsplash.com/&fit=crop",
+            prodigyImage,
         ],
         role: "AI/Full-stack Engineer",
         challenges: [
@@ -85,7 +84,7 @@ export const projectsData: Project[] = [
         date: "2025-10",
         status: "live",
         image:
-            "https://images.unsplash.com/",
+            prodigyImage,
         github: "https://github.com",
         demo: "https://prodigylasu.vercel.app",
     },
