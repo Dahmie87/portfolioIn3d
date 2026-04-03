@@ -378,12 +378,14 @@ const styles = `
 `;
 
 export default function ProjectDetailsPage() {
-  const [currentScreenshot, setCurrentScreenshot] = useState(0);
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  });
   const { id } = useParams();
   const projectId = Number(id);
+  const [currentScreenshot, setCurrentScreenshot] = useState(0);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    setCurrentScreenshot(0);
+  }, [projectId]);
 
   if (!Number.isFinite(projectId)) {
     return <Navigate to="/projects" replace />;
