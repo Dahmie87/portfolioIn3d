@@ -227,11 +227,6 @@ const styles = `
     background: #fbfbfb;
   }
 
-  .gallery {
-    display: grid;
-    gap: 14px;
-  }
-
   .carousel-shell {
     display: grid;
     gap: 14px;
@@ -239,6 +234,8 @@ const styles = `
 
   .carousel-frame {
     position: relative;
+    width: min(60%, 820px);
+    margin: 0 auto;
     border-radius: 12px;
     overflow: hidden;
     border: 1px solid #ececec;
@@ -250,20 +247,6 @@ const styles = `
     aspect-ratio: 16 / 10;
     object-fit: cover;
     display: block;
-  }
-
-  .carousel-controls {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-
-  .carousel-nav {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
   }
 
   .carousel-btn {
@@ -314,20 +297,6 @@ const styles = `
     background: #171717;
   }
 
-  .shot {
-    border-radius: 12px;
-    overflow: hidden;
-    border: 1px solid #ececec;
-    background: #fff;
-  }
-
-  .shot img {
-    width: 100%;
-    aspect-ratio: 16 / 10;
-    object-fit: cover;
-    display: block;
-  }
-
   .back-link {
     display: inline-flex;
     align-items: center;
@@ -373,6 +342,9 @@ const styles = `
 
     .hero-content {
       padding: 22px;
+    }
+    .carousel-frame {
+      width: 100%;
     }
   }
 `;
