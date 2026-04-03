@@ -57,6 +57,9 @@ const styles = `
     line-height: 1.75;
     color: rgba(0,0,0,0.55);
     margin-bottom: 16px;
+    text-align: justify;
+    text-wrap: pretty;
+    max-width: 58ch;
   }
   .cc-meta {
     display: grid;
@@ -488,13 +491,15 @@ export default function ConceptC() {
         </div>
         <div>
           <p className="cc-bio">
-I'm Omotayo Damilare, 
-a software engineer and CS Major with 5+ years of experience crafting full-stack applications and production grade APIs,          </p>
+            I'm Omotayo Damilare, a software engineer and CS major with 5+ years of
+            experience building full-stack applications and production-grade APIs.
+          </p>
           <p className="cc-bio">
-My current focus is on AI and machine learning, i'm
-working toward a practice where strong software engineering and intelligent systems are inseparable.
- I believe the most powerful applications of the next decade will be built by engineers
-  who understand both          </p>
+            My current focus is AI and machine learning. I am building a practice where
+            strong software engineering and intelligent systems are inseparable, because
+            the next generation of impactful products will be created by engineers who
+            understand both disciplines deeply.
+          </p>
           <div className="cc-meta">
             {meta.map((m) => (
               <div key={m.label}>
