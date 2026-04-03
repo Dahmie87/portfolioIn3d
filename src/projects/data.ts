@@ -85,7 +85,7 @@ export const projectsData: Project[] = [
         status: "live",
         image:
             prodigyImage,
-        github: "https://github.com",
+        github: "https://github.com/Dahmie87/LasuProdigy",
         demo: "https://prodigylasu.vercel.app",
     },
     {
@@ -133,15 +133,15 @@ export const projectsData: Project[] = [
         status: "live",
         image:
             padiSquareImage,
-        github: "https://github.com",
+        github: "https://github.com/Dahmie87/PadiSquare-next-app",
         demo: "https://padi-square-next-app.vercel.app/",
     },
     {
         id: 3,
-        title: "Prompt2PDF",
+        title: "PDFfree",
         desc: "A tool that allows users to create an entire book with standard chapters, literal content and genuine readable format using AI-powered content generation.",
         fullDescription:
-            "Prompt2PDF transforms structured prompts into long-form book drafts with chapter organization, formatting, and export capabilities. The platform helps users move from ideas to readable manuscripts in less time by combining guided prompt templates and model-driven content generation workflows.",
+            "PDFfree transforms structured prompts into long-form book drafts with chapter organization, formatting, and export capabilities. The platform helps users move from ideas to readable manuscripts in less time by combining guided prompt templates and model-driven content generation workflows.",
         stack: ["langchain", "fastapi", "python"],
         techStackDetailed: [
             {
@@ -183,7 +183,7 @@ export const projectsData: Project[] = [
         status: "progress",
         image:
             "https://images.unsplash.com/pcrop",
-        github: "https://github.com/Dahmie87",
+        github: "https://github.com/Dahmie87/inkter",
         demo: "https://example.com",
     },
     {
@@ -233,7 +233,7 @@ export const projectsData: Project[] = [
         status: "live",
         image:
             "https://images.unsplash.com/ph",
-        github: "https://github.com",
+        github: "https://github.com/Dahmie87/pdfree",
         demo: "https://inkter.onrender.com",
     },
     {
