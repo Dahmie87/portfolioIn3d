@@ -1,7 +1,7 @@
 import { useState,useEffect } from "react";
 import NavBar from "../components/navbar";
 import { BlurReveal, BlurText } from "../components/blur";
-// import { Send } from "lucide-react";
+import { Send } from "lucide-react";
 
 const styles = `
   .contact-root {
@@ -120,6 +120,10 @@ const styles = `
     width: 100%;
     padding: 14px 28px;
     margin-top: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
     background: rgba(0,0,0,0.88);
     color: white;
     border: none;
@@ -385,7 +389,7 @@ export default function ContactPage() {
                   </div>
 
                   <button type="submit" className="contact-form-submit">
-                    {submitted ? "Message sent! ✓" : "Send message"}
+                    {submitted ? "Message sent! ✓" : <>Send message<Send size={16} /></>}
                   </button>
                 </form>
               </div>
