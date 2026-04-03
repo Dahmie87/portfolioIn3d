@@ -18,7 +18,14 @@ const styles = `
   .details-shell {
     max-width: 1120px;
     margin: 0 auto;
-    padding: 64px 20px 90px;
+    padding: 64px 24px 90px;
+  }
+
+  @media (min-width: 768px) {
+    .details-shell {
+      padding-left: 32px;
+      padding-right: 32px;
+    }
   }
 
   .crumbs {
@@ -391,8 +398,10 @@ export default function ProjectDetailsPage() {
     return <Navigate to="/projects" replace />;
   }
 
-  const screenshotCount = project.screenshots.length;
-  const activeScreenshot = project.screenshots[currentScreenshot] ?? project.screenshots[0];
+  const primaryImage = project.image?.trim() || project.screenshots[0]?.trim() || "";
+  const screenshots = project.screenshots.length > 0 ? project.screenshots : (primaryImage ? [primaryImage] : []);
+  const screenshotCount = screenshots.length;
+  const activeScreenshot = screenshots[currentScreenshot] ?? screenshots[0];
 
   const goToPreviousScreenshot = () => {
     setCurrentScreenshot((current) => (current - 1 + screenshotCount) % screenshotCount);
@@ -421,7 +430,7 @@ export default function ProjectDetailsPage() {
 
         <section className="hero">
           <div className="hero-media">
-            <img src={project.image} alt={project.title} className="hero-image" />
+            <img src={primaryImage} alt={project.title} className="hero-image" />
           </div>
           <div className="hero-content">
             <h1 className="hero-title">{project.title}</h1>
@@ -541,7 +550,7 @@ export default function ProjectDetailsPage() {
                 </div>
 
                 <div className="carousel-dots" aria-label="Screenshot navigation">
-                  {project.screenshots.map((_, index) => (
+                  {screenshots.map((_, index) => (
                     <button
                       key={`${project.id}-dot-${index}`}
                       type="button"

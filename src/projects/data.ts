@@ -1,4 +1,5 @@
 import padiSquareImage from "../assets/project-images/padisquare.png";
+import pdfFreeImage from "../assets/project-images/pdffree.png";
 import prodigyImage from "../assets/project-images/prodigy.png";
 
 export type ProjectStatus = "live" | "progress";
@@ -168,9 +169,7 @@ export const projectsData: Project[] = [
             "Versioning to compare draft iterations",
         ],
         screenshots: [
-            "https://images.unsplash.com/fit=crop",
-            "https://images.unsplash.com/fit=crop",
-            "https://images.unsplash.com/fit=crop",
+            pdfFreeImage,
         ],
         role: "AI Engineer",
         challenges: [
@@ -182,7 +181,7 @@ export const projectsData: Project[] = [
         date: "2026-01",
         status: "progress",
         image:
-            "https://images.unsplash.com/pcrop",
+            pdfFreeImage,
         github: "https://github.com/Dahmie87/inkter",
         demo: "https://example.com",
     },

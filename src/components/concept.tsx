@@ -402,7 +402,8 @@ interface ProjectCardProps {
 function ProjectCardClean({ project, onOpen }: ProjectCardProps) {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
   const [isImageError, setIsImageError] = useState(false);
-  const hasImage = Boolean(project.image?.trim());
+  const primaryImage = project.image?.trim() || project.screenshots[0]?.trim() || "";
+  const hasImage = Boolean(primaryImage);
   const hasRenderableImage = hasImage && !isImageError;
   
   return (
@@ -430,7 +431,7 @@ function ProjectCardClean({ project, onOpen }: ProjectCardProps) {
               {project.status === "live" ? "Live" : "In Progress"}
             </div>
             <img
-              src={project.image}
+              src={primaryImage}
               alt=""
               aria-hidden="true"
               className="clean-image"

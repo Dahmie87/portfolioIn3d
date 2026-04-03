@@ -33,7 +33,14 @@ const styles = `
   .projects-container {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 80px 20px;
+    padding: 80px 24px;
+  }
+
+  @media (min-width: 768px) {
+    .projects-container {
+      padding-left: 32px;
+      padding-right: 32px;
+    }
   }
 
   .projects-header {
