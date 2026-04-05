@@ -1,4 +1,5 @@
 import type React from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import AbstractShape from "../components/abstract";
@@ -11,7 +12,16 @@ import ConceptC from "../components/concept";
 import SkillsExperienceSection from "../components/skills";
 import { ContactOption1 } from "../components/contact";
 
+async function RequestPortolioData(){
+  const res = await fetch('http://localhost:8080/')
+  const data= await res.json()
+  return data
+}
+
 export default function HomePage(): React.ReactElement {
+  useEffect(() => {
+    RequestPortolioData().then(data => console.log(data)).catch(err => console.error(err))
+  }, [])
   return (
     <div className="text-slate-900 min-h-screen">
       <div className="md:mx-10 my-2 bg-white rounded-4xl shadow-sm overflow-visible md:overflow-visible min-h-[calc(100vh-1rem)] md:min-h-0 relative md:static">

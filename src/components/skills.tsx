@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import AWSIcon from "../assets/aws.png"
 import chatgptIcon from '../assets/chatgpt.png';
 import djangoIcon from '../assets/django.png';
 import dockerIcon from '../assets/docker.png';
 import fastapiIcon from '../assets/fastapi.png';
+import firebaseIcon from "../assets/firebase.png"
 import figmaIcon from '../assets/figma.png';
 import graphIcon from '../assets/graph.png';
 import gitIcon from '../assets/git.png';
@@ -10,7 +12,7 @@ import githubIcon from '../assets/github.png';
 import jsIcon from '../assets/js.png';
 import langchainIcon from '../assets/lang.png';
 import LinuxIcon from "../assets/linux.png"
-import nextIcon from '../assets/next.png';
+import nextIcon from '../assets/next.jfif';
 import postgresIcon from '../assets/postgres.png';
 import postmanIcon from '../assets/postman.png';
 import promptIcon from '../assets/prompt.png';
@@ -160,14 +162,14 @@ const skillIconMap: Record<string, string> = {
   MongoDB: sqlIcon,
   Redis: redisIcon,
   SQLAlchemy: sqlAlchemyIcon,
-  Firebase: jsIcon,
+  Firebase: firebaseIcon,
   LangChain: langchainIcon,
   'OpenAI API': chatgptIcon,
   'Prompt Engineering': promptIcon,
   RAG: ragIcon,
   'Vector DB': vectorDbIcon,
   Docker: dockerIcon,
-  AWS: githubIcon,
+  AWS: AWSIcon,
   'GitHub Actions': githubIcon,
   Vercel: nextIcon,
   Linux: LinuxIcon,

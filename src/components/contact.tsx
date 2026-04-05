@@ -1,11 +1,63 @@
 import React, { useState } from 'react';
-import {  MessageCircle, Phone, Send, Twitter, Youtube } from 'lucide-react';
+import { Send } from 'lucide-react';
+import chessIcon from '../assets/social images/chess.png';
+import instaIcon from '../assets/social images/insta.jfif';
+import phoneIcon from '../assets/social images/phone.png';
+import tiktokIcon from '../assets/social images/tiktok.png';
+import whatsappIcon from '../assets/social images/whatsapp.png';
+import youtubeIcon from '../assets/social images/youtube.png';
 
 export const ContactOption1: React.FC = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [submitMessage, setSubmitMessage] = useState('');
+
+  const contactApiUrl = import.meta.env.VITE_CONTACT_API_URL as string | undefined;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!contactApiUrl) {
+      setSubmitStatus('error');
+      setSubmitMessage('Contact endpoint is not configured. Set VITE_CONTACT_API_URL.');
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+    setSubmitMessage('');
+
+    try {
+      const response = await fetch(contactApiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Request failed with status ${response.status}`);
+      }
+
+      setSubmitStatus('success');
+      setSubmitMessage('Message sent successfully.');
+      setFormData({ name: '', email: '', message: '' });
+    } catch {
+      setSubmitStatus('error');
+      setSubmitMessage('Failed to send message. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -120,6 +172,66 @@ export const ContactOption1: React.FC = () => {
           box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
         }
 
+        .submit-btn:disabled {
+          cursor: not-allowed;
+          opacity: 0.7;
+          transform: none;
+          box-shadow: none;
+        }
+
+        .form-status {
+          margin-top: 12px;
+          font-size: 13px;
+          font-weight: 500;
+        }
+
+        .form-status-success {
+          color: rgb(22, 163, 74);
+        }
+
+        .form-status-error {
+          color: rgb(220, 38, 38);
+        }
+
+        .social-links {
+          display: flex;
+          gap: 12px;
+          margin-top: 8px;
+          flex-wrap: wrap;
+          align-items: center;
+        }
+
+        .social-link {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          text-decoration: none;
+          transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .social-link:hover {
+          transform: translateY(-2px);
+          opacity: 0.9;
+        }
+
+        .social-frame {
+          width: 36px;
+          height: 36px;
+          border: 1px solid rgba(0, 0, 0, 0.12);
+          border-radius: 10px;
+          background: rgba(255, 255, 255, 0.75);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .social-icon {
+          width: 70%;
+          height: 70%;
+          object-fit: contain;
+          display: block;
+        }
+
         @media (max-width: 768px) {
           .option1-container {
             grid-template-columns: 1fr;
@@ -151,18 +263,36 @@ export const ContactOption1: React.FC = () => {
             </div>
             <div className="info-item">
               <div className="info-label">Social</div>
-              <div style={{ display: 'flex', gap: '12px', marginTop: '8px' }}>
-                <a href="#" className="text-slate-500 hover:text-slate-900 transition" aria-label="GitHub">
-                  <MessageCircle size={20} />
+              <div className="social-links">
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="Instagram" title="Instagram">
+                  <span className="social-frame">
+                    <img src={instaIcon} alt="Instagram" className="social-icon" />
+                  </span>
                 </a>
-                <a href="#" className="text-slate-500 hover:text-slate-900 transition" aria-label="LinkedIn">
-                  <Phone size={20} />
+                <a href="https://wa.me" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="WhatsApp" title="WhatsApp">
+                  <span className="social-frame">
+                    <img src={whatsappIcon} alt="WhatsApp" className="social-icon" />
+                  </span>
                 </a>
-                <a href="#" className="text-slate-500 hover:text-slate-900 transition" aria-label="Twitter">
-                  <Twitter size={23} />
+                <a href="tel:+2340000000000" className="social-link" aria-label="Phone" title="Phone">
+                  <span className="social-frame">
+                    <img src={phoneIcon} alt="Phone" className="social-icon" />
+                  </span>
                 </a>
-                 <a href="#" className="text-slate-500 hover:text-slate-900 transition" aria-label="Twitter">
-                  <Youtube size={25} />
+                <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="YouTube" title="YouTube">
+                  <span className="social-frame">
+                    <img src={youtubeIcon} alt="YouTube" className="social-icon" />
+                  </span>
+                </a>
+                <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="TikTok" title="TikTok">
+                  <span className="social-frame">
+                    <img src={tiktokIcon} alt="TikTok" className="social-icon" />
+                  </span>
+                </a>
+                <a href="https://chess.com" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="Chess" title="Chess">
+                  <span className="social-frame">
+                    <img src={chessIcon} alt="Chess" className="social-icon" />
+                  </span>
                 </a>
               </div>
             </div>
@@ -170,44 +300,59 @@ export const ContactOption1: React.FC = () => {
         </div>
 
         <div className="option1-form">
-          <div className="form-group">
-            <label className="form-label">Name</label>
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              placeholder="Your name"
-              className="form-input"
-            />
-          </div>
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label className="form-label">Name</label>
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                placeholder="Your name"
+                className="form-input"
+                required
+              />
+            </div>
 
-          <div className="form-group">
-            <label className="form-label">Email</label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="you@example.com"
-              className="form-input"
-            />
-          </div>
+            <div className="form-group">
+              <label className="form-label">Email</label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="you@example.com"
+                className="form-input"
+                required
+              />
+            </div>
 
-          <div className="form-group">
-            <label className="form-label">Message</label>
-            <textarea
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              placeholder="Tell me about your project..."
-              className="form-textarea"
-            />
-          </div>
+            <div className="form-group">
+              <label className="form-label">Message</label>
+              <textarea
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                placeholder="Tell me about your project..."
+                className="form-textarea"
+                required
+              />
+            </div>
 
-          <button type="button" className="submit-btn">
-            Send Message <Send size={16} />
-          </button>
+            <button type="submit" className="submit-btn" disabled={isSubmitting}>
+              {isSubmitting ? 'Sending...' : 'Send Message'} <Send size={16} />
+            </button>
+
+            {submitStatus !== 'idle' && (
+              <p
+                className={`form-status ${submitStatus === 'success' ? 'form-status-success' : 'form-status-error'}`}
+                role="status"
+                aria-live="polite"
+              >
+                {submitMessage}
+              </p>
+            )}
+          </form>
         </div>
       </div>
     </div>

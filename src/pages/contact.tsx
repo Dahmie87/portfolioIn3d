@@ -2,6 +2,12 @@ import { useState,useEffect } from "react";
 import NavBar from "../components/navbar";
 import { BlurReveal, BlurText } from "../components/blur";
 import { Send } from "lucide-react";
+import chessIcon from "../assets/social images/chess.png";
+import instaIcon from "../assets/social images/insta.jfif";
+import phoneIcon from "../assets/social images/phone.png";
+import tiktokIcon from "../assets/social images/tiktok.png";
+import whatsappIcon from "../assets/social images/whatsapp.png";
+import youtubeIcon from "../assets/social images/youtube.png";
 
 const styles = `
   .contact-root {
@@ -190,27 +196,38 @@ const styles = `
     gap: 16px;
     margin-top: 16px;
     flex-wrap: wrap;
+    align-items: center;
   }
 
   .contact-social-link {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 44px;
-    height: 44px;
-    border: 1px solid rgba(0,0,0,0.12);
-    border-radius: 10px;
-    background: rgba(255,255,255,0.5);
-    color: rgba(0,0,0,0.6);
     text-decoration: none;
-    transition: all 0.2s ease;
-    font-size: 16px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
   }
 
   .contact-social-link:hover {
-    border-color: rgba(0,0,0,0.25);
-    background: rgba(0,0,0,0.05);
-    color: rgba(0,0,0,0.85);
+    transform: translateY(-2px);
+    opacity: 0.9;
+  }
+
+  .contact-social-frame {
+    width: 36px;
+    height: 36px;
+    border: 1px solid rgba(0,0,0,0.12);
+    border-radius: 10px;
+    background: rgba(255,255,255,0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .contact-social-icon {
+    width: 70%;
+    height: 70%;
+    object-fit: contain;
+    display: block;
   }
 
   .contact-availability {
@@ -416,14 +433,35 @@ export default function ContactPage() {
                 <div className="contact-info-block">
                   <span className="contact-info-label">Connect</span>
                   <div className="contact-social-links">
-                    <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="contact-social-link" title="GitHub">
-                      𝔾
+                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="contact-social-link" title="Instagram" aria-label="Instagram">
+                      <span className="contact-social-frame">
+                        <img src={instaIcon} alt="Instagram" className="contact-social-icon" />
+                      </span>
                     </a>
-                    <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="contact-social-link" title="Twitter">
-                      𝕏
+                    <a href="https://wa.me" target="_blank" rel="noopener noreferrer" className="contact-social-link" title="WhatsApp" aria-label="WhatsApp">
+                      <span className="contact-social-frame">
+                        <img src={whatsappIcon} alt="WhatsApp" className="contact-social-icon" />
+                      </span>
                     </a>
-                    <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="contact-social-link" title="LinkedIn">
-                      in
+                    <a href="tel:+2340000000000" className="contact-social-link" title="Phone" aria-label="Phone">
+                      <span className="contact-social-frame">
+                        <img src={phoneIcon} alt="Phone" className="contact-social-icon" />
+                      </span>
+                    </a>
+                    <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="contact-social-link" title="YouTube" aria-label="YouTube">
+                      <span className="contact-social-frame">
+                        <img src={youtubeIcon} alt="YouTube" className="contact-social-icon" />
+                      </span>
+                    </a>
+                    <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="contact-social-link" title="TikTok" aria-label="TikTok">
+                      <span className="contact-social-frame">
+                        <img src={tiktokIcon} alt="TikTok" className="contact-social-icon" />
+                      </span>
+                    </a>
+                    <a href="https://chess.com" target="_blank" rel="noopener noreferrer" className="contact-social-link" title="Chess" aria-label="Chess">
+                      <span className="contact-social-frame">
+                        <img src={chessIcon} alt="Chess" className="contact-social-icon" />
+                      </span>
                     </a>
                   </div>
                 </div>

@@ -4,7 +4,7 @@ import { projectsData, type Project, type Tech } from "../projects/data";
 import { useState } from "react";
 import djangoLogo from "../assets/django.png";
 import fastapiLogo from "../assets/fastapi.png";
-import nextLogo from "../assets/next.png";
+import nextLogo from "../assets/next.jfif"
 import postgresLogo from "../assets/postgres.png";
 import pythonLogo from "../assets/python.jfif";
 import reactLogo from "../assets/react.png";
