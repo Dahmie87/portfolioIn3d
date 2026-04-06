@@ -13,7 +13,9 @@ export const ContactOption1: React.FC = () => {
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [submitMessage, setSubmitMessage] = useState('');
 
-  const contactApiUrl = (import.meta.env.VITE_CONTACT_API_URL as string | undefined) || '/api/contact';
+  const contactApiUrl =
+    (import.meta.env.VITE_CONTACT_API_URL as string | undefined) ||
+    'http://localhost:8080/api/v1/contact';
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -26,29 +28,37 @@ export const ContactOption1: React.FC = () => {
     setSubmitStatus('idle');
     setSubmitMessage('');
 
+    const payload = {
+      name: formData.name.trim(),
+      email: formData.email.trim(),
+      message: formData.message.trim(),
+    };
+
     try {
       const response = await fetch(contactApiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Accept: 'application/json',
         },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          message: formData.message,
-        }),
+        body: JSON.stringify(payload),
       });
 
       if (!response.ok) {
-        throw new Error(`Request failed with status ${response.status}`);
+        const errorText = await response.text();
+        throw new Error(errorText || `Request failed with status ${response.status}`);
       }
 
       setSubmitStatus('success');
       setSubmitMessage('Message sent successfully.');
       setFormData({ name: '', email: '', message: '' });
-    } catch {
+    } catch (error) {
       setSubmitStatus('error');
-      setSubmitMessage('Failed to send message. Please try again.');
+      setSubmitMessage(
+        error instanceof Error && error.message
+          ? error.message
+          : 'Failed to send message. Please try again.'
+      );
     } finally {
       setIsSubmitting(false);
     }

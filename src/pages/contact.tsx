@@ -295,7 +295,6 @@ const styles = `
 interface FormData {
   name: string;
   email: string;
-  subject: string;
   message: string;
 }
 
@@ -304,12 +303,13 @@ export default function ContactPage() {
 
   useEffect(()=>{window.scrollTo(0,0)})
 
-  const contactApiUrl = (import.meta.env.VITE_CONTACT_API_URL as string | undefined) || '/api/contact';
+  const contactApiUrl =
+    (import.meta.env.VITE_CONTACT_API_URL as string | undefined) ||
+    "http://localhost:8080/api/v1/contact";
 
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
-    subject: "",
     message: "",
   });
 
@@ -334,30 +334,37 @@ export default function ContactPage() {
     setSubmitStatus("idle");
     setSubmitMessage("");
 
+    const payload = {
+      name: formData.name.trim(),
+      email: formData.email.trim(),
+      message: formData.message.trim(),
+    };
+
     try {
       const response = await fetch(contactApiUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Accept: "application/json",
         },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          subject: formData.subject,
-          message: formData.message,
-        }),
+        body: JSON.stringify(payload),
       });
 
       if (!response.ok) {
-        throw new Error(`Request failed with status ${response.status}`);
+        const errorText = await response.text();
+        throw new Error(errorText || `Request failed with status ${response.status}`);
       }
 
-      setFormData({ name: "", email: "", subject: "", message: "" });
+      setFormData({ name: "", email: "", message: "" });
       setSubmitStatus("success");
       setSubmitMessage("Message sent successfully.");
-    } catch {
+    } catch (error) {
       setSubmitStatus("error");
-      setSubmitMessage("Failed to send message. Please try again.");
+      setSubmitMessage(
+        error instanceof Error && error.message
+          ? error.message
+          : "Failed to send message. Please try again."
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -419,19 +426,6 @@ export default function ContactPage() {
                         required
                       />
                     </div>
-                  </div>
-
-                  <div className="contact-form-group">
-                    <label className="contact-form-label">Subject</label>
-                    <input
-                      type="text"
-                      name="subject"
-                      value={formData.subject}
-                      onChange={handleChange}
-                      placeholder="What is this about?"
-                      className="contact-form-input"
-                      required
-                    />
                   </div>
 
                   <div className="contact-form-group">
