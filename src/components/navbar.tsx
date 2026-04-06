@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
-import resumeFile from "../assets/omotayo's-resume.pdf";
-
 const styles = `
   @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&display=swap');
 
@@ -114,7 +112,7 @@ const styles = `
 const LINKS = [
   { label: "Home", to: "/" },
   { label: "Blog", to: "/blog" },
-  { label: "Resume", to: "/projects" },
+  { label: "Resume", to: "/resume" },
 ] as const;
 type NavItem = (typeof LINKS)[number];
 
@@ -142,44 +140,26 @@ export default function NavBar() {
         
 
         {/* Flip links */}
-        {LINKS.map((item, i) =>
-          item.label === "Resume" ? (
-            <a
-              key={item.label}
-              href={resumeFile}
-              download="omotayo's-resume.pdf"
-              className={`flip-link nav-in nav-in-${i + 2}`}
-            >
-              <div className="flip-link-inner">
-                <span
-                  className="flip-top"
-                >
-                  {item.label}
-                </span>
-                <span className="flip-bottom">{item.label}</span>
-              </div>
-            </a>
-          ) : (
-            <Link
-              key={item.label}
-              to={item.to}
-              className={`flip-link nav-in nav-in-${i + 2}`}
-            >
-              <div className="flip-link-inner">
-                <span
-                  className="flip-top"
-                  style={{
-                    color: isActive(item) ? "rgba(0,0,0,0.85)" : undefined,
-                    fontWeight: isActive(item) ? 500 : undefined,
-                  }}
-                >
-                  {item.label}
-                </span>
-                <span className="flip-bottom">{item.label}</span>
-              </div>
-            </Link>
-          )
-        )}
+        {LINKS.map((item, i) => (
+          <Link
+            key={item.label}
+            to={item.to}
+            className={`flip-link nav-in nav-in-${i + 2}`}
+          >
+            <div className="flip-link-inner">
+              <span
+                className="flip-top"
+                style={{
+                  color: isActive(item) ? "rgba(0,0,0,0.85)" : undefined,
+                  fontWeight: isActive(item) ? 500 : undefined,
+                }}
+              >
+                {item.label}
+              </span>
+              <span className="flip-bottom">{item.label}</span>
+            </div>
+          </Link>
+        ))}
 
         {/* CTA */}
         <Link to={'/contact'} className="nav-cta nav-in nav-in-5">

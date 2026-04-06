@@ -17,11 +17,30 @@ export default function Contacts() {
     filterContacts();
   }, [contacts, searchTerm]);
 
+  const mapContact = (item) => {
+    const name = item.name || item.full_name || 'Unknown';
+    const email = item.email || item.mail || 'No email';
+    const message = item.message || item.content || '';
+    const createdAt = item.created_at || item.createdAt || new Date().toISOString();
+
+    return {
+      ...item,
+      id: item.id,
+      name,
+      email,
+      message,
+      created_at: createdAt,
+    };
+  };
+
   const fetchContacts = async () => {
     try {
       setLoading(true);
       const data = await contactAPI.getAll();
-      setContacts(data.contacts || []);
+      const normalizedContacts =
+        data.contacts || data.contact || data.items || data.results ||
+        (Array.isArray(data) ? data : []);
+      setContacts(normalizedContacts.map(mapContact));
     } catch (error) {
       console.error('Failed to load contacts:', error);
     } finally {
@@ -32,9 +51,9 @@ export default function Contacts() {
   const filterContacts = () => {
     const filtered = contacts.filter(
       (contact) =>
-        contact.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        contact.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        contact.message.toLowerCase().includes(searchTerm.toLowerCase())
+        (contact.name || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (contact.email || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (contact.message || '').toLowerCase().includes(searchTerm.toLowerCase())
     );
     setFilteredContacts(filtered);
   };
@@ -86,7 +105,7 @@ export default function Contacts() {
                 <h4>{contact.name}</h4>
                 <p className="contact-email">{contact.email}</p>
                 <p className="contact-preview">
-                  {contact.message.substring(0, 60)}...
+                  {(contact.message || '').slice(0, 60)}...
                 </p>
                 <span className="contact-date">
                   {new Date(contact.created_at).toLocaleDateString()}

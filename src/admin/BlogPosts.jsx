@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { blogAPI } from './api';
-import { Plus, Edit2, Trash2, AlertCircle } from 'lucide-react';
+import { Plus, Edit2, Trash2, AlertCircle, ExternalLink } from 'lucide-react';
 
 export default function BlogPosts() {
+  const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
@@ -105,6 +107,15 @@ export default function BlogPosts() {
     setShowForm(false);
     setEditingId(null);
     setFormData({ title: '', content: '', slug: '' });
+  };
+
+  const openPostPage = (postId, inNewTab = false) => {
+    const path = `/blog/${postId}`;
+    if (inNewTab) {
+      window.open(path, '_blank', 'noopener,noreferrer');
+      return;
+    }
+    navigate(path);
   };
 
   if (loading) {
@@ -213,7 +224,19 @@ export default function BlogPosts() {
         {posts.length > 0 ? (
           posts.map((post) => (
             <div key={post.id} className="post-card">
-              <div className="post-info">
+              <div
+                className="post-info"
+                role="button"
+                tabIndex={0}
+                onClick={() => openPostPage(post.id)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    openPostPage(post.id);
+                  }
+                }}
+                title="Open full post"
+              >
                 <h3>{post.title}</h3>
                 <p className="post-slug">{post.slug}</p>
                 <p className="post-date">
@@ -221,6 +244,13 @@ export default function BlogPosts() {
                 </p>
               </div>
               <div className="post-actions">
+                <button
+                  className="btn-icon btn-edit"
+                  onClick={() => openPostPage(post.id, true)}
+                  title="Open in new tab"
+                >
+                  <ExternalLink size={18} />
+                </button>
                 <button
                   className="btn-icon btn-edit"
                   onClick={() => handleEdit(post)}

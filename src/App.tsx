@@ -5,6 +5,7 @@ import BlogPostPage from "./pages/blog-post.tsx";
 import ProjectsPage from "./pages/projects.tsx";
 import ProjectDetailsPage from "./pages/project-details";
 import ContactPage from "./pages/contact";
+import ResumePage from "./pages/resume.tsx";
 import { BlurRevealStyles } from "./components/blur";
 import PortfolioFooter from "./components/footer";
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
@@ -24,6 +25,7 @@ function AppRoutes() {
         <Route path="/" element={<HomePage/>}/>
         <Route path="/blog" element={<BlogPage/>}/>
         <Route path="/blog/:id" element={<BlogPostPage/>}/>
+        <Route path="/resume" element={<ResumePage/>}/>
         <Route path="/projects" element={<ProjectsPage/>}/>
         <Route path="/projects/:id" element={<ProjectDetailsPage/>}/>
         <Route path="/contact" element={<ContactPage/>}/>

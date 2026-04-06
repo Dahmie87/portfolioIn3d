@@ -14,8 +14,27 @@ const api = axios.create({
 
 export const contactAPI = {
   submit: (data) => api.post('/contact', data),
-  getAll: () => api.get('/contacts'),
-  delete: (id) => api.delete(`/contacts/${id}`),
+  getAll: async () => {
+    const endpoints = ['/contacts', '/contacts/', '/contact/list', '/contact'];
+
+    let lastError;
+    for (const endpoint of endpoints) {
+      try {
+        return await api.get(endpoint);
+      } catch (error) {
+        lastError = error;
+      }
+    }
+
+    throw lastError || new Error('Failed to fetch contacts');
+  },
+  delete: async (id) => {
+    try {
+      return await api.delete(`/contacts/${id}`);
+    } catch {
+      return api.delete(`/contact/${id}`);
+    }
+  },
 };
 
 // ===== BLOG POSTS =====
