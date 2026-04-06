@@ -1,5 +1,5 @@
 import type React from "react";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import AbstractShape from "../components/abstract";
@@ -14,41 +14,39 @@ import { ContactOption1 } from "../components/contact";
 
 
 
-// New function to log visitor
-async function logVisitor() {
-  try {
-    // Get user's IP address
-    const ipRes = await fetch('https://api.ipify.org?format=json')
-    const ipData = await ipRes.json()
+// // New function to log visitor
+// async function logVisitor() {
+//   try {
+//     // Get user's IP address
+//     const ipRes = await fetch('https://api.ipify.org?format=json')
+//     const ipData = await ipRes.json()
     
-    // Get user agent
-    const userAgent = navigator.userAgent
+//     // Get user agent
+//     const userAgent = navigator.userAgent
     
-    // Send visitor data to backend
-    const response = await fetch('http://localhost:8080/api/v1/log-visitor', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        ip: ipData.ip,
-        user_agent: userAgent,
-        endpoint: '/home'  // or window.location.pathname
-      })
-    })
+//     // Send visitor data to backend
+//     const response = await fetch('http://localhost:8080/api/v1/log-visitor', {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify({
+//         ip: ipData.ip,
+//         user_agent: userAgent,
+//         endpoint: '/home'  // or window.location.pathname
+//       })
+//     })
     
-    const data = await response.json()
-    console.log('Visitor logged:', data)
-  } catch (error) {
-    console.error('Error logging visitor:', error)
-  }
-}
+//     const data = await response.json()
+//     console.log('Visitor logged:', data)
+//   } catch (error) {
+//     console.error('Error logging visitor:', error)
+//   }
+// }
 
 
 export default function HomePage(): React.ReactElement {
- useEffect(() => {
-  logVisitor()
- }, [])
+ 
   return (
     <div className="text-slate-900 min-h-screen">
       <div className="md:mx-10 my-2 bg-white rounded-4xl shadow-sm overflow-visible md:overflow-visible min-h-[calc(100vh-1rem)] md:min-h-0 relative md:static">
