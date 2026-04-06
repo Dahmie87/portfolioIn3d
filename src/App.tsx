@@ -7,17 +7,19 @@ import ContactPage from "./pages/contact";
 import { BlurRevealStyles } from "./components/blur";
 import PortfolioFooter from "./components/footer";
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
-import AdminApp from "./admin/App.jsx";
+import AdminApp from "./admin/App";
+
 
 
 function AppRoutes() {
   const location = useLocation();
-  const isAdminRoute = location.pathname.startsWith("/.admin");
+  const isAdminRoute = location.pathname.startsWith("/.admin") || location.pathname.startsWith("/admin");
 
   return (
     <>
       <Routes>
         <Route path="/.admin/*" element={<AdminApp />} />
+        <Route path="/admin/*" element={<AdminApp />} />
         <Route path="/" element={<HomePage/>}/>
         <Route path="/blog" element={<BlogPage/>}/>
         <Route path="/projects" element={<ProjectsPage/>}/>

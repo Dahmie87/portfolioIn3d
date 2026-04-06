@@ -48,8 +48,10 @@ function AppContent() {
 
 export default function App() {
   return (
-    <AuthProvider>
-      <AppContent />
-    </AuthProvider>
+    <div className="admin-root">
+      <AuthProvider>
+        <AppContent />
+      </AuthProvider>
+    </div>
   );
 }
