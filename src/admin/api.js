@@ -14,16 +14,9 @@ const api = axios.create({
 
 export const contactAPI = {
   submit: (data) => api.post('/contact', data),
-  getAll: () => api.get('/list_contacts'),
-     
-
-  
-  delete: async (id) => {
-    try {
-      return await api.delete(`/contacts/${id}`);
-    } catch {
-      return api.delete(`/contact/${id}`);
-    }
+  getAll: () => api.get('/contacts'),
+  delete: (id) => { api.delete(`/contact/${id}`);
+    
   },
 };
 
@@ -41,7 +34,14 @@ export const blogAPI = {
 
 export const visitorAPI = {
   log: (data) => api.post('/log-visitor', data),
-  getStats: () => api.get('/stats'),
+  getStats: async () => {
+    try {
+      return await api.get('/stats');
+    } catch {
+      const response = await axios.get('http://localhost:8080/api/v1/stats');
+      return response.data;
+    }
+  },
 };
 
 // ===== AUTHENTICATION =====

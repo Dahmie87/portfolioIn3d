@@ -1,8 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { visitorAPI } from './api';
-import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
-
-const COLORS = ['#3b82f6', '#ef4444', '#10b981', '#f59e0b', '#8b5cf6'];
+import {
+  LineChart,
+  Line,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from 'recharts';
 
 export default function Analytics() {
   const [stats, setStats] = useState(null);
@@ -32,55 +40,71 @@ export default function Analytics() {
     return <div className="error">No analytics data available</div>;
   }
 
-  // Sample data for charts (in real app, this comes from backend)
-  const visitorTrendData = [
-    { date: 'Mon', visitors: 24 },
-    { date: 'Tue', visitors: 35 },
-    { date: 'Wed', visitors: 28 },
-    { date: 'Thu', visitors: 42 },
-    { date: 'Fri', visitors: 38 },
-    { date: 'Sat', visitors: 45 },
-    { date: 'Sun', visitors: 32 },
-  ];
+  const visitors = Array.isArray(stats.visitors) ? stats.visitors : [];
+  const totalVisits = Number.isFinite(stats.total) ? stats.total : visitors.length;
 
-  const deviceData = [
-    { name: 'Desktop', value: 60 },
-    { name: 'Mobile', value: 30 },
-    { name: 'Tablet', value: 10 },
-  ];
+  const uniqueVisitorCount = new Set(visitors.map((v) => v.ip || 'unknown')).size;
+  const uniqueEndpointCount = new Set(visitors.map((v) => v.endpoint || 'unknown')).size;
 
-  const browserData = [
-    { name: 'Chrome', value: 45 },
-    { name: 'Firefox', value: 20 },
-    { name: 'Safari', value: 20 },
-    { name: 'Edge', value: 10 },
-    { name: 'Other', value: 5 },
-  ];
+  const todayKey = new Date().toISOString().slice(0, 10);
+  const todayVisits = visitors.filter((v) => (v.visited_at || '').slice(0, 10) === todayKey).length;
+
+  const trendMap = {};
+  for (let i = 6; i >= 0; i -= 1) {
+    const date = new Date();
+    date.setDate(date.getDate() - i);
+    const key = date.toISOString().slice(0, 10);
+    trendMap[key] = 0;
+  }
+  visitors.forEach((v) => {
+    const key = (v.visited_at || '').slice(0, 10);
+    if (key in trendMap) {
+      trendMap[key] += 1;
+    }
+  });
+  const visitorTrendData = Object.entries(trendMap).map(([date, count]) => ({
+    date: date.slice(5),
+    visitors: count,
+  }));
+
+  const endpointMap = {};
+  visitors.forEach((v) => {
+    const endpoint = v.endpoint || 'unknown';
+    endpointMap[endpoint] = (endpointMap[endpoint] || 0) + 1;
+  });
+  const endpointData = Object.entries(endpointMap)
+    .map(([endpoint, count]) => ({ endpoint, count }))
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 8);
+
+  const recentVisitors = [...visitors]
+    .sort((a, b) => new Date(b.visited_at).getTime() - new Date(a.visited_at).getTime())
+    .slice(0, 20);
 
   return (
     <div className="page analytics-page">
       <div className="page-header">
         <h1>Analytics</h1>
-        <p>Visitor statistics and insights</p>
+        <p>Visitor statistics from /api/v1/stats</p>
       </div>
 
       {/* Key Metrics */}
       <div className="metrics-grid">
         <div className="metric-card">
           <h3>Total Visits</h3>
-          <p className="metric-value">{stats.total_visits || 0}</p>
+          <p className="metric-value">{totalVisits}</p>
         </div>
         <div className="metric-card">
           <h3>Unique Visitors</h3>
-          <p className="metric-value">{stats.unique_sessions || 0}</p>
+          <p className="metric-value">{uniqueVisitorCount}</p>
         </div>
         <div className="metric-card">
-          <h3>New Visitors Today</h3>
-          <p className="metric-value">{stats.new_visitors_today || 0}</p>
+          <h3>Visits Today</h3>
+          <p className="metric-value">{todayVisits}</p>
         </div>
         <div className="metric-card">
-          <h3>Avg Visit Duration</h3>
-          <p className="metric-value">2m 34s</p>
+          <h3>Tracked Endpoints</h3>
+          <p className="metric-value">{uniqueEndpointCount}</p>
         </div>
       </div>
 
@@ -95,7 +119,6 @@ export default function Analytics() {
               <XAxis dataKey="date" />
               <YAxis />
               <Tooltip />
-              <Legend />
               <Line
                 type="monotone"
                 dataKey="visitors"
@@ -106,40 +129,16 @@ export default function Analytics() {
           </ResponsiveContainer>
         </div>
 
-        {/* Device Breakdown */}
+        {/* Endpoint Breakdown */}
         <div className="chart-container">
-          <h2>Device Types</h2>
+          <h2>Top Endpoints</h2>
           <ResponsiveContainer width="100%" height={300}>
-            <PieChart>
-              <Pie
-                data={deviceData}
-                cx="50%"
-                cy="50%"
-                labelLine={false}
-                label
-                outerRadius={80}
-                fill="#8884d8"
-                dataKey="value"
-              >
-                {deviceData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                ))}
-              </Pie>
-              <Tooltip />
-            </PieChart>
-          </ResponsiveContainer>
-        </div>
-
-        {/* Browser Breakdown */}
-        <div className="chart-container">
-          <h2>Browser Distribution</h2>
-          <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={browserData}>
+            <BarChart data={endpointData} layout="vertical" margin={{ left: 20, right: 12, top: 8, bottom: 8 }}>
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
+              <XAxis type="number" />
+              <YAxis dataKey="endpoint" type="category" width={180} tick={{ fontSize: 12 }} />
               <Tooltip />
-              <Bar dataKey="value" fill="#3b82f6" />
+              <Bar dataKey="count" fill="#3b82f6" radius={[4, 4, 4, 4]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -153,26 +152,22 @@ export default function Analytics() {
             <thead>
               <tr>
                 <th>IP Address</th>
-                <th>Location</th>
-                <th>Device</th>
-                <th>Last Visit</th>
+                <th>Endpoint</th>
+                <th>Visited At</th>
               </tr>
             </thead>
             <tbody>
-              {stats.recent_visitors && stats.recent_visitors.length > 0 ? (
-                stats.recent_visitors.map((visitor, idx) => (
+              {recentVisitors.length > 0 ? (
+                recentVisitors.map((visitor, idx) => (
                   <tr key={idx}>
                     <td className="mono">{visitor.ip}</td>
-                    <td>{visitor.location || 'Unknown'}</td>
-                    <td>{visitor.device || 'Unknown'}</td>
-                    <td>
-                      {new Date(visitor.last_visit).toLocaleString()}
-                    </td>
+                    <td className="mono">{visitor.endpoint || 'Unknown'}</td>
+                    <td>{visitor.visited_at ? new Date(visitor.visited_at).toLocaleString() : 'Unknown'}</td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan="4">No visitor data available</td>
+                  <td colSpan="3">No visitor data available</td>
                 </tr>
               )}
             </tbody>
