@@ -9,8 +9,10 @@ export default function BlogPosts() {
   const [editingId, setEditingId] = useState(null);
   const [formData, setFormData] = useState({
     title: '',
+    slug:'',
+    category: '',
     content: '',
-    slug: '',
+    
   });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -162,6 +164,19 @@ export default function BlogPosts() {
                 required
               />
               <small>Auto-generated from title</small>
+            </div>
+           < div className="form-group">
+              <label htmlFor="slug">category *</label>
+              <input
+                id="slug"
+                type="text"
+                name="category"
+                value={formData.category}
+                onChange={handleInputChange}
+                placeholder="post-category"
+                required
+              />
+          
             </div>
 
             <div className="form-group">

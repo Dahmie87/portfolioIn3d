@@ -173,6 +173,103 @@ const styles = `
     color: rgb(220, 38, 38);
   }
 
+  .contact-modal-shell {
+    position: fixed;
+    inset: 0;
+    z-index: 80;
+    background: rgba(15,23,42,0.58);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .contact-modal-card {
+    width: min(540px, 100%);
+    border-radius: 18px;
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.1);
+    box-shadow: 0 24px 60px rgba(15,23,42,0.25);
+    overflow: hidden;
+  }
+
+  .contact-modal-accent {
+    height: 4px;
+    background: linear-gradient(90deg, #0f172a, #334155);
+  }
+
+  .contact-modal-card.success .contact-modal-accent {
+    background: linear-gradient(90deg, #166534, #22c55e);
+  }
+
+  .contact-modal-card.error .contact-modal-accent {
+    background: linear-gradient(90deg, #7f1d1d, #ef4444);
+  }
+
+  .contact-modal-content {
+    padding: 24px;
+  }
+
+  .contact-modal-title {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: rgba(15,23,42,0.95);
+    margin-bottom: 8px;
+  }
+
+  .contact-modal-text {
+    font-size: 14px;
+    line-height: 1.7;
+    color: rgba(15,23,42,0.68);
+    white-space: pre-wrap;
+  }
+
+  .contact-modal-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .contact-modal-close {
+    border: none;
+    border-radius: 10px;
+    background: #0f172a;
+    color: #fff;
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .contact-loading-skeleton {
+    margin-top: 16px;
+    display: grid;
+    gap: 10px;
+  }
+
+  .contact-skeleton-line {
+    height: 12px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, rgba(226,232,240,1), rgba(241,245,249,1), rgba(226,232,240,1));
+    background-size: 200% 100%;
+    animation: modalShimmer 1.1s linear infinite;
+  }
+
+  .contact-skeleton-line.short {
+    width: 52%;
+  }
+
+  @keyframes modalShimmer {
+    from {
+      background-position: 200% 0;
+    }
+    to {
+      background-position: -200% 0;
+    }
+  }
+
   /* Info Section */
   .contact-info-section {
     display: flex;
@@ -316,6 +413,7 @@ export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
   const [submitMessage, setSubmitMessage] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -333,6 +431,15 @@ export default function ContactPage() {
     setIsSubmitting(true);
     setSubmitStatus("idle");
     setSubmitMessage("");
+    setIsModalOpen(true);
+
+    // Protect against accidental env override to the blog post endpoint.
+    if (/\/post\/?$/i.test(contactApiUrl)) {
+      setIsSubmitting(false);
+      setSubmitStatus("error");
+      setSubmitMessage("Contact form misconfigured: endpoint cannot be /post. Use /contact.");
+      return;
+    }
 
     const payload = {
       name: formData.name.trim(),
@@ -368,6 +475,13 @@ export default function ContactPage() {
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const closeModal = () => {
+    if (isSubmitting) {
+      return;
+    }
+    setIsModalOpen(false);
   };
 
   return (
@@ -444,15 +558,6 @@ export default function ContactPage() {
                     {isSubmitting ? "Sending..." : <>Send message<Send size={16} /></>}
                   </button>
 
-                  {submitStatus !== "idle" && (
-                    <p
-                      className={`contact-form-status ${submitStatus === "success" ? "contact-form-status-success" : "contact-form-status-error"}`}
-                      role="status"
-                      aria-live="polite"
-                    >
-                      {submitMessage}
-                    </p>
-                  )}
                 </form>
               </div>
 
@@ -524,6 +629,45 @@ export default function ContactPage() {
           </BlurReveal>
         </div>
       </div>
+
+      {isModalOpen && (
+        <div className="contact-modal-shell" role="dialog" aria-modal="true" aria-live="polite">
+          <div
+            className={`contact-modal-card ${
+              isSubmitting ? "" : submitStatus === "success" ? "success" : "error"
+            }`}
+          >
+            <div className="contact-modal-accent" />
+            <div className="contact-modal-content">
+              {isSubmitting ? (
+                <>
+                  <h3 className="contact-modal-title">Sending your message</h3>
+                  <p className="contact-modal-text">
+                    Please wait while I deliver this to the contact inbox.
+                  </p>
+                  <div className="contact-loading-skeleton" aria-hidden="true">
+                    <div className="contact-skeleton-line" />
+                    <div className="contact-skeleton-line" />
+                    <div className="contact-skeleton-line short" />
+                  </div>
+                </>
+              ) : (
+                <>
+                  <h3 className="contact-modal-title">
+                    {submitStatus === "success" ? "Message sent" : "Message failed"}
+                  </h3>
+                  <p className="contact-modal-text">{submitMessage}</p>
+                  <div className="contact-modal-actions">
+                    <button className="contact-modal-close" type="button" onClick={closeModal}>
+                      Close
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

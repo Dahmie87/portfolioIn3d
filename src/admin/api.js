@@ -21,7 +21,7 @@ export const contactAPI = {
 // ===== BLOG POSTS =====
 
 export const blogAPI = {
-  create: (data) => api.post('/posts', data),
+  create: (data) => api.post('/post', data),
   getAll: () => api.get('/posts'),
   getBySlug: (slug) => api.get(`/posts/${slug}`),
   update: (id, data) => api.put(`/posts/${id}`, data),
