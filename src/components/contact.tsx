@@ -13,7 +13,7 @@ export const ContactOption1: React.FC = () => {
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [submitMessage, setSubmitMessage] = useState('');
 
-  const contactApiUrl = import.meta.env.VITE_CONTACT_API_URL as string | undefined;
+  const contactApiUrl = (import.meta.env.VITE_CONTACT_API_URL as string | undefined) || '/api/contact';
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -21,12 +21,6 @@ export const ContactOption1: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    if (!contactApiUrl) {
-      setSubmitStatus('error');
-      setSubmitMessage('Contact endpoint is not configured. Set VITE_CONTACT_API_URL.');
-      return;
-    }
 
     setIsSubmitting(true);
     setSubmitStatus('idle');

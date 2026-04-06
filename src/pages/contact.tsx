@@ -152,6 +152,27 @@ const styles = `
     transform: translateY(0);
   }
 
+  .contact-form-submit:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+    transform: none;
+    box-shadow: none;
+  }
+
+  .contact-form-status {
+    margin-top: 12px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .contact-form-status-success {
+    color: rgb(22, 163, 74);
+  }
+
+  .contact-form-status-error {
+    color: rgb(220, 38, 38);
+  }
+
   /* Info Section */
   .contact-info-section {
     display: flex;
@@ -283,6 +304,8 @@ export default function ContactPage() {
 
   useEffect(()=>{window.scrollTo(0,0)})
 
+  const contactApiUrl = (import.meta.env.VITE_CONTACT_API_URL as string | undefined) || '/api/contact';
+
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
@@ -290,7 +313,9 @@ export default function ContactPage() {
     message: "",
   });
 
-  const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+  const [submitMessage, setSubmitMessage] = useState("");
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -302,24 +327,40 @@ export default function ContactPage() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Create mailto link
-    const mailtoLink = `mailto:omotayodamilare@gmail.com?subject=${encodeURIComponent(
-      formData.subject
-    )}&body=${encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
-    )}`;
-    
-    window.location.href = mailtoLink;
-    
-    // Show success message
-    setSubmitted(true);
-    setTimeout(() => {
+
+    setIsSubmitting(true);
+    setSubmitStatus("idle");
+    setSubmitMessage("");
+
+    try {
+      const response = await fetch(contactApiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Request failed with status ${response.status}`);
+      }
+
       setFormData({ name: "", email: "", subject: "", message: "" });
-      setSubmitted(false);
-    }, 3000);
+      setSubmitStatus("success");
+      setSubmitMessage("Message sent successfully.");
+    } catch {
+      setSubmitStatus("error");
+      setSubmitMessage("Failed to send message. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -405,9 +446,19 @@ export default function ContactPage() {
                     />
                   </div>
 
-                  <button type="submit" className="contact-form-submit">
-                    {submitted ? "Message sent! ✓" : <>Send message<Send size={16} /></>}
+                  <button type="submit" className="contact-form-submit" disabled={isSubmitting}>
+                    {isSubmitting ? "Sending..." : <>Send message<Send size={16} /></>}
                   </button>
+
+                  {submitStatus !== "idle" && (
+                    <p
+                      className={`contact-form-status ${submitStatus === "success" ? "contact-form-status-success" : "contact-form-status-error"}`}
+                      role="status"
+                      aria-live="polite"
+                    >
+                      {submitMessage}
+                    </p>
+                  )}
                 </form>
               </div>
 
