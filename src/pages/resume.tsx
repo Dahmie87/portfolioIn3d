@@ -11,7 +11,7 @@ const styles = `
   }
 
   .resume-controls {
-    max-width: 860px;
+    max-width: 1120px;
     margin: 0 auto 16px auto;
     display: flex;
     justify-content: flex-end;
@@ -40,7 +40,7 @@ const styles = `
   }
 
   .resume-page {
-    width: min(860px, 100%);
+    width: min(1120px, 100%);
     margin: 0 auto;
     background: #fff;
     border: 1px solid #d3d3d3;
@@ -50,18 +50,19 @@ const styles = `
   }
 
   .name {
-    font-size: 50px;
+    font-size: 42px;
     letter-spacing: 0.01em;
     font-weight: 700;
     line-height: 1;
-    margin: 0 0 4px 0;
+    margin: 0 0 8px 0;
     text-align: center;
   }
 
   .contact-row {
     text-align: center;
-    font-size: 28px;
-    margin-bottom: 14px;
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 22px;
   }
 
   .contact-link {
@@ -70,19 +71,19 @@ const styles = `
   }
 
   .section {
-    margin-top: 14px;
+    margin-top: 18px;
   }
 
   .section-header {
-    font-size: 33px;
+    font-size: 24px;
     font-variant: small-caps;
     border-bottom: 1px solid #111;
-    margin: 0 0 6px 0;
+    margin: 0 0 10px 0;
     line-height: 1.05;
   }
 
   .entry {
-    margin-bottom: 8px;
+    margin-bottom: 14px;
   }
 
   .entry-line {
@@ -93,53 +94,53 @@ const styles = `
   }
 
   .entry-title {
-    font-size: 33px;
+    font-size: 20px;
     font-weight: 700;
     margin: 0;
   }
 
   .entry-location,
   .entry-date {
-    font-size: 33px;
+    font-size: 18px;
     margin: 0;
   }
 
   .entry-subtitle {
-    font-size: 31px;
+    font-size: 18px;
     font-style: italic;
     margin: 0;
   }
 
   .entry-submeta {
-    font-size: 30px;
+    font-size: 17px;
     font-style: italic;
     margin: 0;
     text-align: right;
   }
 
   .bullet-list {
-    margin: 5px 0 0 28px;
+    margin: 8px 0 0 24px;
     padding: 0;
   }
 
   .bullet-list li {
-    font-size: 31px;
-    line-height: 1.28;
-    margin-bottom: 2px;
+    font-size: 16px;
+    line-height: 1.55;
+    margin-bottom: 5px;
   }
 
   .resume-content {
-    max-height: calc(100vh - 220px);
-    overflow: auto;
+    max-height: none;
+    overflow: visible;
   }
 
   @media (max-width: 1100px) {
     .name { font-size: 34px; }
-    .contact-row { font-size: 16px; }
+    .contact-row { font-size: 15px; }
     .section-header { font-size: 20px; }
-    .entry-title, .entry-location, .entry-date { font-size: 18px; }
-    .entry-subtitle, .entry-submeta { font-size: 16px; }
-    .bullet-list li { font-size: 15px; }
+    .entry-title, .entry-location, .entry-date { font-size: 17px; }
+    .entry-subtitle, .entry-submeta { font-size: 15px; }
+    .bullet-list li { font-size: 14px; }
   }
 
   @media (max-width: 840px) {

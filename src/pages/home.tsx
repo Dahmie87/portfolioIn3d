@@ -12,11 +12,7 @@ import ConceptC from "../components/concept";
 import SkillsExperienceSection from "../components/skills";
 import { ContactOption1 } from "../components/contact";
 
-async function RequestPortolioData(){
-  const res = await fetch('http://localhost:8080/')
-  const data= await res.json()
-  return data
-}
+
 
 // New function to log visitor
 async function logVisitor() {

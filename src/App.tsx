@@ -10,12 +10,13 @@ import { BlurRevealStyles } from "./components/blur";
 import PortfolioFooter from "./components/footer";
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import AdminApp from "./admin/App";
-
+import { useSmartVisitorTracking } from "./hooks/useSmartVisitorTracking";
 
 
 function AppRoutes() {
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith("/.admin") || location.pathname.startsWith("/admin");
+  useSmartVisitorTracking();
 
   return (
     <>
