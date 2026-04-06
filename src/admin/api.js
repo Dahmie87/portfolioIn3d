@@ -14,20 +14,10 @@ const api = axios.create({
 
 export const contactAPI = {
   submit: (data) => api.post('/contact', data),
-  getAll: async () => {
-    const endpoints = ['/contacts', '/contacts/', '/contact/list', '/contact'];
+  getAll: () => api.get('/list_contacts'),
+     
 
-    let lastError;
-    for (const endpoint of endpoints) {
-      try {
-        return await api.get(endpoint);
-      } catch (error) {
-        lastError = error;
-      }
-    }
-
-    throw lastError || new Error('Failed to fetch contacts');
-  },
+  
   delete: async (id) => {
     try {
       return await api.delete(`/contacts/${id}`);

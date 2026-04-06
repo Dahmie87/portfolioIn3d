@@ -11,6 +11,7 @@ export default function Contacts() {
 
   useEffect(() => {
     fetchContacts();
+    
   }, []);
 
   useEffect(() => {

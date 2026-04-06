@@ -1,6 +1,6 @@
 // hooks/useSmartVisitorTracking.ts
 import { useEffect, useRef } from 'react'
-import { useLocation } from 'react-router-dom'
+import {useLocation } from 'react-router-dom'
 
 export function useSmartVisitorTracking() {
   const location = useLocation()
@@ -34,12 +34,14 @@ export function useSmartVisitorTracking() {
   }, [])
 
   async function logVisitorEntry() {
+    // const ipRes = await fetch("http://ipapi,co/json/")
+    // const ipData = await ipRes.json()
     try {
       await fetch('http://localhost:8080/api/v1/log-visitor', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          ip: 'auto-detect',
+          ip: "local",
           user_agent: sessionRef.current.userAgent,
           endpoint: window.location.pathname,
           session_id: sessionRef.current.sessionId
