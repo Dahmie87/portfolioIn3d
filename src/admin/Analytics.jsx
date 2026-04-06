@@ -1,7 +1,5 @@
-// src/pages/Analytics.jsx
-
 import React, { useEffect, useState } from 'react';
-import { visitorAPI } from '../services/api';
+import { visitorAPI } from './api';
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 
 const COLORS = ['#3b82f6', '#ef4444', '#10b981', '#f59e0b', '#8b5cf6'];

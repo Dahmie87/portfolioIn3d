@@ -18,7 +18,7 @@ function ProtectedRoute({ children }) {
   }
 
   if (!isAuthenticated) {
-    return <Navigate to="/admin/login" replace />;
+    return <Navigate to="/.admin/login" replace />;
   }
 
   return children;
@@ -40,8 +40,8 @@ function AppContent() {
         <Route path="blog" element={<BlogPosts />} />
         <Route path="contacts" element={<Contacts />} />
         <Route path="analytics" element={<Analytics />} />
+        <Route path="*" element={<Navigate to="." replace />} />
       </Route>
-      <Route path="*" element={<Navigate to="." replace />} />
     </Routes>
   );
 }
