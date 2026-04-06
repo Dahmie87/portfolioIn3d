@@ -1,7 +1,5 @@
-// src/pages/Contacts.jsx
-
 import React, { useEffect, useState } from 'react';
-import { contactAPI } from '../services/api';
+import { contactAPI } from './api';
 import { Trash2, Search } from 'lucide-react';
 
 export default function Contacts() {

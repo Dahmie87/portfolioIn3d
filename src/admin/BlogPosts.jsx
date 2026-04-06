@@ -1,7 +1,5 @@
-// src/pages/BlogPosts.jsx
-
 import React, { useEffect, useState } from 'react';
-import { blogAPI } from '../services/api';
+import { blogAPI } from './api';
 import { Plus, Edit2, Trash2, AlertCircle } from 'lucide-react';
 
 export default function BlogPosts() {

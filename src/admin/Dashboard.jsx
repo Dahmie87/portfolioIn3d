@@ -1,8 +1,6 @@
-// src/pages/Dashboard.jsx
-
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { contactAPI, blogAPI, visitorAPI } from '../services/api';
+import { contactAPI, blogAPI, visitorAPI } from './api';
 import { Users, FileText, Mail, TrendingUp } from 'lucide-react';
 
 function StatCard({ icon: Icon, label, value, color }) {
@@ -100,7 +98,7 @@ export default function Dashboard() {
           <h2>Recent Contact Submissions</h2>
           <button
             className="btn btn-secondary"
-            onClick={() => navigate('/admin/contacts')}
+            onClick={() => navigate('/.admin/contacts')}
           >
             View All
           </button>
@@ -136,19 +134,19 @@ export default function Dashboard() {
         <div className="action-buttons">
           <button
             className="btn btn-primary"
-            onClick={() => navigate('/admin/blog')}
+            onClick={() => navigate('/.admin/blog')}
           >
             Create Blog Post
           </button>
           <button
             className="btn btn-secondary"
-            onClick={() => navigate('/admin/contacts')}
+            onClick={() => navigate('/.admin/contacts')}
           >
             View Contacts
           </button>
           <button
             className="btn btn-secondary"
-            onClick={() => navigate('/admin/analytics')}
+            onClick={() => navigate('/.admin/analytics')}
           >
             View Analytics
           </button>

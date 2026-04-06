@@ -1,8 +1,6 @@
-// src/pages/Login.jsx
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from './AuthContext';
 import { AlertCircle } from 'lucide-react';
 
 export default function Login() {
@@ -20,7 +18,7 @@ export default function Login() {
 
     try {
       await login(username, password);
-      navigate('/admin');
+      navigate('/.admin');
     } catch (err) {
       setError(err.message || 'Login failed');
     } finally {
