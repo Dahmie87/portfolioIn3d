@@ -1,6 +1,7 @@
 import { useEffect } from "react"
 import NavBar from "../components/navbar";
 import { BlurReveal } from "../components/blur";
+import { Youtube } from "lucide-react";
 
 
 const stats = [
@@ -9,40 +10,14 @@ const stats = [
   { label: "Avg. Read", val: "7 minutes" },
 ];
 
-const articles = [
-  {
-    date: "Feb 28, 2024",
-    tag: "TYPESCRIPT",
-    title: "Type-Safe Navigation with Advanced Generics",
-    description:
-      "Exploring the boundaries of TypeScript's type system to create a zero-runtime-error navigation architecture for enterprise applications.",
-    readTime: "6 min read",
-  },
-  {
-    date: "Feb 15, 2024",
-    tag: "REACT",
-    title: 'The Performance Cost of "Clean Code"',
-    description:
-      "When over-abstraction becomes a liability. A deep dive into React re-renders and the hidden costs of generic component patterns.",
-    readTime: "12 min read",
-  },
-  {
-    date: "Jan 22, 2024",
-    tag: "DESIGN SYSTEMS",
-    title: "Beyond Light and Dark: Semantic Tonal Palettes",
-    description:
-      "Moving past hex codes to semantic color tokens that adapt to accessibility requirements and brand evolution automatically.",
-    readTime: "8 min read",
-  },
-  {
-    date: "Jan 05, 2024",
-    tag: "NEXT.JS",
-    title: "Server Actions: The End of the API Layer?",
-    description:
-      "Exploring how Next.js 14 and React Server Components are redefining the boundaries between client and server logic.",
-    readTime: "5 min read",
-  },
-];
+// Demo articles are intentionally hidden for now.
+const articles: Array<{
+  date: string;
+  tag: string;
+  title: string;
+  description: string;
+  readTime: string;
+}> = [];
 
 const styles = `
   @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&display=swap');
@@ -143,6 +118,101 @@ const styles = `
     grid-template-columns: repeat(2, 1fr);
     gap: 24px;
     margin-bottom: 80px;
+  }
+
+  .blog-empty-state {
+    position: relative;
+    border: 1px solid rgba(0,0,0,0.09);
+    border-radius: 14px;
+    min-height: 300px;
+    padding: 32px;
+    margin-bottom: 80px;
+    background: linear-gradient(180deg, rgba(0,0,0,0.01) 0%, rgba(0,0,0,0.03) 100%);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .blog-empty-content {
+    position: relative;
+    z-index: 2;
+    max-width: 460px;
+  }
+
+  .blog-empty-title {
+    font-size: clamp(24px, 3vw, 32px);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: rgba(0,0,0,0.86);
+    margin-bottom: 12px;
+  }
+
+  .blog-empty-desc {
+    font-size: 14px;
+    line-height: 1.7;
+    color: rgba(0,0,0,0.55);
+  }
+
+  .blog-empty-icon {
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    border-radius: 22px;
+    background: rgba(220,38,38,0.08);
+    color: rgba(220,38,38,0.38);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+  }
+
+  .blog-empty-icon svg {
+    width: 44px;
+    height: 44px;
+  }
+
+  .blog-empty-icon-1 {
+    top: 28px;
+    left: 36px;
+    transform: rotate(-12deg);
+  }
+
+  .blog-empty-icon-2 {
+    top: 52px;
+    right: 48px;
+    transform: rotate(11deg);
+  }
+
+  .blog-empty-icon-3 {
+    bottom: 34px;
+    left: 18%;
+    transform: rotate(-8deg);
+  }
+
+  .blog-empty-icon-4 {
+    bottom: 26px;
+    right: 20%;
+    transform: rotate(9deg);
+  }
+
+  @media (max-width: 768px) {
+    .blog-empty-state {
+      min-height: 260px;
+      padding: 22px;
+    }
+
+    .blog-empty-icon {
+      width: 62px;
+      height: 62px;
+      border-radius: 14px;
+    }
+
+    .blog-empty-icon svg {
+      width: 30px;
+      height: 30px;
+    }
   }
 
   @media (max-width: 768px) {
@@ -390,50 +460,65 @@ export default function BlogPage() {
             <div style={{ maxWidth: 1200, margin: "0 auto" }}>
               <p className="blog-section-title">Latest Articles</p>
 
-              <div className="blog-articles-grid">
-                {articles.map((article, idx) => (
-                  <div key={idx} className="blog-article-card">
-                    <div className="blog-article-meta">
-                      <span className="blog-article-date">{article.date}</span>
-                      <span className="blog-article-tag">{article.tag}</span>
+              {articles.length > 0 ? (
+                <>
+                  <div className="blog-articles-grid">
+                    {articles.map((article, idx) => (
+                      <div key={idx} className="blog-article-card">
+                        <div className="blog-article-meta">
+                          <span className="blog-article-date">{article.date}</span>
+                          <span className="blog-article-tag">{article.tag}</span>
+                        </div>
+                        <h3 className="blog-article-title">{article.title}</h3>
+                        <p className="blog-article-desc">{article.description}</p>
+                        <div className="blog-article-footer">
+                          <span className="blog-article-readtime">{article.readTime}</span>
+                          <span className="blog-article-cta">Read ↗</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="blog-newsletter">
+                    <div>
+                      <h3 className="blog-newsletter-title">Subscribe for updates</h3>
+                      <p className="blog-newsletter-desc">
+                        Get notified when I publish new articles about full-stack development, AI integration, and system design.
+                      </p>
                     </div>
-                    <h3 className="blog-article-title">{article.title}</h3>
-                    <p className="blog-article-desc">{article.description}</p>
-                    <div className="blog-article-footer">
-                      <span className="blog-article-readtime">{article.readTime}</span>
-                      <span className="blog-article-cta">Read ↗</span>
+                    <div>
+                      <form className="blog-newsletter-form" onSubmit={(e) => e.preventDefault()}>
+                        <input
+                          type="email"
+                          placeholder="your@email.com"
+                          className="blog-newsletter-input"
+                          required
+                        />
+                        <button type="submit" className="blog-newsletter-btn">
+                          Subscribe
+                        </button>
+                      </form>
                     </div>
                   </div>
-                ))}
-              </div>
 
-              {/* Newsletter */}
-              <div className="blog-newsletter">
-                <div>
-                  <h3 className="blog-newsletter-title">Subscribe for updates</h3>
-                  <p className="blog-newsletter-desc">
-                    Get notified when I publish new articles about full-stack development, AI integration, and system design.
-                  </p>
+                  <div className="blog-load-more">
+                    <button className="blog-load-more-btn">Load more articles</button>
+                  </div>
+                </>
+              ) : (
+                <div className="blog-empty-state">
+                  <div className="blog-empty-icon blog-empty-icon-1"><Youtube /></div>
+                  <div className="blog-empty-icon blog-empty-icon-2"><Youtube /></div>
+                  <div className="blog-empty-icon blog-empty-icon-3"><Youtube /></div>
+                  <div className="blog-empty-icon blog-empty-icon-4"><Youtube /></div>
+                  <div className="blog-empty-content">
+                    <h3 className="blog-empty-title">No posts yet</h3>
+                    <p className="blog-empty-desc">
+                      New articles will show up here soon. I am preparing quality content and this section will be updated once the first post is published.
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <form className="blog-newsletter-form" onSubmit={(e) => e.preventDefault()}>
-                    <input
-                      type="email"
-                      placeholder="your@email.com"
-                      className="blog-newsletter-input"
-                      required
-                    />
-                    <button type="submit" className="blog-newsletter-btn">
-                      Subscribe
-                    </button>
-                  </form>
-                </div>
-              </div>
-
-              {/* Load More */}
-              <div className="blog-load-more">
-                <button className="blog-load-more-btn">Load more articles</button>
-              </div>
+              )}
             </div>
           </BlurReveal>
         </div>
