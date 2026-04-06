@@ -1,451 +1,462 @@
-import { useEffect } from "react"
+import { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
+import { CalendarDays, NotebookText, Sparkles, Timer, TriangleAlert } from "lucide-react";
 import NavBar from "../components/navbar";
 import { BlurReveal } from "../components/blur";
-import { Youtube } from "lucide-react";
 
-
-const stats = [
-  { label: "Articles", val: "24+" },
-  { label: "Topics", val: "15+ areas" },
-  { label: "Avg. Read", val: "7 minutes" },
-];
-
-// Demo articles are intentionally hidden for now.
-const articles: Array<{
-  date: string;
-  tag: string;
+type BackendPost = {
+  id: number;
   title: string;
-  description: string;
-  readTime: string;
-}> = [];
+  category: string;
+  slug: string | null;
+  content: string;
+  created_at: string;
+};
+
+type PostsResponse = {
+  total: number;
+  posts: BackendPost[];
+};
 
 const styles = `
-  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&display=swap');
-  
-  .blog-root * { font-family: 'DM Sans', sans-serif; }
+  .blog-root {
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
 
   .blog-header {
     text-align: center;
-    margin-bottom: 80px;
+    margin-bottom: 72px;
   }
 
   .blog-eyebrow {
     font-size: 11px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: rgba(0,0,0,0.35);
+    color: rgba(0,0,0,0.36);
     margin-bottom: 20px;
-    font-weight: 500;
+    font-weight: 600;
     display: block;
   }
 
   .blog-title {
-    font-size: clamp(36px, 4vw, 56px);
-    font-weight: 500;
+    font-size: clamp(34px, 4.4vw, 58px);
+    font-weight: 600;
     letter-spacing: -0.03em;
-    line-height: 1.1;
-    color: rgba(0,0,0,0.9);
-    margin-bottom: 16px;
+    color: rgba(2,6,23,0.95);
+    line-height: 1.05;
+    margin-bottom: 14px;
   }
 
   .blog-subtitle {
     font-size: 15px;
-    font-weight: 400;
     line-height: 1.75;
-    color: rgba(0,0,0,0.55);
-    max-width: 600px;
+    color: rgba(15,23,42,0.62);
+    max-width: 670px;
     margin: 0 auto;
   }
 
   .blog-stats {
+    margin-top: 44px;
+    padding-top: 30px;
+    border-top: 1px solid rgba(15,23,42,0.09);
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    margin-top: 48px;
-    padding-top: 48px;
-    border-top: 1px solid rgba(0,0,0,0.08);
-  }
-
-  @media (max-width: 768px) {
-    .blog-stats {
-      grid-template-columns: 1fr;
-      gap: 16px;
-    }
+    gap: 16px;
   }
 
   .blog-stat-item {
-    text-align: center;
+    border: 1px solid rgba(15,23,42,0.08);
+    border-radius: 12px;
+    background: linear-gradient(150deg, rgba(255,255,255,0.96), rgba(248,250,252,0.96));
+    padding: 12px 14px;
   }
 
   .blog-stat-label {
     font-size: 10px;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: rgba(0,0,0,0.3);
+    color: rgba(15,23,42,0.45);
     margin-bottom: 6px;
-    font-weight: 500;
     display: block;
+    font-weight: 600;
   }
 
   .blog-stat-val {
-    font-size: 20px;
-    font-weight: 500;
-    color: rgba(0,0,0,0.85);
-    letter-spacing: -0.01em;
+    font-size: 18px;
+    letter-spacing: -0.02em;
+    color: rgba(15,23,42,0.9);
+    font-weight: 700;
   }
 
   .blog-section-title {
     font-size: 11px;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.11em;
     text-transform: uppercase;
-    color: rgba(0,0,0,0.35);
-    font-weight: 500;
-    margin-bottom: 28px;
+    color: rgba(15,23,42,0.45);
+    font-weight: 600;
+    margin-bottom: 22px;
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 14px;
   }
 
   .blog-section-title::after {
     content: '';
-    flex: 1;
     height: 1px;
-    background: rgba(0,0,0,0.09);
+    flex: 1;
+    background: rgba(15,23,42,0.1);
   }
 
   .blog-articles-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-    margin-bottom: 80px;
-  }
-
-  .blog-empty-state {
-    position: relative;
-    border: 1px solid rgba(0,0,0,0.09);
-    border-radius: 14px;
-    min-height: 300px;
-    padding: 32px;
-    margin-bottom: 80px;
-    background: linear-gradient(180deg, rgba(0,0,0,0.01) 0%, rgba(0,0,0,0.03) 100%);
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-  }
-
-  .blog-empty-content {
-    position: relative;
-    z-index: 2;
-    max-width: 460px;
-  }
-
-  .blog-empty-title {
-    font-size: clamp(24px, 3vw, 32px);
-    font-weight: 600;
-    letter-spacing: -0.03em;
-    color: rgba(0,0,0,0.86);
-    margin-bottom: 12px;
-  }
-
-  .blog-empty-desc {
-    font-size: 14px;
-    line-height: 1.7;
-    color: rgba(0,0,0,0.55);
-  }
-
-  .blog-empty-icon {
-    position: absolute;
-    width: 90px;
-    height: 90px;
-    border-radius: 22px;
-    background: rgba(220,38,38,0.08);
-    color: rgba(220,38,38,0.38);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1;
-  }
-
-  .blog-empty-icon svg {
-    width: 44px;
-    height: 44px;
-  }
-
-  .blog-empty-icon-1 {
-    top: 28px;
-    left: 36px;
-    transform: rotate(-12deg);
-  }
-
-  .blog-empty-icon-2 {
-    top: 52px;
-    right: 48px;
-    transform: rotate(11deg);
-  }
-
-  .blog-empty-icon-3 {
-    bottom: 34px;
-    left: 18%;
-    transform: rotate(-8deg);
-  }
-
-  .blog-empty-icon-4 {
-    bottom: 26px;
-    right: 20%;
-    transform: rotate(9deg);
-  }
-
-  @media (max-width: 768px) {
-    .blog-empty-state {
-      min-height: 260px;
-      padding: 22px;
-    }
-
-    .blog-empty-icon {
-      width: 62px;
-      height: 62px;
-      border-radius: 14px;
-    }
-
-    .blog-empty-icon svg {
-      width: 30px;
-      height: 30px;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .blog-articles-grid {
-      grid-template-columns: 1fr;
-      gap: 16px;
-    }
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
   }
 
   .blog-article-card {
-    border: 1px solid rgba(0,0,0,0.09);
-    border-radius: 14px;
-    padding: 28px;
-    background: #fff;
-    transition: all 0.18s ease;
-    cursor: pointer;
+    border: 1px solid rgba(15,23,42,0.1);
+    border-radius: 16px;
+    padding: 22px;
+    text-decoration: none;
+    background:
+      radial-gradient(circle at 95% 12%, rgba(59,130,246,0.07), transparent 40%),
+      radial-gradient(circle at 8% 95%, rgba(14,165,233,0.06), transparent 42%),
+      #ffffff;
+    transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
     display: flex;
     flex-direction: column;
+    min-height: 220px;
   }
 
   .blog-article-card:hover {
-    border-color: rgba(0,0,0,0.18);
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    transform: translateY(-3px);
+    border-color: rgba(15,23,42,0.2);
+    box-shadow: 0 10px 24px rgba(15,23,42,0.12);
   }
 
   .blog-article-meta {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 16px;
+    gap: 10px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
   }
 
-  .blog-article-date {
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: rgba(0,0,0,0.35);
-    font-weight: 500;
-  }
-
-  .blog-article-tag {
-    display: inline-block;
+  .blog-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     font-size: 10px;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.09em;
     text-transform: uppercase;
-    color: rgba(0,0,0,0.5);
-    background: rgba(0,0,0,0.04);
-    padding: 4px 10px;
-    border-radius: 4px;
-    font-weight: 600;
+    background: rgba(15,23,42,0.06);
+    color: rgba(15,23,42,0.7);
+    padding: 5px 9px;
+    border-radius: 999px;
+    font-weight: 700;
   }
 
   .blog-article-title {
-    font-size: 18px;
-    font-weight: 600;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.25;
     letter-spacing: -0.02em;
-    color: rgba(0,0,0,0.88);
-    margin-bottom: 8px;
-    line-height: 1.3;
-  }
-
-  .blog-article-card:hover .blog-article-title {
-    color: rgba(0,0,0,0.95);
+    color: rgba(2,6,23,0.95);
+    margin-bottom: 10px;
   }
 
   .blog-article-desc {
-    font-size: 13px;
-    font-weight: 400;
-    line-height: 1.65;
-    color: rgba(0,0,0,0.55);
-    margin-bottom: 16px;
+    font-size: 14px;
+    line-height: 1.72;
+    color: rgba(15,23,42,0.67);
     flex-grow: 1;
+    margin-bottom: 16px;
+    white-space: pre-wrap;
   }
 
   .blog-article-footer {
+    border-top: 1px solid rgba(15,23,42,0.09);
+    padding-top: 12px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-top: 12px;
-    border-top: 1px solid rgba(0,0,0,0.07);
-  }
-
-  .blog-article-readtime {
-    font-size: 12px;
-    font-weight: 500;
-    color: rgba(0,0,0,0.4);
+    gap: 8px;
   }
 
   .blog-article-cta {
     font-size: 12px;
-    font-weight: 500;
-    color: rgba(0,0,0,0.4);
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    transition: color 0.18s;
-  }
-
-  .blog-article-card:hover .blog-article-cta {
-    color: rgba(0,0,0,0.85);
-  }
-
-  .blog-newsletter {
-    border: 1px solid rgba(0,0,0,0.09);
-    border-radius: 14px;
-    padding: 40px;
-    background: linear-gradient(135deg, rgba(0,0,0,0.02) 0%, rgba(0,0,0,0.01) 100%);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 48px;
-    align-items: center;
-    margin-bottom: 80px;
-  }
-
-  @media (max-width: 768px) {
-    .blog-newsletter {
-      grid-template-columns: 1fr;
-      gap: 24px;
-      padding: 28px;
-    }
-  }
-
-  .blog-newsletter-title {
-    font-size: 20px;
+    color: rgba(15,23,42,0.66);
     font-weight: 600;
-    color: rgba(0,0,0,0.88);
-    margin-bottom: 8px;
   }
 
-  .blog-newsletter-desc {
-    font-size: 13px;
-    line-height: 1.65;
-    color: rgba(0,0,0,0.55);
-  }
-
-  .blog-newsletter-form {
+  .blog-empty-state {
+    border: 1px solid rgba(15,23,42,0.1);
+    border-radius: 20px;
+    padding: 34px;
+    min-height: 300px;
     display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 12% 18%, rgba(14,165,233,0.12), transparent 36%),
+      radial-gradient(circle at 87% 87%, rgba(59,130,246,0.1), transparent 34%),
+      linear-gradient(165deg, rgba(248,250,252,1), rgba(241,245,249,0.92));
+  }
+
+  .blog-empty-orb {
+    position: absolute;
+    width: 82px;
+    height: 82px;
+    border-radius: 20px;
+    border: 1px solid rgba(15,23,42,0.08);
+    background: rgba(255,255,255,0.72);
+    color: rgba(15,23,42,0.34);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: floatOrb 4.8s ease-in-out infinite;
+  }
+
+  .blog-empty-orb svg {
+    width: 34px;
+    height: 34px;
+  }
+
+  .blog-empty-orb.a {
+    left: 30px;
+    top: 24px;
+    transform: rotate(-11deg);
+  }
+
+  .blog-empty-orb.b {
+    right: 42px;
+    top: 50px;
+    transform: rotate(9deg);
+    animation-delay: 0.4s;
+  }
+
+  .blog-empty-orb.c {
+    left: 20%;
+    bottom: 26px;
+    transform: rotate(-7deg);
+    animation-delay: 0.8s;
+  }
+
+  .blog-empty-content {
+    text-align: center;
+    max-width: 540px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .blog-empty-title {
+    font-size: clamp(26px, 3vw, 36px);
+    letter-spacing: -0.03em;
+    color: rgba(2,6,23,0.94);
+    margin-bottom: 10px;
+    font-weight: 800;
+  }
+
+  .blog-empty-desc {
+    font-size: 15px;
+    line-height: 1.75;
+    color: rgba(15,23,42,0.62);
+  }
+
+  .blog-empty-hint {
+    margin-top: 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(15,23,42,0.56);
+    border: 1px dashed rgba(15,23,42,0.2);
+    border-radius: 999px;
+    padding: 8px 12px;
+  }
+
+  .blog-loading,
+  .blog-error {
+    border: 1px solid rgba(15,23,42,0.1);
+    border-radius: 16px;
+    padding: 22px;
+    background: rgba(248,250,252,0.72);
+    color: rgba(15,23,42,0.78);
+    line-height: 1.7;
+    display: flex;
+    align-items: center;
     gap: 10px;
   }
 
-  @media (max-width: 768px) {
-    .blog-newsletter-form {
-      flex-direction: column;
+  .blog-loading-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #0ea5e9;
+    box-shadow: 0 0 0 8px rgba(14,165,233,0.16);
+    animation: pulseDot 1.15s ease-in-out infinite;
+  }
+
+  @keyframes pulseDot {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(0.78); opacity: 0.6; }
+  }
+
+  @keyframes floatOrb {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+
+  @media (max-width: 900px) {
+    .blog-articles-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .blog-stats {
+      grid-template-columns: 1fr;
+      gap: 10px;
     }
   }
 
-  .blog-newsletter-input {
-    flex: 1;
-    padding: 12px 16px;
-    border: 1px solid rgba(0,0,0,0.12);
-    border-radius: 10px;
-    font-size: 14px;
-    font-family: inherit;
-    background: rgba(255,255,255,0.6);
-    color: rgba(0,0,0,0.85);
-    transition: border-color 0.2s ease;
-  }
+  @media (max-width: 768px) {
+    .blog-empty-state {
+      min-height: 260px;
+      padding: 20px;
+    }
 
-  .blog-newsletter-input::placeholder {
-    color: rgba(0,0,0,0.35);
-  }
+    .blog-empty-orb {
+      width: 58px;
+      height: 58px;
+      border-radius: 14px;
+    }
 
-  .blog-newsletter-input:focus {
-    outline: none;
-    border-color: rgba(0,0,0,0.28);
-    background: rgba(255,255,255,0.9);
-  }
-
-  .blog-newsletter-btn {
-    padding: 12px 24px;
-    background: rgba(0,0,0,0.88);
-    color: white;
-    border: none;
-    border-radius: 10px;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    font-family: inherit;
-    white-space: nowrap;
-  }
-
-  .blog-newsletter-btn:hover {
-    background: rgba(0,0,0,1);
-    transform: translateY(-1px);
-  }
-
-  .blog-load-more {
-    display: flex;
-    justify-content: center;
-    padding-top: 40px;
-    border-top: 1px solid rgba(0,0,0,0.08);
-  }
-
-  .blog-load-more-btn {
-    padding: 12px 28px;
-    border: 1px solid rgba(0,0,0,0.18);
-    border-radius: 10px;
-    background: transparent;
-    font-size: 13px;
-    font-weight: 500;
-    color: rgba(0,0,0,0.7);
-    cursor: pointer;
-    transition: all 0.2s ease;
-    font-family: inherit;
-  }
-
-  .blog-load-more-btn:hover {
-    border-color: rgba(0,0,0,0.3);
-    color: rgba(0,0,0,0.88);
-    background: rgba(0,0,0,0.02);
+    .blog-empty-orb svg {
+      width: 24px;
+      height: 24px;
+    }
   }
 `;
 
-export default function BlogPage() {
+function formatDate(value: string) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) {
+    return "Unknown date";
+  }
+  return date.toLocaleDateString(undefined, {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+}
 
-  useEffect(()=>{
-    window.scrollTo(0,0)
-  })
+function estimateReadTime(content: string) {
+  const words = content.trim().split(/\s+/).filter(Boolean).length;
+  const minutes = Math.max(1, Math.round(words / 200));
+  return `${minutes} min read`;
+}
+
+function excerpt(content: string) {
+  const clean = content.replace(/\s+/g, " ").trim();
+  if (clean.length <= 160) {
+    return clean;
+  }
+  return `${clean.slice(0, 157)}...`;
+}
+
+export default function BlogPage() {
+  const [posts, setPosts] = useState<BackendPost[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  const postsApiUrl =
+    (import.meta.env.VITE_BLOG_POSTS_API_URL as string | undefined) ||
+    "http://localhost:8080/api/v1/posts";
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function fetchPosts() {
+      setIsLoading(true);
+      setError("");
+
+      try {
+        const response = await fetch(postsApiUrl, {
+          method: "GET",
+          headers: { Accept: "application/json" },
+        });
+
+        if (!response.ok) {
+          throw new Error(`Failed to fetch posts: ${response.status}`);
+        }
+
+        const data = (await response.json()) as PostsResponse;
+        const incoming = Array.isArray(data.posts) ? data.posts : [];
+
+        if (isMounted) {
+          setPosts(incoming);
+        }
+      } catch (fetchError) {
+        if (isMounted) {
+          const message =
+            fetchError instanceof Error ? fetchError.message : "Unable to load blog posts.";
+          setError(message);
+        }
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
+      }
+    }
+
+    void fetchPosts();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [postsApiUrl]);
+
+  const stats = useMemo(() => {
+    const categories = new Set(posts.map((post) => post.category?.toLowerCase() || "general"));
+    const totalWords = posts.reduce((sum, post) => {
+      const count = post.content.trim().split(/\s+/).filter(Boolean).length;
+      return sum + count;
+    }, 0);
+    const avgRead = posts.length ? Math.max(1, Math.round(totalWords / posts.length / 200)) : 0;
+
+    return [
+      { label: "Articles", val: `${posts.length}` },
+      { label: "Topics", val: `${categories.size}` },
+      { label: "Avg. Read", val: posts.length ? `${avgRead} mins` : "-" },
+    ];
+  }, [posts]);
 
   return (
     <div className="blog-root text-slate-900 min-h-screen">
       <style>{styles}</style>
-      
+
       <div className="md:mx-10 my-2 bg-white rounded-4xl shadow-sm overflow-hidden md:overflow-visible md:rounded-4xl md:min-h-screen relative">
         <NavBar />
 
         <div className="px-6 md:px-8 py-16 md:py-20">
-          {/* Header */}
           <BlurReveal delay={0.1} className="blog-header">
             <span className="blog-eyebrow">Articles & Insights</span>
-                        <div className="blog-stats">
+            <h1 className="blog-title">Stories, Builds, and Lessons</h1>
+            <p className="blog-subtitle">
+              Fresh entries from my backend source, mapped into a clean reading flow. Tap any post
+              to open the full content page.
+            </p>
+
+            <div className="blog-stats">
               {stats.map((stat) => (
                 <div key={stat.label} className="blog-stat-item">
                   <span className="blog-stat-label">{stat.label}</span>
@@ -455,67 +466,69 @@ export default function BlogPage() {
             </div>
           </BlurReveal>
 
-          {/* Articles Section */}
-          <BlurReveal delay={0.4}>
+          <BlurReveal delay={0.3}>
             <div style={{ maxWidth: 1200, margin: "0 auto" }}>
               <p className="blog-section-title">Latest Articles</p>
 
-              {articles.length > 0 ? (
-                <>
-                  <div className="blog-articles-grid">
-                    {articles.map((article, idx) => (
-                      <div key={idx} className="blog-article-card">
-                        <div className="blog-article-meta">
-                          <span className="blog-article-date">{article.date}</span>
-                          <span className="blog-article-tag">{article.tag}</span>
-                        </div>
-                        <h3 className="blog-article-title">{article.title}</h3>
-                        <p className="blog-article-desc">{article.description}</p>
-                        <div className="blog-article-footer">
-                          <span className="blog-article-readtime">{article.readTime}</span>
-                          <span className="blog-article-cta">Read ↗</span>
-                        </div>
+              {isLoading && (
+                <div className="blog-loading" role="status" aria-live="polite">
+                  <span className="blog-loading-dot" />
+                  Loading posts from backend...
+                </div>
+              )}
+
+              {!isLoading && error && (
+                <div className="blog-error" role="alert">
+                  <TriangleAlert size={18} />
+                  {error}
+                </div>
+              )}
+
+              {!isLoading && !error && posts.length > 0 && (
+                <div className="blog-articles-grid">
+                  {posts.map((post) => (
+                    <Link key={post.id} to={`/blog/${post.id}`} className="blog-article-card">
+                      <div className="blog-article-meta">
+                        <span className="blog-chip">
+                          <CalendarDays size={12} /> {formatDate(post.created_at)}
+                        </span>
+                        <span className="blog-chip">{post.category || "general"}</span>
                       </div>
-                    ))}
-                  </div>
 
-                  <div className="blog-newsletter">
-                    <div>
-                      <h3 className="blog-newsletter-title">Subscribe for updates</h3>
-                      <p className="blog-newsletter-desc">
-                        Get notified when I publish new articles about full-stack development, AI integration, and system design.
-                      </p>
-                    </div>
-                    <div>
-                      <form className="blog-newsletter-form" onSubmit={(e) => e.preventDefault()}>
-                        <input
-                          type="email"
-                          placeholder="your@email.com"
-                          className="blog-newsletter-input"
-                          required
-                        />
-                        <button type="submit" className="blog-newsletter-btn">
-                          Subscribe
-                        </button>
-                      </form>
-                    </div>
-                  </div>
+                      <h3 className="blog-article-title">{post.title || "Untitled post"}</h3>
+                      <p className="blog-article-desc">{excerpt(post.content || "")}</p>
 
-                  <div className="blog-load-more">
-                    <button className="blog-load-more-btn">Load more articles</button>
-                  </div>
-                </>
-              ) : (
+                      <div className="blog-article-footer">
+                        <span className="blog-chip">
+                          <Timer size={12} /> {estimateReadTime(post.content || "")}
+                        </span>
+                        <span className="blog-article-cta">Read full post</span>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              )}
+
+              {!isLoading && !error && posts.length === 0 && (
                 <div className="blog-empty-state">
-                  <div className="blog-empty-icon blog-empty-icon-1"><Youtube /></div>
-                  <div className="blog-empty-icon blog-empty-icon-2"><Youtube /></div>
-                  <div className="blog-empty-icon blog-empty-icon-3"><Youtube /></div>
-                  <div className="blog-empty-icon blog-empty-icon-4"><Youtube /></div>
+                  <div className="blog-empty-orb a">
+                    <NotebookText />
+                  </div>
+                  <div className="blog-empty-orb b">
+                    <Sparkles />
+                  </div>
+                  <div className="blog-empty-orb c">
+                    <CalendarDays />
+                  </div>
                   <div className="blog-empty-content">
-                    <h3 className="blog-empty-title">No posts yet</h3>
+                    <h3 className="blog-empty-title">No posts yet, but this space is alive</h3>
                     <p className="blog-empty-desc">
-                      New articles will show up here soon. I am preparing quality content and this section will be updated once the first post is published.
+                      Your blog is connected to backend successfully. Once a post lands in the posts
+                      endpoint, it will appear here automatically with a full content view.
                     </p>
+                    <span className="blog-empty-hint">
+                      <Sparkles size={14} /> Waiting for first publish
+                    </span>
                   </div>
                 </div>
               )}

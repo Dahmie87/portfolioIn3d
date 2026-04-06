@@ -1,6 +1,7 @@
 import "./App.css";
 import HomePage from "./pages/home";
-import BlogPage from "./pages/blog";
+import BlogPage from "./pages/blog.tsx";
+import BlogPostPage from "./pages/blog-post.tsx";
 import ProjectsPage from "./pages/projects.tsx";
 import ProjectDetailsPage from "./pages/project-details";
 import ContactPage from "./pages/contact";
@@ -22,6 +23,7 @@ function AppRoutes() {
         <Route path="/admin/*" element={<AdminApp />} />
         <Route path="/" element={<HomePage/>}/>
         <Route path="/blog" element={<BlogPage/>}/>
+        <Route path="/blog/:id" element={<BlogPostPage/>}/>
         <Route path="/projects" element={<ProjectsPage/>}/>
         <Route path="/projects/:id" element={<ProjectDetailsPage/>}/>
         <Route path="/contact" element={<ContactPage/>}/>
