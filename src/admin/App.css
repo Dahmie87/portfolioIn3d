@@ -344,8 +344,15 @@
   display: flex;
   align-items: center;
   gap: 20px;
+  width: 100%;
+  border: none;
   border-left: 4px solid;
+  text-align: left;
   transition: transform 0.2s;
+}
+
+.stat-card.clickable {
+  cursor: pointer;
 }
 
 .stat-card:hover {

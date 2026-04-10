@@ -3,9 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import { contactAPI, blogAPI, visitorAPI } from './api';
 import { Users, FileText, Mail, TrendingUp } from 'lucide-react';
 
-function StatCard({ icon: Icon, label, value, color }) {
+function StatCard({ icon: Icon, label, value, color, onClick }) {
+  const Component = onClick ? 'button' : 'div';
+
   return (
-    <div className={`stat-card ${color}`}>
+    <Component
+      className={`stat-card ${color} ${onClick ? 'clickable' : ''}`}
+      onClick={onClick}
+      type={Component === 'button' ? 'button' : undefined}
+    >
       <div className="stat-icon">
         <Icon size={32} />
       </div>
@@ -13,7 +19,7 @@ function StatCard({ icon: Icon, label, value, color }) {
         <p className="stat-label">{label}</p>
         <p className="stat-value">{value || 0}</p>
       </div>
-    </div>
+    </Component>
   );
 }
 
@@ -75,24 +81,28 @@ export default function Dashboard() {
           label="Total Contacts"
           value={stats.totalContacts}
           color="primary"
+          onClick={() => navigate('/.admin/contacts')}
         />
         <StatCard
           icon={FileText}
           label="Blog Posts"
           value={stats.totalPosts}
           color="success"
+          onClick={() => navigate('/.admin/blog')}
         />
         <StatCard
           icon={Users}
           label="Live Visitors"
           value={stats.totalVisitors}
           color="warning"
+          onClick={() => navigate('/.admin/analytics')}
         />
         <StatCard
           icon={TrendingUp}
           label="Engagement"
           value={(stats.totalVisitors * 0.23).toFixed(0)}
           color="info"
+          onClick={() => navigate('/.admin/analytics')}
         />
       </div>
 
