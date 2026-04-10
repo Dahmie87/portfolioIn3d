@@ -23,6 +23,7 @@ export default function Dashboard() {
     totalPosts: 0,
     totalVisitors: 0,
     recentContacts: [],
+    recentVisitors: [],
   });
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -40,11 +41,14 @@ export default function Dashboard() {
         visitorAPI.getStats(),
       ]);
 
+      const visitorItems = Array.isArray(visitors.visitors) ? visitors.visitors : [];
+
       setStats({
         totalContacts: contacts.total || 0,
         totalPosts: posts.total || 0,
-        totalVisitors: visitors.total_visits || 0,
+        totalVisitors: visitors.total || visitors.total_visits || visitorItems.length || 0,
         recentContacts: (contacts.contacts || []).slice(0, 5),
+        recentVisitors: visitorItems.slice(0, 5),
       });
     } catch (error) {
       console.error('Failed to fetch dashboard data:', error);
@@ -80,7 +84,7 @@ export default function Dashboard() {
         />
         <StatCard
           icon={Users}
-          label="Total Visitors"
+          label="Live Visitors"
           value={stats.totalVisitors}
           color="warning"
         />
@@ -90,6 +94,41 @@ export default function Dashboard() {
           value={(stats.totalVisitors * 0.23).toFixed(0)}
           color="info"
         />
+      </div>
+
+      {/* Recent Visitors */}
+      <div className="recent-activity">
+        <div className="section-header">
+          <h2>Recent Visitor Activity</h2>
+          <button
+            className="btn btn-secondary"
+            onClick={() => navigate('/.admin/analytics')}
+          >
+            View Analytics
+          </button>
+        </div>
+
+        {stats.recentVisitors.length > 0 ? (
+          <div className="activity-list">
+            {stats.recentVisitors.map((visitor, index) => (
+              <div key={`${visitor.ip}-${visitor.visited_at}-${index}`} className="activity-item">
+                <div className="activity-info">
+                  <h4>{visitor.ip || 'Unknown IP'}</h4>
+                  <p>{visitor.endpoint || 'Unknown endpoint'}</p>
+                </div>
+                <div className="activity-meta">
+                  <span className="date">
+                    {visitor.visited_at ? new Date(visitor.visited_at).toLocaleString() : 'Unknown time'}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="empty-state">
+            <p>No visitor activity yet</p>
+          </div>
+        )}
       </div>
 
       {/* Recent Activity */}
