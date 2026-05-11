@@ -6,6 +6,7 @@ import phoneIcon from '../assets/social images/phone.png';
 import tiktokIcon from '../assets/social images/tiktok.png';
 import whatsappIcon from '../assets/social images/whatsapp.png';
 import youtubeIcon from '../assets/social images/youtube.png';
+import { sendContactForm } from '../lib/contactMailer';
 
 export const ContactOption1: React.FC = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
@@ -13,10 +14,6 @@ export const ContactOption1: React.FC = () => {
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [submitMessage, setSubmitMessage] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const contactApiUrl =
-    (import.meta.env.VITE_CONTACT_API_URL as string | undefined) ||
-    'http://localhost:8080/api/v1/contact';
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -37,33 +34,8 @@ export const ContactOption1: React.FC = () => {
     setSubmitMessage('');
     setIsModalOpen(true);
 
-    if (/\/post\/?$/i.test(contactApiUrl)) {
-      setIsSubmitting(false);
-      setSubmitStatus('error');
-      setSubmitMessage('Contact form misconfigured: endpoint cannot be /post. Use /contact.');
-      return;
-    }
-
-    const payload = {
-      name: formData.name.trim(),
-      email: formData.email.trim(),
-      message: formData.message.trim(),
-    };
-
     try {
-      const response = await fetch(contactApiUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-        body: JSON.stringify(payload),
-      });
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(errorText || `Request failed with status ${response.status}`);
-      }
+      await sendContactForm(formData);
 
       setSubmitStatus('success');
       setSubmitMessage('Message sent successfully. I will get back to you soon.');

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Download } from "lucide-react";
 import NavBar from "../components/navbar";
-import resumeFile from "../assets/omotayo's-resume.pdf";
+import resumeFile from "../assets/OmotayoDamilare.pdf"
 
 const styles = `
   .resume-root {
@@ -199,10 +199,10 @@ export default function ResumePage() {
 
         <article className="resume-page" aria-label="Resume document preview">
           <div className="resume-content">
-            <h1 className="name">Damilare Omotayo</h1>
+            <h1 className="name"> OmotayoD amilare</h1>
 
             <p className="contact-row">
-              +234-000-0000 | <a className="contact-link" href="mailto:omotayodamilare07@gmail.com">omotayodamilare07@gmail.com</a> |
+              +2347046659950 | <a className="contact-link" href="mailto:omotayodamilare07@gmail.com">omotayodamilare07@gmail.com</a> |
               {' '}<a className="contact-link" href="https://linkedin.com" target="_blank" rel="noopener noreferrer">linkedin.com/in/damilare</a> |
               {' '}<a className="contact-link" href="https://github.com/Dahmie87" target="_blank" rel="noopener noreferrer">github.com/Dahmie87</a>
             </p>
@@ -211,8 +211,8 @@ export default function ResumePage() {
               <h2 className="section-header">Education</h2>
               <div className="entry">
                 <div className="entry-line">
-                  <p className="entry-title">Southwestern University</p>
-                  <p className="entry-location">Georgetown, TX</p>
+                  <p className="entry-title">Lagos State University. Ojo</p>
+                  <p className="entry-location">Lagos, Nigerai</p>
                 </div>
                 <div className="entry-line">
                   <p className="entry-subtitle">Bachelor of Arts in Computer Science, Minor in Business</p>

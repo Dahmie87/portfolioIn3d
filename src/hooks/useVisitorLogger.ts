@@ -23,6 +23,13 @@ export function useVisitorLogger() {
   async function fetchIP() {
     try {
       const ipRes = await fetch('https://ipapi.co/json/')
+      
+      if (!ipRes.ok) {
+        ipRef.current = 'unknown'
+        console.log('IP fetch failed, using unknown')
+        return
+      }
+      
       const ipData = await ipRes.json()
       ipRef.current = ipData.ip
       console.log('IP cached:', ipData.ip)

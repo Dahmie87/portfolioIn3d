@@ -8,6 +8,7 @@ import phoneIcon from "../assets/social images/phone.png";
 import tiktokIcon from "../assets/social images/tiktok.png";
 import whatsappIcon from "../assets/social images/whatsapp.png";
 import youtubeIcon from "../assets/social images/youtube.png";
+import { sendContactForm } from "../lib/contactMailer";
 
 const styles = `
   .contact-root {
@@ -400,10 +401,6 @@ export default function ContactPage() {
 
   useEffect(()=>{window.scrollTo(0,0)})
 
-  const contactApiUrl =
-    (import.meta.env.VITE_CONTACT_API_URL as string | undefined) ||
-    "http://localhost:8080/api/v1/contact";
-
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
@@ -433,34 +430,8 @@ export default function ContactPage() {
     setSubmitMessage("");
     setIsModalOpen(true);
 
-    // Protect against accidental env override to the blog post endpoint.
-    if (/\/post\/?$/i.test(contactApiUrl)) {
-      setIsSubmitting(false);
-      setSubmitStatus("error");
-      setSubmitMessage("Contact form misconfigured: endpoint cannot be /post. Use /contact.");
-      return;
-    }
-
-    const payload = {
-      name: formData.name.trim(),
-      email: formData.email.trim(),
-      message: formData.message.trim(),
-    };
-
     try {
-      const response = await fetch(contactApiUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(errorText || `Request failed with status ${response.status}`);
-      }
+      await sendContactForm(formData);
 
       setFormData({ name: "", email: "", message: "" });
       setSubmitStatus("success");
@@ -567,7 +538,7 @@ export default function ContactPage() {
                 <div className="contact-info-block">
                   <span className="contact-info-label">Email</span>
                   <div className="contact-info-value">
-                    <a href="mailto:omotayodamilare@gmail.com">
+                    <a href="mailto:omotayodamilare07@gmail.com">
                       omotayodamilare07@gmail.com
                     </a>
                   </div>
