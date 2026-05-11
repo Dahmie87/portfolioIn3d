@@ -119,7 +119,11 @@ type NavItem = (typeof LINKS)[number];
 
 export default function NavBar() {
   const { pathname } = useLocation();
+  const hasRoute = (item: NavItem): item is Extract<NavItem, { to: string }> =>
+    "to" in item;
+
   const isActive = (item: NavItem) => {
+    if (!hasRoute(item)) return false;
     if (item.to === "/") return pathname === "/";
     return pathname.startsWith(item.to);
   };
@@ -142,7 +146,7 @@ export default function NavBar() {
 
         {/* Flip links */}
         {LINKS.map((item, i) =>
-          "to" in item ? (
+          hasRoute(item) ? (
             <Link
               key={item.label}
               to={item.to}
