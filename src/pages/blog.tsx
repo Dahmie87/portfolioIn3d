@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
-import { CalendarDays, NotebookText, Sparkles, Timer, TriangleAlert } from "lucide-react";
+import { CalendarDays, NotebookText, Sparkles, Timer } from "lucide-react";
 import NavBar from "../components/navbar";
 import { BlurReveal } from "../components/blur";
 import { blogPosts } from "../blog/data";
