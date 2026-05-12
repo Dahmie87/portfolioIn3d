@@ -1,6 +1,7 @@
 import padiSquareImage from "../assets/project-images/padisquare.png";
 import pdfFreeImage from "../assets/project-images/pdffree.png";
 import prodigyImage from "../assets/project-images/prodigy.png";
+import inkterImage from "../assets/project-images/inkter.png";
 
 export type ProjectStatus = "live" | "progress";
 
@@ -231,7 +232,7 @@ export const projectsData: Project[] = [
         date: "2025-12",
         status: "live",
         image:
-            "https://images.unsplash.com/ph",
+            inkterImage,
         github: "https://github.com/Dahmie87/pdfree",
         demo: "https://inkter.onrender.com",
     },

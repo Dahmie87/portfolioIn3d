@@ -1,22 +1,9 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ArrowLeft, CalendarDays, Hash, Timer } from "lucide-react";
 import NavBar from "../components/navbar";
 import { BlurReveal } from "../components/blur";
-
-type BackendPost = {
-  id: number;
-  title: string;
-  category: string;
-  slug: string | null;
-  content: string;
-  created_at: string;
-};
-
-type PostsResponse = {
-  total: number;
-  posts: BackendPost[];
-};
+import { blogPosts } from "../blog/data";
 
 const styles = `
   .blog-post-root {
@@ -148,69 +135,17 @@ function estimateReadTime(content: string) {
 
 export default function BlogPostPage() {
   const { id } = useParams();
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState("");
-  const [post, setPost] = useState<BackendPost | null>(null);
-
-  const postsApiUrl =
-    (import.meta.env.VITE_BLOG_POSTS_API_URL as string | undefined) ||
-    "http://localhost:8080/api/v1/posts";
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  useEffect(() => {
-    let isMounted = true;
-
-    async function fetchSinglePost() {
-      setIsLoading(true);
-      setError("");
-
-      try {
-        const response = await fetch(postsApiUrl, {
-          method: "GET",
-          headers: { Accept: "application/json" },
-        });
-
-        if (!response.ok) {
-          throw new Error(`Failed to fetch post: ${response.status}`);
-        }
-
-        const data = (await response.json()) as PostsResponse;
-        const allPosts = Array.isArray(data.posts) ? data.posts : [];
-        const targetId = Number(id);
-        const found = allPosts.find((item) => item.id === targetId) || null;
-
-        if (isMounted) {
-          if (!found) {
-            setError("Post not found.");
-          }
-          setPost(found);
-        }
-      } catch (fetchError) {
-        if (isMounted) {
-          setError(fetchError instanceof Error ? fetchError.message : "Unable to load post.");
-        }
-      } finally {
-        if (isMounted) {
-          setIsLoading(false);
-        }
-      }
-    }
-
-    if (!id || Number.isNaN(Number(id))) {
-      setError("Invalid post id.");
-      setIsLoading(false);
-      return;
-    }
-
-    void fetchSinglePost();
-
-    return () => {
-      isMounted = false;
-    };
-  }, [id, postsApiUrl]);
+  const targetId = Number(id);
+  const post = Number.isNaN(targetId)
+    ? null
+    : blogPosts.find((item) => item.id === targetId) || null;
+  const error = !id || Number.isNaN(targetId) ? "Invalid post id." : post ? "" : "Post not found.";
+  const isLoading = false;
 
   const readTime = useMemo(() => {
     if (!post) {

@@ -1,22 +1,9 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { CalendarDays, NotebookText, Sparkles, Timer, TriangleAlert } from "lucide-react";
 import NavBar from "../components/navbar";
 import { BlurReveal } from "../components/blur";
-
-type BackendPost = {
-  id: number;
-  title: string;
-  category: string;
-  slug: string | null;
-  content: string;
-  created_at: string;
-};
-
-type PostsResponse = {
-  total: number;
-  posts: BackendPost[];
-};
+import { blogPosts } from "../blog/data";
 
 const styles = `
   .blog-root {
@@ -370,60 +357,11 @@ function excerpt(content: string) {
 }
 
 export default function BlogPage() {
-  const [posts, setPosts] = useState<BackendPost[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState("");
-
-  const postsApiUrl =
-    (import.meta.env.VITE_BLOG_POSTS_API_URL as string | undefined) ||
-    "http://localhost:8080/api/v1/posts";
+  const posts = blogPosts;
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
-  useEffect(() => {
-    let isMounted = true;
-
-    async function fetchPosts() {
-      setIsLoading(true);
-      setError("");
-
-      try {
-        const response = await fetch(postsApiUrl, {
-          method: "GET",
-          headers: { Accept: "application/json" },
-        });
-
-        if (!response.ok) {
-          throw new Error(`Failed to fetch posts: ${response.status}`);
-        }
-
-        const data = (await response.json()) as PostsResponse;
-        const incoming = Array.isArray(data.posts) ? data.posts : [];
-
-        if (isMounted) {
-          setPosts(incoming);
-        }
-      } catch (fetchError) {
-        if (isMounted) {
-          const message =
-            fetchError instanceof Error ? fetchError.message : "Unable to load blog posts.";
-          setError(message);
-        }
-      } finally {
-        if (isMounted) {
-          setIsLoading(false);
-        }
-      }
-    }
-
-    void fetchPosts();
-
-    return () => {
-      isMounted = false;
-    };
-  }, [postsApiUrl]);
 
   const stats = useMemo(() => {
     const categories = new Set(posts.map((post) => post.category?.toLowerCase() || "general"));
@@ -470,21 +408,7 @@ export default function BlogPage() {
             <div style={{ maxWidth: 1200, margin: "0 auto" }}>
               <p className="blog-section-title">Latest Articles</p>
 
-              {isLoading && (
-                <div className="blog-loading" role="status" aria-live="polite">
-                  <span className="blog-loading-dot" />
-                  Loading posts from backend...
-                </div>
-              )}
-
-              {!isLoading && error && (
-                <div className="blog-error" role="alert">
-                  <TriangleAlert size={18} />
-                  {error}
-                </div>
-              )}
-
-              {!isLoading && !error && posts.length > 0 && (
+              {posts.length > 0 && (
                 <div className="blog-articles-grid">
                   {posts.map((post) => (
                     <Link key={post.id} to={`/blog/${post.id}`} className="blog-article-card">
@@ -509,7 +433,7 @@ export default function BlogPage() {
                 </div>
               )}
 
-              {!isLoading && !error && posts.length === 0 && (
+              {posts.length === 0 && (
                 <div className="blog-empty-state">
                   <div className="blog-empty-orb a">
                     <NotebookText />
