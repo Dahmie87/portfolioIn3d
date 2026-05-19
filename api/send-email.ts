@@ -5,7 +5,7 @@ type ContactRequestBody = {
 };
 
 const fallbackRecipient = "omotayodamilare07@gmail.com";
-const resendApiKey = import.meta.env.VITE_API_KEY; as string | undefined;
+const resendApiKey = import.meta.env.VITE_API_KEY as string | undefined;
 
 function escapeHtml(value: string) {
   return value
