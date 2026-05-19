@@ -5,7 +5,7 @@ type ContactRequestBody = {
 };
 
 const fallbackRecipient = "omotayodamilare07@gmail.com";
-const resendApiKey = "re_TV14W9fw_BHyudGMcmPvBVSBLpFp85RsU";
+const resendApiKey = import.meta.env.VITE_API_KEY; as string | undefined;
 
 function escapeHtml(value: string) {
   return value
