@@ -5,7 +5,7 @@ type ContactRequestBody = {
 };
 
 const fallbackRecipient = "omotayodamilare07@gmail.com";
-const resendApiKey = import.meta.env.VITE_API_KEY as string | undefined;
+const resendApiKey = (process.env.VITE_API_KEY ?? process.env.RESEND_API_KEY) as string | undefined;
 
 function escapeHtml(value: string) {
   return value
@@ -28,7 +28,7 @@ export async function processContactEmailRequest(body: ContactRequestBody) {
     };
   }
 
-  const apiKey = resendApiKey.trim();
+  const apiKey = (resendApiKey ?? "").trim();
   if (!apiKey.startsWith("re_")) {
     return {
       status: 500,
