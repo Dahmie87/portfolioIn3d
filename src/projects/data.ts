@@ -2,6 +2,7 @@ import padiSquareImage from "../assets/project-images/padisquare.png";
 import pdfFreeImage from "../assets/project-images/pdffree.png";
 import prodigyImage from "../assets/project-images/prodigy.png";
 import inkterImage from "../assets/project-images/inkter.png";
+import InsightedImage from "../assets/project-images/Insighted.png"
 
 export type ProjectStatus = "live" | "progress";
 
@@ -42,6 +43,104 @@ export interface Project {
 }
 
 export const projectsData: Project[] = [
+     {
+    id: 7,
+    title: "Insighted",
+    desc: "An AI-powered learning platform that passively detects dyslexia, dyscalculia, and ADHD in primary school children through gameplay, helping under-resourced teachers identify learning differences early.",
+    fullDescription:
+        "Insighted is a Progressive Web App built for Nigerian classrooms where clinical assessment is inaccessible. Children play reading, letter-matching, and number-puzzle games while the app silently logs hesitation, reversal, and error patterns in the background. A rule-based and ML-assisted classifier compares each child against their own classroom baseline, then surfaces a plain-language alert to the teacher with a specific, actionable recommendation, no diagnosis required, no specialist needed.",
+    stack: ["react", "fastapi", "python"],
+    techStackDetailed: [
+        {
+            name: "React",
+            purpose: "Offline-first PWA with dual child and teacher interfaces",
+            highlights: ["Playful child-facing UI with reward animations", "Data-dense teacher dashboard", "IndexedDB session persistence for offline use"],
+        },
+        {
+            name: "FastAPI",
+            purpose: "Classification, sync, and alert generation API",
+            highlights: ["Pydantic-validated signal schemas", "Async endpoints for low-spec hardware", "Scheduled model retraining jobs"],
+        },
+        {
+            name: "Python / scikit-learn",
+            purpose: "Signal classification and cohort baselining",
+            highlights: ["Random Forest classifier on interaction signals", "NumPy z-score normalization per classroom", "Interpretable feature importance for teacher trust"],
+        },
+    ],
+    features: [
+        "Passive signal logging across reading, letter, and number exercises",
+        "Per-classroom baseline normalization to avoid cultural bias",
+        "Three-zone confidence system: quiet, monitor, flag",
+        "Plain-language teacher alerts with specific classroom actions",
+        "Fully offline operation with background sync to a school-level server",
+    ],
+    screenshots: [
+        "https://images.unsplash.com/photo-1=crop",
+        "https://images.unsplash.com/photo-1=crop",
+        "https://images.unsplash.com/photo-1&fit=crop",
+    ],
+    role: "Full-stack Product Engineer",
+    challenges: [
+        "Detecting learning differences without clinical tools or trained assessors",
+        "Normalizing signals against local cohorts instead of Western benchmarks",
+        "Designing a classifier accurate enough to trust on a Raspberry Pi-class server",
+    ],
+    projectType: "EdTech / Early Learning Diagnostics",
+    date: "2025-06",
+    status: "live",
+    image:InsightedImage,
+    github: "https://github.com/Dahmie87/InsightEd",
+    demo: "https://insightedforafrica.vercel.app/",
+},
+ {
+        id: 3,
+        title: "PDFfree",
+        desc: "A tool that allows users to create an entire book with standard chapters, literal content and genuine readable format using AI-powered content generation.",
+        fullDescription:
+            "PDFfree transforms structured prompts into long-form book drafts with chapter organization, formatting, and export capabilities. The platform helps users move from ideas to readable manuscripts in less time by combining guided prompt templates and model-driven content generation workflows.",
+        stack: ["langchain", "fastapi", "python"],
+        techStackDetailed: [
+            {
+                name: "LangChain",
+                purpose: "Prompt orchestration and generation pipelines",
+                highlights: ["Chain composition", "Context management", "Model abstraction layer"],
+            },
+            {
+                name: "FastAPI",
+                purpose: "Backend APIs for generation jobs and exports",
+                highlights: ["Async processing", "Typed validation", "Background task queue integration"],
+            },
+            {
+                name: "Python",
+                purpose: "Core generation and document formatting engine",
+                highlights: ["PDF assembly", "Template rendering", "Content quality checks"],
+            },
+        ],
+        features: [
+            "Prompt templates for fiction, non-fiction, and technical books",
+            "Auto-generated chapter outlines and summaries",
+            "Editable generation history per chapter",
+            "One-click PDF export with consistent typography",
+            "Versioning to compare draft iterations",
+        ],
+        screenshots: [
+            pdfFreeImage,
+        ],
+        role: "AI Engineer",
+        challenges: [
+            "Keeping chapter tone and style consistent across long outputs",
+            "Reducing hallucinations in factual content",
+            "Optimizing generation latency for large manuscripts",
+        ],
+        projectType: "AI Writing Tool",
+        date: "2026-01",
+        status: "live",
+        image:
+            pdfFreeImage,
+        github: "https://github.com/Dahmie87/pdfree",
+        demo: "https://pd-free.vercel.app/",
+    },
+   
     {
         id: 1,
         title: "ProdigyAI For Students",
@@ -137,54 +236,6 @@ export const projectsData: Project[] = [
             padiSquareImage,
         github: "https://github.com/Dahmie87/PadiSquare-next-app",
         demo: "https://padi-square-next-app.vercel.app/",
-    },
-    {
-        id: 3,
-        title: "PDFfree",
-        desc: "A tool that allows users to create an entire book with standard chapters, literal content and genuine readable format using AI-powered content generation.",
-        fullDescription:
-            "PDFfree transforms structured prompts into long-form book drafts with chapter organization, formatting, and export capabilities. The platform helps users move from ideas to readable manuscripts in less time by combining guided prompt templates and model-driven content generation workflows.",
-        stack: ["langchain", "fastapi", "python"],
-        techStackDetailed: [
-            {
-                name: "LangChain",
-                purpose: "Prompt orchestration and generation pipelines",
-                highlights: ["Chain composition", "Context management", "Model abstraction layer"],
-            },
-            {
-                name: "FastAPI",
-                purpose: "Backend APIs for generation jobs and exports",
-                highlights: ["Async processing", "Typed validation", "Background task queue integration"],
-            },
-            {
-                name: "Python",
-                purpose: "Core generation and document formatting engine",
-                highlights: ["PDF assembly", "Template rendering", "Content quality checks"],
-            },
-        ],
-        features: [
-            "Prompt templates for fiction, non-fiction, and technical books",
-            "Auto-generated chapter outlines and summaries",
-            "Editable generation history per chapter",
-            "One-click PDF export with consistent typography",
-            "Versioning to compare draft iterations",
-        ],
-        screenshots: [
-            pdfFreeImage,
-        ],
-        role: "AI Engineer",
-        challenges: [
-            "Keeping chapter tone and style consistent across long outputs",
-            "Reducing hallucinations in factual content",
-            "Optimizing generation latency for large manuscripts",
-        ],
-        projectType: "AI Writing Tool",
-        date: "2026-01",
-        status: "progress",
-        image:
-            pdfFreeImage,
-        github: "https://github.com/Dahmie87/inkter",
-        demo: "https://example.com",
     },
     {
         id: 4,
@@ -286,56 +337,8 @@ export const projectsData: Project[] = [
         github: "https://github.com/Dahmie87/reside",
         demo: "",
     },
-    {
-        id: 6,
-        title: "Mobile Weather App",
-        desc: "A cross-platform mobile application providing real-time weather updates, forecasts, and severe weather alerts with beautiful animations.",
-        fullDescription:
-            "Mobile Weather App delivers accurate short-term and weekly forecasts in a lightweight interface optimized for quick checks. It combines location-aware weather data with clear visual hierarchy so users can instantly understand current conditions and upcoming changes.",
-        stack: ["react", "nextjs", "fastapi"],
-        techStackDetailed: [
-            {
-                name: "React",
-                purpose: "Cross-platform style component architecture",
-                highlights: ["Reusable weather cards", "State-driven animations", "Accessible controls"],
-            },
-            {
-                name: "Next.js",
-                purpose: "Web companion app and content endpoints",
-                highlights: ["Fast initial load", "SEO landing pages", "Edge-ready deployment"],
-            },
-            {
-                name: "FastAPI",
-                purpose: "Forecast normalization and alert APIs",
-                highlights: ["Caching strategy", "Provider failover", "Geo-based request handling"],
-            },
-        ],
-        features: [
-            "Current condition cards with hourly timeline",
-            "7-day forecast with precipitation and wind layers",
-            "Severe weather alert system by location",
-            "Saved locations and quick switching",
-            "Lightweight animations tuned for battery efficiency",
-        ],
-        screenshots: [
-            "https://images.unsplash.com/photo-1=crop",
-            "https://images.unsplash.com/photo-1=crop",
-            "https://images.unsplash.com/photo-1&fit=crop",
-        ],
-        role: "Full-stack Product Engineer",
-        challenges: [
-            "Handling inconsistent weather provider payloads",
-            "Balancing animation polish with mobile performance",
-            "Designing clear risk alerts for non-technical users",
-        ],
-        projectType: "Consumer Weather Application",
-        date: "2025-03",
-        status: "live",
-        image:
-            "https://images.unsplash.com/photo-1",
-        github: "https://github.com",
-        demo: "https://example.com",
-    },
+    
+   
 ];
 
 export function getProjectById(id: number): Project | undefined {
